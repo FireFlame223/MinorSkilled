@@ -5,6 +5,9 @@ using UnityEngine.Tilemaps;
 using UnityEngine.InputSystem;
 #endif
 
+/// <summary>
+/// Grid cursor: WASD/arrows move one cell on the walkable tilemap; exposes <see cref="SelectedCell"/> for interactions.
+/// </summary>
 public class GridCursor : MonoBehaviour
 {
     [Header("Grid")]
@@ -21,14 +24,14 @@ public class GridCursor : MonoBehaviour
     [SerializeField] private Tilemap walkableTilemap;
 
     [Header("Journal focus")]
-    [Tooltip("When enabled: grid movement is disabled while the journal is open (A/D and arrows are used for pages instead).")]
+    [Tooltip("While the journal is open, grid movement is disabled so A/D and arrows flip pages.")]
     [SerializeField] private bool lockMovementWhileJournalOpen = true;
 
     [SerializeField] private JournalUI journal;
 
     public Vector3Int SelectedCell { get; private set; }
 
-    /// <summary>When false, movement input is ignored (e.g. during a modal UI).</summary>
+    /// <summary>When false, movement input is ignored (e.g. while the interaction panel is open).</summary>
     public bool CanMove { get; set; } = true;
 
     private void Awake()
@@ -52,7 +55,6 @@ public class GridCursor : MonoBehaviour
         }
 
         SelectedCell = ClampToMap(new Vector3Int(startCell.x, startCell.y, 0));
-
         UpdatePosition();
     }
 

@@ -1,17 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Spawns journal pages from a POI roster; discovery order determines page order.
+/// </summary>
 public class JournalDiscoveryLog : MonoBehaviour
 {
     [Header("POI roster")]
-    [Tooltip("Every POI that can appear in the journal, in any order. Discovery order sets page order.")]
+    [Tooltip("POIs that can appear in the journal. Discovery order sets page order.")]
     [SerializeField] private MapInteractable[] poiRoster = new MapInteractable[0];
 
     [Header("Title page")]
-    [Tooltip("Optional instance already in the scene (under Page Container).")]
     [SerializeField] private JournalPageView existingTitlePage;
 
-    [Tooltip("Spawned at runtime if no Existing Title Page is set.")]
     [SerializeField] private GameObject titlePagePrefab;
 
     [SerializeField] private string titlePageNumber = "0";
@@ -19,7 +20,7 @@ public class JournalDiscoveryLog : MonoBehaviour
     [Header("Discovery pages")]
     [SerializeField] private GameObject pagePrefab;
 
-    [Tooltip("Empty parent for spawned pages only. Do not put prev/next buttons here — they get deleted on play.")]
+    [Tooltip("Parent for spawned pages only — not prev/next buttons.")]
     [SerializeField] private Transform pageContainer;
 
     [SerializeField] private JournalUI journalUI;
@@ -29,7 +30,7 @@ public class JournalDiscoveryLog : MonoBehaviour
 
     [SerializeField] private string emptyPageText = "Info coming soon...";
 
-    [Tooltip("Discovery page numbers only (title uses Title Page Number). {0} = page number.")]
+    [Tooltip("Discovery page numbers only. {0} = page number.")]
     [SerializeField] private string pageNumberFormat = "{0}";
 
     private JournalPageView _titlePageView;

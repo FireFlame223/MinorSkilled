@@ -2,6 +2,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// One journal page: title, body, and page number text.
+/// </summary>
 public class JournalPageView : MonoBehaviour
 {
     [Header("Page Content")]

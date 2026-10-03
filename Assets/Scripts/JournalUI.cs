@@ -6,16 +6,16 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 #endif
 
+/// <summary>
+/// Journal shell: Tab toggles slide in/out; pages and prev/next are driven by <see cref="JournalDiscoveryLog"/>.
+/// </summary>
 public class JournalUI : MonoBehaviour
 {
     [Header("Slide")]
-    [Tooltip("RectTransform that moves. Stays active; position is driven every frame.")]
     [SerializeField] private RectTransform slideRoot;
 
-    [Tooltip("Added to the on-screen anchored position when fully closed (off-screen).")]
     [SerializeField] private Vector2 hiddenOffset = new Vector2(2400f, 0f);
 
-    [Tooltip("Movement speed in UI units per second (anchoredPosition space).")]
     [Min(1f)]
     [SerializeField] private float moveSpeed = 6000f;
 

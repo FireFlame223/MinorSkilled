@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 #endif
 
+/// <summary>
+/// Handles interact input, maps grid cells to <see cref="MapInteractable"/> POIs, and drives the interaction UI and journal discoveries.
+/// </summary>
 public class MapInteraction : MonoBehaviour
 {
     [Header("References")]
@@ -105,14 +108,14 @@ public class MapInteraction : MonoBehaviour
         if (firstVisit && journalDiscoveryLog != null)
             journalDiscoveryLog.RecordDiscovery(interactable);
 
-        if (interactionPanel != null)
+        if (interactionPanel == null)
         {
-            interactionPanel.Show(interactable);
-            cursor.CanMove = false;
+            Debug.LogError("MapInteraction: assign Interaction Panel UI.", this);
             return;
         }
 
-        Debug.Log($"{interactable.DisplayName}\n{interactable.Description}", interactable);
+        interactionPanel.Show(interactable);
+        cursor.CanMove = false;
     }
 
     private bool WasInteractPressed()
