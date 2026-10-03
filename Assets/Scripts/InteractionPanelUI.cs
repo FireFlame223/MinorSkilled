@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 /// <summary>
-/// Interaction panel: opening description, pick 1–2 tokens, confirm, then typewriter outcome text from the POI.
+/// Interaction panel: opening description, pick 1–2 tokens (visual highlight), confirm, then typewriter outcome text.
 /// </summary>
 public class InteractionPanelUI : MonoBehaviour
 {
@@ -20,11 +20,11 @@ public class InteractionPanelUI : MonoBehaviour
     [Header("Tokens")]
     [SerializeField] private GameObject interactionMenu;
 
-    [SerializeField] private Transform availableTokensLayout;
-    [SerializeField] private Transform chosenTokensLayout;
-
     [FormerlySerializedAs("menuButtons")]
     [SerializeField] private Button[] tokenButtons = new Button[TokenCount];
+
+    [Tooltip("Optional. If empty, reads InteractionTokenVisual from each token button.")]
+    [SerializeField] private InteractionTokenVisual[] tokenVisuals = new InteractionTokenVisual[TokenCount];
 
     [SerializeField] private Button confirmButton;
 
@@ -45,8 +45,6 @@ public class InteractionPanelUI : MonoBehaviour
     private UnityAction _confirmClickAction;
 
     private readonly List<int> _selectedTokenIndices = new List<int>(MaxSelectedTokens);
-    private Transform[] _tokenHomeParents;
-    private int[] _tokenHomeSiblingIndices;
 
     public bool IsVisible => panelRoot != null && panelRoot.activeSelf;
 
@@ -54,7 +52,6 @@ public class InteractionPanelUI : MonoBehaviour
 
     private void Awake()
     {
-        CacheTokenHomeTransforms();
         WireTokenButtons();
         WireConfirmButton();
         Hide();
@@ -90,12 +87,6 @@ public class InteractionPanelUI : MonoBehaviour
         if (interactionMenu != null)
             interactionMenu.SetActive(true);
 
-        if (availableTokensLayout != null)
-            availableTokensLayout.gameObject.SetActive(true);
-
-        if (chosenTokensLayout != null)
-            chosenTokensLayout.gameObject.SetActive(true);
-
         ShowBodyWithTypewriter(interactable.Description);
     }
 
@@ -114,26 +105,6 @@ public class InteractionPanelUI : MonoBehaviour
 
         if (panelRoot != null)
             panelRoot.SetActive(false);
-    }
-
-    private void CacheTokenHomeTransforms()
-    {
-        _tokenHomeParents = new Transform[TokenCount];
-        _tokenHomeSiblingIndices = new int[TokenCount];
-
-        if (tokenButtons == null)
-            return;
-
-        for (int i = 0; i < tokenButtons.Length && i < TokenCount; i++)
-        {
-            Button button = tokenButtons[i];
-            if (button == null)
-                continue;
-
-            Transform t = button.transform;
-            _tokenHomeParents[i] = t.parent;
-            _tokenHomeSiblingIndices[i] = t.GetSiblingIndex();
-        }
     }
 
     private void WireTokenButtons()
@@ -193,16 +164,11 @@ public class InteractionPanelUI : MonoBehaviour
             return;
 
         if (_selectedTokenIndices.Contains(tokenIndex))
-        {
             _selectedTokenIndices.Remove(tokenIndex);
-            MoveTokenToAvailable(tokenIndex);
-        }
         else if (_selectedTokenIndices.Count < MaxSelectedTokens)
-        {
             _selectedTokenIndices.Add(tokenIndex);
-            MoveTokenToChosen(tokenIndex);
-        }
 
+        RefreshTokenVisuals();
         RefreshConfirmButton();
     }
 
@@ -219,46 +185,30 @@ public class InteractionPanelUI : MonoBehaviour
     private void ResetTokenSelection()
     {
         _selectedTokenIndices.Clear();
-
-        for (int i = 0; i < TokenCount; i++)
-            MoveTokenToAvailable(i);
-
+        RefreshTokenVisuals();
         RefreshConfirmButton();
     }
 
-    private void MoveTokenToAvailable(int tokenIndex)
+    private void RefreshTokenVisuals()
     {
-        if (tokenButtons == null || tokenIndex < 0 || tokenIndex >= tokenButtons.Length)
-            return;
-
-        Button button = tokenButtons[tokenIndex];
-        if (button == null)
-            return;
-
-        Transform home = _tokenHomeParents != null ? _tokenHomeParents[tokenIndex] : null;
-        if (home == null)
-            home = availableTokensLayout;
-
-        if (home == null)
-            return;
-
-        Transform t = button.transform;
-        t.SetParent(home, false);
-
-        if (_tokenHomeSiblingIndices != null && tokenIndex < _tokenHomeSiblingIndices.Length)
-            t.SetSiblingIndex(_tokenHomeSiblingIndices[tokenIndex]);
+        for (int i = 0; i < TokenCount; i++)
+        {
+            InteractionTokenVisual visual = GetTokenVisual(i);
+            if (visual != null)
+                visual.SetSelected(_selectedTokenIndices.Contains(i));
+        }
     }
 
-    private void MoveTokenToChosen(int tokenIndex)
+    private InteractionTokenVisual GetTokenVisual(int index)
     {
-        if (chosenTokensLayout == null || tokenButtons == null || tokenIndex < 0 || tokenIndex >= tokenButtons.Length)
-            return;
+        if (tokenVisuals != null && index < tokenVisuals.Length && tokenVisuals[index] != null)
+            return tokenVisuals[index];
 
-        Button button = tokenButtons[tokenIndex];
-        if (button == null)
-            return;
+        if (tokenButtons == null || index < 0 || index >= tokenButtons.Length)
+            return null;
 
-        button.transform.SetParent(chosenTokensLayout, false);
+        Button button = tokenButtons[index];
+        return button != null ? button.GetComponent<InteractionTokenVisual>() : null;
     }
 
     private void RefreshConfirmButton()
