@@ -6,6 +6,10 @@ using UnityEngine.Events;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
+#if ENABLE_INPUT_SYSTEM
+using UnityEngine.InputSystem;
+#endif
+
 /// <summary>
 /// Interaction panel: opening description, pick 1–2 tokens (visual highlight), confirm, then typewriter outcome text.
 /// </summary>
@@ -37,6 +41,8 @@ public class InteractionPanelUI : MonoBehaviour
 
     [SerializeField] private JournalDiscoveryLog journalDiscoveryLog;
 
+    [SerializeField] private TokenUnlockManager tokenUnlockManager;
+
     [Header("Typewriter")]
     [Min(0.001f)]
     [SerializeField] private float secondsPerCharacter = 0.04f;
@@ -57,8 +63,12 @@ public class InteractionPanelUI : MonoBehaviour
 
     private void Awake()
     {
+        if (tokenUnlockManager == null)
+            tokenUnlockManager = FindFirstObjectByType<TokenUnlockManager>();
+
         WireTokenButtons();
         WireConfirmButton();
+        RefreshTokenAvailability();
         Hide();
     }
 
@@ -66,6 +76,15 @@ public class InteractionPanelUI : MonoBehaviour
     {
         UnwireTokenButtons();
         UnwireConfirmButton();
+    }
+
+    private void Update()
+    {
+        if (!IsVisible || BlocksDismissal)
+            return;
+
+        if (TryGetTokenIndexFromNumberKey(out int tokenIndex))
+            OnTokenClicked(tokenIndex);
     }
 
     public void Show(MapInteractable interactable)
@@ -92,6 +111,7 @@ public class InteractionPanelUI : MonoBehaviour
         if (interactionMenu != null)
             interactionMenu.SetActive(true);
 
+        RefreshTokenAvailability();
         ShowBodyWithTypewriter(interactable.Description);
     }
 
@@ -168,6 +188,9 @@ public class InteractionPanelUI : MonoBehaviour
         if (_currentInteractable == null || tokenIndex < 0 || tokenIndex >= TokenCount)
             return;
 
+        if (!IsTokenUnlocked(tokenIndex))
+            return;
+
         if (_selectedTokenIndices.Contains(tokenIndex))
             _selectedTokenIndices.Remove(tokenIndex);
         else if (_selectedTokenIndices.Count < MaxSelectedTokens)
@@ -188,12 +211,18 @@ public class InteractionPanelUI : MonoBehaviour
         if (_currentInteractable == null || _selectedTokenIndices.Count == 0)
             return;
 
-        if (journalDiscoveryLog != null)
-            journalDiscoveryLog.RecordTokenOutcome(_currentInteractable, _selectedTokenIndices);
+        var confirmedIndices = new List<int>(_selectedTokenIndices);
 
-        string body = _currentInteractable.GetTokenChoiceText(_selectedTokenIndices);
+        if (journalDiscoveryLog != null)
+            journalDiscoveryLog.RecordTokenOutcome(_currentInteractable, confirmedIndices);
+
+        if (tokenUnlockManager != null)
+            tokenUnlockManager.EvaluateUnlocks(_currentInteractable, confirmedIndices);
+
+        string body = _currentInteractable.GetTokenChoiceText(confirmedIndices);
         ShowBodyWithTypewriter(body);
         ResetTokenSelection();
+        RefreshTokenAvailability();
     }
 
     private void ResetTokenSelection()
@@ -207,10 +236,41 @@ public class InteractionPanelUI : MonoBehaviour
     {
         for (int i = 0; i < TokenCount; i++)
         {
+            bool unlocked = IsTokenUnlocked(i);
             InteractionTokenVisual visual = GetTokenVisual(i);
             if (visual != null)
-                visual.SetSelected(_selectedTokenIndices.Contains(i));
+            {
+                visual.SetLocked(!unlocked);
+                visual.SetSelected(unlocked && _selectedTokenIndices.Contains(i));
+            }
         }
+    }
+
+    private void RefreshTokenAvailability()
+    {
+        for (int i = 0; i < TokenCount; i++)
+        {
+            bool unlocked = IsTokenUnlocked(i);
+            if (tokenButtons == null || i >= tokenButtons.Length || tokenButtons[i] == null)
+                continue;
+
+            Button button = tokenButtons[i];
+            button.gameObject.SetActive(unlocked);
+            if (unlocked)
+                button.interactable = true;
+        }
+
+        _selectedTokenIndices.RemoveAll(index => !IsTokenUnlocked(index));
+        RefreshTokenVisuals();
+        RefreshConfirmButton();
+    }
+
+    private bool IsTokenUnlocked(int tokenIndex)
+    {
+        if (tokenUnlockManager == null)
+            return true;
+
+        return tokenUnlockManager.IsTokenUnlocked(tokenIndex);
     }
 
     private InteractionTokenVisual GetTokenVisual(int index)
@@ -262,5 +322,45 @@ public class InteractionPanelUI : MonoBehaviour
         }
 
         _typewriterRoutine = null;
+    }
+
+    private bool TryGetTokenIndexFromNumberKey(out int tokenIndex)
+    {
+        tokenIndex = -1;
+
+#if ENABLE_INPUT_SYSTEM
+        Keyboard keyboard = Keyboard.current;
+        if (keyboard == null)
+            return false;
+
+        if (keyboard.digit1Key.wasPressedThisFrame || keyboard.numpad1Key.wasPressedThisFrame)
+            tokenIndex = 0;
+        else if (keyboard.digit2Key.wasPressedThisFrame || keyboard.numpad2Key.wasPressedThisFrame)
+            tokenIndex = 1;
+        else if (keyboard.digit3Key.wasPressedThisFrame || keyboard.numpad3Key.wasPressedThisFrame)
+            tokenIndex = 2;
+        else if (keyboard.digit4Key.wasPressedThisFrame || keyboard.numpad4Key.wasPressedThisFrame)
+            tokenIndex = 3;
+        else
+            return false;
+
+        return true;
+
+#elif ENABLE_LEGACY_INPUT_MANAGER
+        if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
+            tokenIndex = 0;
+        else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2))
+            tokenIndex = 1;
+        else if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3))
+            tokenIndex = 2;
+        else if (Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Keypad4))
+            tokenIndex = 3;
+        else
+            return false;
+
+        return true;
+#else
+        return false;
+#endif
     }
 }
