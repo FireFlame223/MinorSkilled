@@ -6082,7 +6082,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2127146760
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6112,6 +6112,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 525563139292842638, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: token1
+      value: 1house
+      objectReference: {fileID: 0}
+    - target: {fileID: 525563139292842638, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: token2
+      value: 2house
+      objectReference: {fileID: 0}
+    - target: {fileID: 525563139292842638, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: token3
+      value: 3house
+      objectReference: {fileID: 0}
+    - target: {fileID: 525563139292842638, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: token4
+      value: 4house
+      objectReference: {fileID: 0}
     - target: {fileID: 525563139292842638, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
       propertyPath: menuOption1
       value: token 1 was pressed on the house
@@ -6151,6 +6167,66 @@ PrefabInstance:
     - target: {fileID: 525563139292842638, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
       propertyPath: tokenPair3And4
       value: token pair 3&4 was pressed on the house
+      objectReference: {fileID: 0}
+    - target: {fileID: 525563139292842638, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalToken1Body
+      value: token 1 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 525563139292842638, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalToken2Body
+      value: token 2 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 525563139292842638, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalToken3Body
+      value: token 3 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 525563139292842638, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalToken4Body
+      value: token 4 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 525563139292842638, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalDescription
+      value: I live here.
+      objectReference: {fileID: 0}
+    - target: {fileID: 525563139292842638, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalPair1And2Body
+      value: token 12 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 525563139292842638, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalPair1And3Body
+      value: token 13 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 525563139292842638, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalPair1And4Body
+      value: token 14 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 525563139292842638, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalPair2And3Body
+      value: token 23 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 525563139292842638, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalPair2And4Body
+      value: token 24 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 525563139292842638, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalPair3And4Body
+      value: token 34 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 1937274607886521203, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: token1
+      value: 1castle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1937274607886521203, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: token2
+      value: 2castle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1937274607886521203, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: token3
+      value: 3castle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1937274607886521203, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: token4
+      value: 4castle
       objectReference: {fileID: 0}
     - target: {fileID: 1937274607886521203, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
       propertyPath: menuOption1
@@ -6193,8 +6269,48 @@ PrefabInstance:
       value: token pair 3&4 was pressed on the castle
       objectReference: {fileID: 0}
     - target: {fileID: 1937274607886521203, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalToken1Body
+      value: token 1 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 1937274607886521203, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalToken2Body
+      value: token 2 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 1937274607886521203, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalToken3Body
+      value: token 3 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 1937274607886521203, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalToken4Body
+      value: token 4 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 1937274607886521203, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
       propertyPath: journalDescription
-      value: '- King lives here.'
+      value: King lives here.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1937274607886521203, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalPair1And2Body
+      value: token 12 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 1937274607886521203, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalPair1And3Body
+      value: token 13 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 1937274607886521203, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalPair1And4Body
+      value: token 14 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 1937274607886521203, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalPair2And3Body
+      value: token 23 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 1937274607886521203, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalPair2And4Body
+      value: token 24 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 1937274607886521203, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalPair3And4Body
+      value: token 34 was chosen
       objectReference: {fileID: 0}
     - target: {fileID: 2388162001614144193, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6253,6 +6369,22 @@ PrefabInstance:
       value: MapManager
       objectReference: {fileID: 0}
     - target: {fileID: 5042761812274895213, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: token1
+      value: 1tower
+      objectReference: {fileID: 0}
+    - target: {fileID: 5042761812274895213, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: token2
+      value: 2tower
+      objectReference: {fileID: 0}
+    - target: {fileID: 5042761812274895213, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: token3
+      value: 3tower
+      objectReference: {fileID: 0}
+    - target: {fileID: 5042761812274895213, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: token4
+      value: 4tower
+      objectReference: {fileID: 0}
+    - target: {fileID: 5042761812274895213, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
       propertyPath: tokenPair1And2
       value: token pair 1&2 was pressed on the tower
       objectReference: {fileID: 0}
@@ -6277,8 +6409,64 @@ PrefabInstance:
       value: token pair 3&4 was pressed on the tower
       objectReference: {fileID: 0}
     - target: {fileID: 5042761812274895213, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalToken1Body
+      value: token 1 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 5042761812274895213, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalToken2Body
+      value: token 2 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 5042761812274895213, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalToken3Body
+      value: token 3 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 5042761812274895213, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalToken4Body
+      value: token 4 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 5042761812274895213, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
       propertyPath: journalDescription
-      value: '- Wizard lives here.'
+      value: Wizard lives here.
+      objectReference: {fileID: 0}
+    - target: {fileID: 5042761812274895213, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalPair1And2Body
+      value: token 12 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 5042761812274895213, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalPair1And3Body
+      value: token 13 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 5042761812274895213, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalPair1And4Body
+      value: token 14 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 5042761812274895213, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalPair2And3Body
+      value: token 23 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 5042761812274895213, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalPair2And4Body
+      value: token 24 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 5042761812274895213, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalPair3And4Body
+      value: token 34 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 8763283455507989763, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: token1
+      value: 1well
+      objectReference: {fileID: 0}
+    - target: {fileID: 8763283455507989763, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: token2
+      value: 2well
+      objectReference: {fileID: 0}
+    - target: {fileID: 8763283455507989763, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: token3
+      value: 3well
+      objectReference: {fileID: 0}
+    - target: {fileID: 8763283455507989763, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: token4
+      value: 4well
       objectReference: {fileID: 0}
     - target: {fileID: 8763283455507989763, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
       propertyPath: menuOption1
@@ -6319,6 +6507,50 @@ PrefabInstance:
     - target: {fileID: 8763283455507989763, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
       propertyPath: tokenPair3And4
       value: token pair 3&4 was pressed on the well
+      objectReference: {fileID: 0}
+    - target: {fileID: 8763283455507989763, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalToken1Body
+      value: token 1 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 8763283455507989763, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalToken2Body
+      value: token 2 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 8763283455507989763, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalToken3Body
+      value: token 3 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 8763283455507989763, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalToken4Body
+      value: token 4 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 8763283455507989763, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalDescription
+      value: Nobody lives here.
+      objectReference: {fileID: 0}
+    - target: {fileID: 8763283455507989763, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalPair1And2Body
+      value: token 12 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 8763283455507989763, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalPair1And3Body
+      value: token 13 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 8763283455507989763, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalPair1And4Body
+      value: token 14 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 8763283455507989763, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalPair2And3Body
+      value: token 23 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 8763283455507989763, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalPair2And4Body
+      value: token 24 was chosen
+      objectReference: {fileID: 0}
+    - target: {fileID: 8763283455507989763, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: journalPair3And4Body
+      value: token 34 was chosen
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6413,20 +6645,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3212877893150302404, guid: 39204bca18ff7e84293e4344ad4f6585, type: 3}
-      propertyPath: m_text
-      value: 'Information and clues you find will appear here.
-
-        You can use
-        keys [<][>] / [A][D] or arrows below to flip pages.'
-      objectReference: {fileID: 0}
     - target: {fileID: 6744792480374734265, guid: 39204bca18ff7e84293e4344ad4f6585, type: 3}
       propertyPath: m_Name
       value: TitlePage
-      objectReference: {fileID: 0}
-    - target: {fileID: 7487350929234095048, guid: 39204bca18ff7e84293e4344ad4f6585, type: 3}
-      propertyPath: m_text
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6469,6 +6690,10 @@ PrefabInstance:
       propertyPath: chosenTokensLayout
       value: 
       objectReference: {fileID: 310574826}
+    - target: {fileID: 1825268216129631635, guid: c037abcb26aeee944bdcb2e60643b508, type: 3}
+      propertyPath: journalDiscoveryLog
+      value: 
+      objectReference: {fileID: 887469067}
     - target: {fileID: 1825268216129631635, guid: c037abcb26aeee944bdcb2e60643b508, type: 3}
       propertyPath: availableTokensLayout
       value: 

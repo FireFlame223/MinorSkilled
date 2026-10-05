@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: -337.5, y: 344}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 230, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &4479744546710861258
 CanvasRenderer:
@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Information and clues you find will appear here.
 
-    You can use arrow
-    keys [<][>] or [A][D] to flip the pages as well as arrows below.'
+    You can use keys
+    [<][>] / [A][D] or arrows below to flip pages.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4ef268d551cd09941b380df680197fe6, type: 2}
   m_sharedMaterial: {fileID: -7463369624049478843, guid: 4ef268d551cd09941b380df680197fe6, type: 2}
@@ -342,7 +342,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4ef268d551cd09941b380df680197fe6, type: 2}
   m_sharedMaterial: {fileID: -7463369624049478843, guid: 4ef268d551cd09941b380df680197fe6, type: 2}

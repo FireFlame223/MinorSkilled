@@ -32,6 +32,8 @@ public class JournalUI : MonoBehaviour
 
     public bool IsOpen { get; private set; }
 
+    public int CurrentPageIndex => _currentPageIndex;
+
     private void Awake()
     {
         if (slideRoot == null)
@@ -110,6 +112,13 @@ public class JournalUI : MonoBehaviour
         }
 
         ShowPage(showPageIndex);
+    }
+
+    /// <summary>Updates page list without jumping to a new page (keeps current index clamped).</summary>
+    public void RefreshPages(IReadOnlyList<GameObject> pages)
+    {
+        int index = _currentPageIndex;
+        SetPages(pages, index);
     }
 
     public void Open()

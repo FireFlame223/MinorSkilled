@@ -1,13 +1,14 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 /// <summary>
-/// Spawns journal pages from a POI roster; discovery order determines page order.
+/// One journal page per roster POI; first visit and token outcomes append bullet lines to that page's body.
 /// </summary>
 public class JournalDiscoveryLog : MonoBehaviour
 {
     [Header("POI roster")]
-    [Tooltip("POIs that can appear in the journal. Discovery order sets page order.")]
+    [Tooltip("One journal page per entry, in roster order.")]
     [SerializeField] private MapInteractable[] poiRoster = new MapInteractable[0];
 
     [Header("Title page")]
@@ -34,38 +35,140 @@ public class JournalDiscoveryLog : MonoBehaviour
     [SerializeField] private string pageNumberFormat = "{0}";
 
     private JournalPageView _titlePageView;
-    private readonly List<JournalPageView> _discoveryPageViews = new List<JournalPageView>();
-    private readonly List<string> _discoveredJournalIds = new List<string>();
+    private readonly List<JournalPageView> _poiPageViews = new List<JournalPageView>();
+    private readonly Dictionary<MapInteractable, JournalPageView> _pageByPoi = new Dictionary<MapInteractable, JournalPageView>();
+    private readonly Dictionary<string, List<string>> _bulletsByJournalId = new Dictionary<string, List<string>>();
+    private readonly HashSet<string> _discoveredPoiIntroIds = new HashSet<string>();
+    private readonly List<string> _discoveredPoiIntroOrder = new List<string>();
+    private readonly HashSet<string> _discoveredTokenOutcomeKeys = new HashSet<string>();
 
-    public IReadOnlyList<string> DiscoveredJournalIdsInOrder => _discoveredJournalIds;
+    public IReadOnlyList<string> DiscoveredJournalIdsInOrder => _discoveredPoiIntroOrder;
 
     private void Awake()
     {
         ValidateRoster();
         ClearGeneratedDiscoveryPages();
         EnsureTitlePage();
-        AddPlaceholderPage();
-        PushPagesToJournal(showPageIndex: 0);
+        CreateRosterPages();
+        PushPagesToJournal();
     }
 
+    /// <summary>First E interaction: first bullet from journal intro fields.</summary>
     public void RecordDiscovery(MapInteractable interactable)
     {
-        if (interactable == null || !IsInRoster(interactable))
+        if (interactable == null || !TryGetPoiPage(interactable, out JournalPageView page))
             return;
 
         string journalId = interactable.JournalId;
-        if (_discoveredJournalIds.Contains(journalId))
+        if (_discoveredPoiIntroIds.Contains(journalId))
             return;
 
-        _discoveredJournalIds.Add(journalId);
-        FillNextSlot(interactable);
+        _discoveredPoiIntroIds.Add(journalId);
+        _discoveredPoiIntroOrder.Add(journalId);
 
-        int undiscoveredCount = CountRosterEntries() - _discoveredJournalIds.Count;
-        if (undiscoveredCount > 0)
-            AddPlaceholderPage();
+        if (!string.IsNullOrWhiteSpace(interactable.JournalDescription))
+            AppendBullet(journalId, interactable.JournalDescription);
 
-        int filledPageIndex = _discoveredJournalIds.Count;
-        PushPagesToJournal(showPageIndex: filledPageIndex);
+        ApplyPageContent(interactable, page);
+        PushPagesToJournal();
+    }
+
+    /// <summary>First time this token combo is confirmed: append that outcome's journal bullet line.</summary>
+    public void RecordTokenOutcome(MapInteractable interactable, IReadOnlyList<int> tokenIndices)
+    {
+        if (interactable == null || !TryGetPoiPage(interactable, out JournalPageView page))
+            return;
+
+        string journalId = interactable.JournalId;
+        if (!_discoveredPoiIntroIds.Contains(journalId))
+            return;
+
+        if (!interactable.TryGetTokenChoiceJournalBullet(tokenIndices, out string bulletLine))
+            return;
+
+        string outcomeKey = interactable.GetTokenChoiceJournalKey(tokenIndices);
+        if (string.IsNullOrEmpty(outcomeKey) || _discoveredTokenOutcomeKeys.Contains(outcomeKey))
+            return;
+
+        _discoveredTokenOutcomeKeys.Add(outcomeKey);
+        AppendBullet(journalId, bulletLine);
+        ApplyPageContent(interactable, page);
+        PushPagesToJournal();
+    }
+
+    private void AppendBullet(string journalId, string line)
+    {
+        if (string.IsNullOrWhiteSpace(line))
+            return;
+
+        if (!_bulletsByJournalId.TryGetValue(journalId, out List<string> bullets))
+        {
+            bullets = new List<string>();
+            _bulletsByJournalId[journalId] = bullets;
+        }
+
+        bullets.Add(line.Trim());
+    }
+
+    private void ApplyPageContent(MapInteractable interactable, JournalPageView page)
+    {
+        if (page == null || interactable == null)
+            return;
+
+        string journalId = interactable.JournalId;
+        if (!_discoveredPoiIntroIds.Contains(journalId))
+            return;
+
+        string title = interactable.JournalTitle;
+        string body = FormatBullets(_bulletsByJournalId, journalId);
+        page.ShowEntry(title, body);
+    }
+
+    private static string FormatBullets(Dictionary<string, List<string>> bulletsByJournalId, string journalId)
+    {
+        if (!bulletsByJournalId.TryGetValue(journalId, out List<string> bullets) || bullets.Count == 0)
+            return string.Empty;
+
+        var builder = new StringBuilder();
+        for (int i = 0; i < bullets.Count; i++)
+        {
+            if (i > 0)
+                builder.Append('\n');
+
+            builder.Append("- ");
+            builder.Append(bullets[i]);
+        }
+
+        return builder.ToString();
+    }
+
+    private void CreateRosterPages()
+    {
+        _poiPageViews.Clear();
+        _pageByPoi.Clear();
+
+        if (poiRoster == null)
+            return;
+
+        foreach (MapInteractable poi in poiRoster)
+        {
+            if (poi == null)
+                continue;
+
+            JournalPageView view = CreateDiscoveryPageView();
+            if (view == null)
+                continue;
+
+            view.ShowPlaceholder(emptyPageTitle, emptyPageText);
+            _poiPageViews.Add(view);
+            _pageByPoi[poi] = view;
+        }
+    }
+
+    private bool TryGetPoiPage(MapInteractable interactable, out JournalPageView page)
+    {
+        page = null;
+        return interactable != null && _pageByPoi.TryGetValue(interactable, out page);
     }
 
     private void EnsureTitlePage()
@@ -94,40 +197,6 @@ public class JournalDiscoveryLog : MonoBehaviour
         _titlePageView.transform.SetAsFirstSibling();
     }
 
-    private void FillNextSlot(MapInteractable interactable)
-    {
-        if (_discoveryPageViews.Count > 0 && _discoveryPageViews[_discoveryPageViews.Count - 1].IsPlaceholder)
-        {
-            _discoveryPageViews[_discoveryPageViews.Count - 1].ShowEntry(
-                interactable.JournalTitle,
-                interactable.JournalDescription
-            );
-            return;
-        }
-
-        AddEntryPage(interactable);
-    }
-
-    private void AddEntryPage(MapInteractable interactable)
-    {
-        JournalPageView view = CreateDiscoveryPageView();
-        if (view == null)
-            return;
-
-        view.ShowEntry(interactable.JournalTitle, interactable.JournalDescription);
-        _discoveryPageViews.Add(view);
-    }
-
-    private void AddPlaceholderPage()
-    {
-        JournalPageView view = CreateDiscoveryPageView();
-        if (view == null)
-            return;
-
-        view.ShowPlaceholder(emptyPageTitle, emptyPageText);
-        _discoveryPageViews.Add(view);
-    }
-
     private JournalPageView CreateDiscoveryPageView()
     {
         if (pagePrefab == null || pageContainer == null)
@@ -144,7 +213,7 @@ public class JournalDiscoveryLog : MonoBehaviour
         return view;
     }
 
-    private void PushPagesToJournal(int showPageIndex)
+    private void PushPagesToJournal()
     {
         if (journalUI == null)
         {
@@ -156,14 +225,14 @@ public class JournalDiscoveryLog : MonoBehaviour
         if (_titlePageView != null)
             pageObjects.Add(_titlePageView.gameObject);
 
-        foreach (JournalPageView view in _discoveryPageViews)
+        foreach (JournalPageView view in _poiPageViews)
         {
             if (view != null)
                 pageObjects.Add(view.gameObject);
         }
 
         RefreshPageNumbers();
-        journalUI.SetPages(pageObjects, showPageIndex);
+        journalUI.RefreshPages(pageObjects);
     }
 
     private void RefreshPageNumbers()
@@ -171,9 +240,9 @@ public class JournalDiscoveryLog : MonoBehaviour
         if (_titlePageView != null)
             _titlePageView.SetPageNumber(titlePageNumber);
 
-        for (int i = 0; i < _discoveryPageViews.Count; i++)
+        for (int i = 0; i < _poiPageViews.Count; i++)
         {
-            JournalPageView view = _discoveryPageViews[i];
+            JournalPageView view = _poiPageViews[i];
             if (view == null)
                 continue;
 
@@ -185,8 +254,12 @@ public class JournalDiscoveryLog : MonoBehaviour
 
     private void ClearGeneratedDiscoveryPages()
     {
-        _discoveryPageViews.Clear();
-        _discoveredJournalIds.Clear();
+        _poiPageViews.Clear();
+        _pageByPoi.Clear();
+        _bulletsByJournalId.Clear();
+        _discoveredPoiIntroIds.Clear();
+        _discoveredPoiIntroOrder.Clear();
+        _discoveredTokenOutcomeKeys.Clear();
         _titlePageView = existingTitlePage;
 
         if (pageContainer == null)
@@ -204,35 +277,6 @@ public class JournalDiscoveryLog : MonoBehaviour
 
             Destroy(child.gameObject);
         }
-    }
-
-    private bool IsInRoster(MapInteractable interactable)
-    {
-        if (poiRoster == null)
-            return false;
-
-        foreach (MapInteractable entry in poiRoster)
-        {
-            if (entry == interactable)
-                return true;
-        }
-
-        return false;
-    }
-
-    private int CountRosterEntries()
-    {
-        if (poiRoster == null)
-            return 0;
-
-        int count = 0;
-        foreach (MapInteractable entry in poiRoster)
-        {
-            if (entry != null)
-                count++;
-        }
-
-        return count;
     }
 
     private void ValidateRoster()

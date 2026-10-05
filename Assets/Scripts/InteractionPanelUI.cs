@@ -35,6 +35,8 @@ public class InteractionPanelUI : MonoBehaviour
     [Header("Journal")]
     [SerializeField] private JournalUI journal;
 
+    [SerializeField] private JournalDiscoveryLog journalDiscoveryLog;
+
     [Header("Typewriter")]
     [Min(0.001f)]
     [SerializeField] private float secondsPerCharacter = 0.04f;
@@ -185,6 +187,9 @@ public class InteractionPanelUI : MonoBehaviour
     {
         if (_currentInteractable == null || _selectedTokenIndices.Count == 0)
             return;
+
+        if (journalDiscoveryLog != null)
+            journalDiscoveryLog.RecordTokenOutcome(_currentInteractable, _selectedTokenIndices);
 
         string body = _currentInteractable.GetTokenChoiceText(_selectedTokenIndices);
         ShowBodyWithTypewriter(body);

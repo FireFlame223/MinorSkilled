@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: -337.5, y: 344}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 235, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &6307575011466793896
 CanvasRenderer:
@@ -464,6 +464,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38da3d4051c2b6a42856429c43dd5233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::JournalPageView
-  pageNumberText: {fileID: 249609617442054750}
   titleText: {fileID: 2818533089968562192}
   bodyText: {fileID: 1329019344079318323}
+  pageNumberText: {fileID: 249609617442054750}
