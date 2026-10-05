@@ -84,6 +84,12 @@ public class MapInteraction : MonoBehaviour
             if (interactionPanel.BlocksDismissal)
                 return;
 
+            if (interactionPanel.HasPendingTokenSelection)
+            {
+                interactionPanel.ConfirmTokenSelection();
+                return;
+            }
+
             interactionPanel.Hide();
             cursor.CanMove = true;
             return;

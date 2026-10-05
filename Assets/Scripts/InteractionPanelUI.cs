@@ -50,6 +50,9 @@ public class InteractionPanelUI : MonoBehaviour
 
     public bool BlocksDismissal => journal != null && journal.IsOpen;
 
+    /// <summary>True when one or two tokens are selected but not yet confirmed.</summary>
+    public bool HasPendingTokenSelection => _selectedTokenIndices.Count > 0;
+
     private void Awake()
     {
         WireTokenButtons();
@@ -173,6 +176,12 @@ public class InteractionPanelUI : MonoBehaviour
     }
 
     private void OnConfirmClicked()
+    {
+        ConfirmTokenSelection();
+    }
+
+    /// <summary>Applies token outcome text and clears selection. Panel stays open.</summary>
+    public void ConfirmTokenSelection()
     {
         if (_currentInteractable == null || _selectedTokenIndices.Count == 0)
             return;
