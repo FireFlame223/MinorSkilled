@@ -34,6 +34,9 @@ public class GridCursor : MonoBehaviour
     /// <summary>When false, movement input is ignored (e.g. while the interaction panel is open).</summary>
     public bool CanMove { get; set; } = true;
 
+    /// <summary>True when WASD and arrow keys are currently used to move the cursor.</summary>
+    public bool AcceptsMovementInput => isActiveAndEnabled && CanMove && !IsJournalBlockingMovement();
+
     private void Awake()
     {
         if (grid == null && walkableTilemap != null)

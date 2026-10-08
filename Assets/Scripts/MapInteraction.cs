@@ -22,6 +22,9 @@ public class MapInteraction : MonoBehaviour
 
     private Dictionary<Vector3Int, MapInteractable> _interactablesByCell;
 
+    /// <summary>Raised when interact input hits a POI (E or Enter).</summary>
+    public event System.Action SuccessfulInteraction;
+
     private void Awake()
     {
         if (cursor == null)
@@ -107,6 +110,8 @@ public class MapInteraction : MonoBehaviour
             Debug.Log("There is nothing to interact with here.", this);
             return;
         }
+
+        SuccessfulInteraction?.Invoke();
 
         bool firstVisit = !interactable.Explored;
         interactable.Explored = true;

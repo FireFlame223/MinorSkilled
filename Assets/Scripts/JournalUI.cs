@@ -32,6 +32,9 @@ public class JournalUI : MonoBehaviour
 
     public bool IsOpen { get; private set; }
 
+    /// <summary>Raised each time the journal slides open.</summary>
+    public event System.Action Opened;
+
     public int CurrentPageIndex => _currentPageIndex;
 
     private void Awake()
@@ -125,6 +128,7 @@ public class JournalUI : MonoBehaviour
     {
         IsOpen = true;
         _moveTarget = _openAnchoredPosition;
+        Opened?.Invoke();
     }
 
     public void Close()
