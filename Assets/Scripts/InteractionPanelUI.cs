@@ -48,6 +48,9 @@ public class InteractionPanelUI : MonoBehaviour
     [SerializeField] private float secondsPerCharacter = 0.04f;
 
     private Coroutine _typewriterRoutine;
+    private string _typewriterFullText = string.Empty;
+    private bool _revealTokensWhenTypewriterCompletes;
+    private bool _tokensRevealed;
     private MapInteractable _currentInteractable;
     private readonly UnityAction[] _tokenClickActions = new UnityAction[TokenCount];
     private UnityAction _confirmClickAction;
@@ -60,6 +63,9 @@ public class InteractionPanelUI : MonoBehaviour
 
     /// <summary>True when one or two tokens are selected but not yet confirmed.</summary>
     public bool HasPendingTokenSelection => _selectedTokenIndices.Count > 0;
+
+    /// <summary>True while description or token-outcome text is still revealing.</summary>
+    public bool IsTypewriterRunning => _typewriterRoutine != null;
 
     private void Awake()
     {
@@ -80,7 +86,7 @@ public class InteractionPanelUI : MonoBehaviour
 
     private void Update()
     {
-        if (!IsVisible || BlocksDismissal)
+        if (!IsVisible || BlocksDismissal || !_tokensRevealed)
             return;
 
         if (TryGetTokenIndexFromNumberKey(out int tokenIndex))
@@ -111,14 +117,16 @@ public class InteractionPanelUI : MonoBehaviour
         if (interactionMenu != null)
             interactionMenu.SetActive(true);
 
-        RefreshTokenAvailability();
-        ShowBodyWithTypewriter(interactable.Description);
+        SetTokensVisible(false);
+        ShowBodyWithTypewriter(interactable.Description, true);
     }
 
     public void Hide()
     {
         StopTypewriter();
+        _revealTokensWhenTypewriterCompletes = false;
         ResetTokenSelection();
+        SetTokensVisible(false);
         _currentInteractable = null;
 
         if (interactionMenu != null &&
@@ -185,7 +193,7 @@ public class InteractionPanelUI : MonoBehaviour
 
     private void OnTokenClicked(int tokenIndex)
     {
-        if (_currentInteractable == null || tokenIndex < 0 || tokenIndex >= TokenCount)
+        if (!_tokensRevealed || _currentInteractable == null || tokenIndex < 0 || tokenIndex >= TokenCount)
             return;
 
         if (!IsTokenUnlocked(tokenIndex))
@@ -208,7 +216,7 @@ public class InteractionPanelUI : MonoBehaviour
     /// <summary>Applies token outcome text and clears selection. Panel stays open.</summary>
     public void ConfirmTokenSelection()
     {
-        if (_currentInteractable == null || _selectedTokenIndices.Count == 0)
+        if (!_tokensRevealed || _currentInteractable == null || _selectedTokenIndices.Count == 0)
             return;
 
         var confirmedIndices = new List<int>(_selectedTokenIndices);
@@ -220,7 +228,7 @@ public class InteractionPanelUI : MonoBehaviour
             tokenUnlockManager.EvaluateUnlocks(_currentInteractable, confirmedIndices);
 
         string body = _currentInteractable.GetTokenChoiceText(confirmedIndices);
-        ShowBodyWithTypewriter(body);
+        ShowBodyWithTypewriter(body, false);
         ResetTokenSelection();
         RefreshTokenAvailability();
     }
@@ -291,17 +299,62 @@ public class InteractionPanelUI : MonoBehaviour
             confirmButton.interactable = _selectedTokenIndices.Count > 0;
     }
 
-    private void ShowBodyWithTypewriter(string fullText)
+    /// <summary>Fills in the text that is still typing. Does not close the panel.</summary>
+    public void CompleteTypewriter()
+    {
+        if (!IsTypewriterRunning)
+            return;
+
+        string fullText = _typewriterFullText;
+        bool revealTokens = _revealTokensWhenTypewriterCompletes;
+        StopTypewriter();
+
+        if (descriptionText != null)
+            descriptionText.text = fullText;
+
+        if (revealTokens)
+            SetTokensVisible(true);
+    }
+
+    private void ShowBodyWithTypewriter(string fullText, bool revealTokensOnComplete)
     {
         StopTypewriter();
+        _typewriterFullText = fullText ?? string.Empty;
+        _revealTokensWhenTypewriterCompletes = revealTokensOnComplete;
 
         if (descriptionText != null)
             descriptionText.text = string.Empty;
 
-        if (descriptionText == null || string.IsNullOrEmpty(fullText))
-            return;
+        if (descriptionText == null || string.IsNullOrEmpty(_typewriterFullText))
+        {
+            if (revealTokensOnComplete)
+                SetTokensVisible(true);
 
-        _typewriterRoutine = StartCoroutine(RevealDescriptionByCharacter(fullText));
+            return;
+        }
+
+        _typewriterRoutine = StartCoroutine(RevealDescriptionByCharacter(_typewriterFullText));
+    }
+
+    private void SetTokensVisible(bool visible)
+    {
+        _tokensRevealed = visible;
+        _revealTokensWhenTypewriterCompletes = false;
+
+        if (confirmButton != null)
+            confirmButton.gameObject.SetActive(visible);
+
+        if (tokenButtons != null)
+        {
+            for (int i = 0; i < tokenButtons.Length && i < TokenCount; i++)
+            {
+                if (tokenButtons[i] != null)
+                    tokenButtons[i].gameObject.SetActive(visible);
+            }
+        }
+
+        if (visible)
+            RefreshTokenAvailability();
     }
 
     private void StopTypewriter()
@@ -318,10 +371,15 @@ public class InteractionPanelUI : MonoBehaviour
         for (int i = 0; i < fullDescription.Length; i++)
         {
             descriptionText.text += fullDescription[i];
-            yield return new WaitForSeconds(secondsPerCharacter);
+
+            if (i < fullDescription.Length - 1)
+                yield return new WaitForSeconds(secondsPerCharacter);
         }
 
         _typewriterRoutine = null;
+
+        if (_revealTokensWhenTypewriterCompletes)
+            SetTokensVisible(true);
     }
 
     private bool TryGetTokenIndexFromNumberKey(out int tokenIndex)

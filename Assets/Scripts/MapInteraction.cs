@@ -87,6 +87,12 @@ public class MapInteraction : MonoBehaviour
             if (interactionPanel.BlocksDismissal)
                 return;
 
+            if (interactionPanel.IsTypewriterRunning)
+            {
+                interactionPanel.CompleteTypewriter();
+                return;
+            }
+
             if (interactionPanel.HasPendingTokenSelection)
             {
                 interactionPanel.ConfirmTokenSelection();
