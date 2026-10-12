@@ -6,6 +6,9 @@ using UnityEngine;
 /// </summary>
 public class MapInteractable : MonoBehaviour
 {
+    [Tooltip("The grid this POI is standing on. It can only be used while the player is on this map.")]
+    [SerializeField] private MapArea map;
+
     [Tooltip("Optional. If unset, this object's position defines the interaction cell.")]
     [SerializeField] private Transform interactionPoint;
 
@@ -97,6 +100,8 @@ public class MapInteractable : MonoBehaviour
     [Header("Journal — Tokens 3+4")]
     [TextArea(2, 4)]
     [SerializeField] private string journalPair3And4Body;
+
+    public MapArea Map => map;
 
     public string DisplayName => displayName;
     public string Description => description;

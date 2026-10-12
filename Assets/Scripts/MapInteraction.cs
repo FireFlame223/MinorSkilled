@@ -17,10 +17,10 @@ public class MapInteraction : MonoBehaviour
 
     [SerializeField] private JournalDiscoveryLog journalDiscoveryLog;
 
-    [Tooltip("If set, only MapInteractables under this transform are registered. Otherwise, all in the scene are used.")]
-    [SerializeField] private Transform interactablesRoot;
+    [SerializeField] private MapTravel mapTravel;
 
     private Dictionary<Vector3Int, MapInteractable> _interactablesByCell;
+    private MapArea _activeArea;
 
     /// <summary>Raised when interact input hits a POI (E or Enter).</summary>
     public event System.Action SuccessfulInteraction;
@@ -32,6 +32,18 @@ public class MapInteraction : MonoBehaviour
             Debug.LogError("MapInteraction: assign the Grid Cursor.", this);
             enabled = false;
         }
+
+        if (mapTravel == null)
+            mapTravel = FindFirstObjectByType<MapTravel>();
+    }
+
+    /// <summary>Only POIs whose Map field is this area can be interacted with.</summary>
+    public void SetActiveArea(MapArea area)
+    {
+        _activeArea = area;
+
+        if (cursor != null && isActiveAndEnabled)
+            BuildInteractableLookup();
     }
 
     private void Start()
@@ -46,13 +58,25 @@ public class MapInteraction : MonoBehaviour
     {
         _interactablesByCell = new Dictionary<Vector3Int, MapInteractable>();
 
-        MapInteractable[] interactables = CollectInteractables();
+        if (_activeArea == null)
+            return;
+
+        MapInteractable[] interactables = FindObjectsByType<MapInteractable>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         foreach (MapInteractable interactable in interactables)
         {
             if (interactable == null)
                 continue;
 
-            Vector3Int gridCell = cursor.WorldToCell(interactable.InteractionWorldPosition);
+            if (interactable.Map == null)
+            {
+                Debug.LogError("MapInteractable: assign the map this POI stands on.", interactable);
+                continue;
+            }
+
+            if (interactable.Map != _activeArea)
+                continue;
+
+            Vector3Int gridCell = _activeArea.WorldToCell(interactable.InteractionWorldPosition);
 
             if (_interactablesByCell.ContainsKey(gridCell))
             {
@@ -64,14 +88,6 @@ public class MapInteraction : MonoBehaviour
 
             _interactablesByCell[gridCell] = interactable;
         }
-    }
-
-    private MapInteractable[] CollectInteractables()
-    {
-        if (interactablesRoot != null)
-            return interactablesRoot.GetComponentsInChildren<MapInteractable>(true);
-
-        return FindObjectsByType<MapInteractable>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
     }
 
     private void Update()
@@ -110,6 +126,9 @@ public class MapInteraction : MonoBehaviour
     private void Interact()
     {
         Vector3Int selectedCell = cursor.SelectedCell;
+
+        if (mapTravel != null && mapTravel.TryEnter(selectedCell))
+            return;
 
         if (!_interactablesByCell.TryGetValue(selectedCell, out MapInteractable interactable))
         {

@@ -10,19 +10,6 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class GridCursor : MonoBehaviour
 {
-    [Header("Grid")]
-    [SerializeField] private Grid grid;
-
-    [Header("Map Edges")]
-    [SerializeField] private Vector2Int minCell = Vector2Int.zero;
-    [SerializeField] private Vector2Int mapSize = new Vector2Int(10, 10);
-
-    [Header("Start Cell")]
-    [SerializeField] private Vector2Int startCell = Vector2Int.zero;
-
-    [Header("Movement")]
-    [SerializeField] private Tilemap walkableTilemap;
-
     [Header("Journal focus")]
     [Tooltip("While the journal is open, grid movement is disabled so A/D and arrows flip pages.")]
     [SerializeField] private bool lockMovementWhileJournalOpen = true;
@@ -37,32 +24,16 @@ public class GridCursor : MonoBehaviour
     /// <summary>True when WASD and arrow keys are currently used to move the cursor.</summary>
     public bool AcceptsMovementInput => isActiveAndEnabled && CanMove && !IsJournalBlockingMovement();
 
-    private void Awake()
-    {
-        if (grid == null && walkableTilemap != null)
-            grid = walkableTilemap.layoutGrid;
-    }
-
-    private void Start()
-    {
-        if (walkableTilemap == null)
-        {
-            enabled = false;
-            return;
-        }
-
-        if (grid == null || mapSize.x <= 0 || mapSize.y <= 0)
-        {
-            enabled = false;
-            return;
-        }
-
-        SelectedCell = ClampToMap(new Vector3Int(startCell.x, startCell.y, 0));
-        UpdatePosition();
-    }
+    private Grid grid;
+    private Tilemap walkableTilemap;
+    private Vector2Int minCell;
+    private Vector2Int mapSize;
 
     private void Update()
     {
+        if (grid == null || walkableTilemap == null)
+            return;
+
         if (!CanMove || IsJournalBlockingMovement())
             return;
 
@@ -80,7 +51,30 @@ public class GridCursor : MonoBehaviour
 
     public Vector3Int WorldToCell(Vector2 worldPosition)
     {
+        if (grid == null)
+            return Vector3Int.zero;
+
         return grid.WorldToCell(new Vector3(worldPosition.x, worldPosition.y, 0f));
+    }
+
+    /// <summary>Switches the cursor onto another grid and places it on <paramref name="cell"/>.</summary>
+    public void UseMap(Grid newGrid, Tilemap walkable, Vector2Int newMinCell, Vector2Int newMapSize, Vector3Int cell)
+    {
+        if (newGrid == null || walkable == null || newMapSize.x <= 0 || newMapSize.y <= 0)
+        {
+            Debug.LogError("GridCursor: cannot switch to a map without a grid, walkable tilemap, and map size.", this);
+            return;
+        }
+
+        grid = newGrid;
+        walkableTilemap = walkable;
+        minCell = newMinCell;
+        mapSize = newMapSize;
+        SelectedCell = ClampToMap(cell);
+        UpdatePosition();
+
+        if (!walkableTilemap.HasTile(SelectedCell))
+            Debug.LogWarning($"GridCursor: cell {SelectedCell} is not on the walkable tilemap.", walkableTilemap);
     }
 
     private bool IsJournalBlockingMovement()
