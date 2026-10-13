@@ -17,37 +17,21 @@ public class MapArea : MonoBehaviour
     [SerializeField] private Vector2Int mapSize = new Vector2Int(10, 10);
 
     [Header("Start")]
-    [Tooltip("Cell used when this map is the one the game starts on. Other maps place the player with a Location Entrance instead.")]
+    [Tooltip("Cell used when this map is the one the game starts on. Other maps place the player with a Map Switcher instead.")]
     [SerializeField] private Vector2Int startCell;
 
-    private void Awake()
+    public void GetMovement(out Grid mapGrid, out Tilemap walkable, out Vector2Int origin, out Vector2Int size)
     {
-        if (grid == null && walkableTilemap != null)
-            grid = walkableTilemap.layoutGrid;
-    }
-
-    public bool TryGetMovement(out Grid mapGrid, out Tilemap walkable, out Vector2Int origin, out Vector2Int size)
-    {
-        if (grid == null && walkableTilemap != null)
-            grid = walkableTilemap.layoutGrid;
-
         mapGrid = grid;
         walkable = walkableTilemap;
         origin = minCell;
         size = mapSize;
-        return mapGrid != null && walkable != null && size.x > 0 && size.y > 0;
     }
 
     public Vector3Int StartCell => new Vector3Int(startCell.x, startCell.y, 0);
 
     public Vector3Int WorldToCell(Vector2 worldPosition)
     {
-        if (grid == null && walkableTilemap != null)
-            grid = walkableTilemap.layoutGrid;
-
-        if (grid == null)
-            return Vector3Int.zero;
-
         return grid.WorldToCell(new Vector3(worldPosition.x, worldPosition.y, 0f));
     }
 }

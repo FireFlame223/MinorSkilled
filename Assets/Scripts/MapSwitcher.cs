@@ -2,7 +2,6 @@ using UnityEngine;
 
 /// <summary>
 /// Interact moves the player to <see cref="Destination"/> and shows that switcher's map.
-/// If only one side of a pair assigns Destination, the link still works both ways.
 /// </summary>
 public class MapSwitcher : MonoBehaviour
 {

@@ -19,44 +19,24 @@ public class MapInteraction : MonoBehaviour
 
     [SerializeField] private MapTravel mapTravel;
 
-    private Dictionary<Vector3Int, MapInteractable> _interactablesByCell;
+    private readonly Dictionary<Vector3Int, MapInteractable> _interactablesByCell = new Dictionary<Vector3Int, MapInteractable>();
     private MapArea _activeArea;
 
     /// <summary>Raised when interact input hits a POI (E or Enter).</summary>
     public event System.Action SuccessfulInteraction;
-
-    private void Awake()
-    {
-        if (cursor == null)
-        {
-            Debug.LogError("MapInteraction: assign the Grid Cursor.", this);
-            enabled = false;
-        }
-
-        if (mapTravel == null)
-            mapTravel = FindFirstObjectByType<MapTravel>();
-    }
 
     /// <summary>Only POIs whose Map field is this area can be interacted with.</summary>
     public void SetActiveArea(MapArea area)
     {
         _activeArea = area;
 
-        if (cursor != null && isActiveAndEnabled)
+        if (isActiveAndEnabled)
             BuildInteractableLookup();
-    }
-
-    private void Start()
-    {
-        if (!isActiveAndEnabled)
-            return;
-
-        BuildInteractableLookup();
     }
 
     private void BuildInteractableLookup()
     {
-        _interactablesByCell = new Dictionary<Vector3Int, MapInteractable>();
+        _interactablesByCell.Clear();
 
         if (_activeArea == null)
             return;
@@ -64,41 +44,23 @@ public class MapInteraction : MonoBehaviour
         MapInteractable[] interactables = FindObjectsByType<MapInteractable>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         foreach (MapInteractable interactable in interactables)
         {
-            if (interactable == null)
-                continue;
-
-            if (interactable.Map == null)
-            {
-                Debug.LogError("MapInteractable: assign the map this POI stands on.", interactable);
-                continue;
-            }
-
-            if (interactable.Map != _activeArea)
+            if (interactable == null || interactable.Map != _activeArea)
                 continue;
 
             Vector3Int gridCell = _activeArea.WorldToCell(interactable.transform.position);
-
-            if (_interactablesByCell.ContainsKey(gridCell))
-            {
-                Debug.LogWarning(
-                    $"MapInteraction: multiple interactables share cell {gridCell}; using the last one registered.",
-                    interactable
-                );
-            }
-
             _interactablesByCell[gridCell] = interactable;
         }
     }
 
     private void Update()
     {
-        if (cursor == null || !cursor.isActiveAndEnabled)
+        if (!cursor.isActiveAndEnabled)
             return;
 
         if (!WasInteractPressed())
             return;
 
-        if (interactionPanel != null && interactionPanel.IsVisible)
+        if (interactionPanel.IsVisible)
         {
             if (interactionPanel.BlocksDismissal)
                 return;
@@ -127,28 +89,19 @@ public class MapInteraction : MonoBehaviour
     {
         Vector3Int selectedCell = cursor.SelectedCell;
 
-        if (mapTravel != null && mapTravel.TryEnter(selectedCell))
+        if (mapTravel.TryEnter(selectedCell))
             return;
 
         if (!_interactablesByCell.TryGetValue(selectedCell, out MapInteractable interactable))
-        {
-            Debug.Log("There is nothing to interact with here.", this);
             return;
-        }
 
         SuccessfulInteraction?.Invoke();
 
         bool firstVisit = !interactable.Explored;
         interactable.Explored = true;
 
-        if (firstVisit && journalDiscoveryLog != null)
+        if (firstVisit)
             journalDiscoveryLog.RecordDiscovery(interactable);
-
-        if (interactionPanel == null)
-        {
-            Debug.LogError("MapInteraction: assign Interaction Panel UI.", this);
-            return;
-        }
 
         interactionPanel.Show(interactable);
         cursor.CanMove = false;

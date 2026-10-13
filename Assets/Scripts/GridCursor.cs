@@ -49,37 +49,20 @@ public class GridCursor : MonoBehaviour
         UpdatePosition();
     }
 
-    public Vector3Int WorldToCell(Vector2 worldPosition)
-    {
-        if (grid == null)
-            return Vector3Int.zero;
-
-        return grid.WorldToCell(new Vector3(worldPosition.x, worldPosition.y, 0f));
-    }
-
     /// <summary>Switches the cursor onto another grid and places it on <paramref name="cell"/>.</summary>
     public void UseMap(Grid newGrid, Tilemap walkable, Vector2Int newMinCell, Vector2Int newMapSize, Vector3Int cell)
     {
-        if (newGrid == null || walkable == null || newMapSize.x <= 0 || newMapSize.y <= 0)
-        {
-            Debug.LogError("GridCursor: cannot switch to a map without a grid, walkable tilemap, and map size.", this);
-            return;
-        }
-
         grid = newGrid;
         walkableTilemap = walkable;
         minCell = newMinCell;
         mapSize = newMapSize;
         SelectedCell = ClampToMap(cell);
         UpdatePosition();
-
-        if (!walkableTilemap.HasTile(SelectedCell))
-            Debug.LogWarning($"GridCursor: cell {SelectedCell} is not on the walkable tilemap.", walkableTilemap);
     }
 
     private bool IsJournalBlockingMovement()
     {
-        return lockMovementWhileJournalOpen && journal != null && journal.IsOpen;
+        return lockMovementWhileJournalOpen && journal.IsOpen;
     }
 
     private Vector3Int ReadDirection()
