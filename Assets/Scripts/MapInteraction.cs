@@ -76,7 +76,7 @@ public class MapInteraction : MonoBehaviour
             if (interactable.Map != _activeArea)
                 continue;
 
-            Vector3Int gridCell = _activeArea.WorldToCell(interactable.InteractionWorldPosition);
+            Vector3Int gridCell = _activeArea.WorldToCell(interactable.transform.position);
 
             if (_interactablesByCell.ContainsKey(gridCell))
             {

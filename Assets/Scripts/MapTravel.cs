@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 /// <summary>
-/// Switches the cursor between map areas. Entrances open on interact; exits open when the cursor steps on their cell.
+/// Switches the cursor between map areas. Interact on an entrance appears at that map's exit; interact on the exit returns to the entrance.
 /// </summary>
 [DefaultExecutionOrder(100)]
 public class MapTravel : MonoBehaviour
@@ -25,7 +25,6 @@ public class MapTravel : MonoBehaviour
     private readonly Stack<ReturnPoint> _returnPoints = new Stack<ReturnPoint>();
 
     private MapArea _currentArea;
-    private Vector3Int _lastCell;
 
     private void Awake()
     {
@@ -65,30 +64,18 @@ public class MapTravel : MonoBehaviour
         WarnAboutMissingMaps();
     }
 
-    private void LateUpdate()
-    {
-        if (cursor == null)
-            return;
-
-        Vector3Int cell = cursor.SelectedCell;
-        if (cell == _lastCell)
-            return;
-
-        _lastCell = cell;
-
-        if (!_exitCells.Contains(cell) || _returnPoints.Count == 0)
-            return;
-
-        ReturnPoint returnPoint = _returnPoints.Peek();
-        if (!SwitchTo(returnPoint.Area, returnPoint.Cell))
-            return;
-
-        _returnPoints.Pop();
-    }
-
-    /// <summary>Enters the location on this cell. Returns false when the cell has no entrance.</summary>
+    /// <summary>Enters or leaves through the door on this cell. Returns false when the cell has no door.</summary>
     public bool TryEnter(Vector3Int cell)
     {
+        if (_exitCells.Contains(cell) && _returnPoints.Count > 0)
+        {
+            ReturnPoint returnPoint = _returnPoints.Peek();
+            if (SwitchTo(returnPoint.Area, returnPoint.Cell))
+                _returnPoints.Pop();
+
+            return true;
+        }
+
         if (!_entrancesByCell.TryGetValue(cell, out LocationEntrance entrance))
             return false;
 
@@ -104,8 +91,11 @@ public class MapTravel : MonoBehaviour
             return true;
         }
 
+        if (!TryGetExitCell(entrance.Destination, out Vector3Int arrivalCell))
+            return true;
+
         MapArea returnArea = _currentArea;
-        if (!SwitchTo(entrance.Destination, entrance.EntryCell))
+        if (!SwitchTo(entrance.Destination, arrivalCell))
             return true;
 
         _returnPoints.Push(new ReturnPoint
@@ -142,21 +132,44 @@ public class MapTravel : MonoBehaviour
         area.gameObject.SetActive(true);
         cursor.UseMap(grid, walkable, origin, size, cell);
         _currentArea = area;
-        _lastCell = cursor.SelectedCell;
 
         if (mapInteraction != null)
             mapInteraction.SetActiveArea(area);
 
         RebuildTravelPoints();
+        return true;
+    }
 
-        if (_exitCells.Contains(cursor.SelectedCell))
+    private static bool TryGetExitCell(MapArea destination, out Vector3Int cell)
+    {
+        cell = default;
+        if (destination == null)
+            return false;
+
+        LocationExit[] exits = FindObjectsByType<LocationExit>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        LocationExit found = null;
+        int count = 0;
+        for (int i = 0; i < exits.Length; i++)
         {
-            Debug.LogWarning(
-                "MapTravel: the arrival cell is also an exit. The player leaves only after stepping off it and back on.",
-                area
-            );
+            if (exits[i].Map != destination)
+                continue;
+
+            count++;
+            found = exits[i];
         }
 
+        if (count != 1)
+        {
+            Debug.LogError(
+                count == 0
+                    ? "MapTravel: the destination needs one Location Exit. The player appears on that object."
+                    : "MapTravel: the destination has more than one Location Exit, so the arrival cell is ambiguous.",
+                destination
+            );
+            return false;
+        }
+
+        cell = destination.WorldToCell(found.transform.position);
         return true;
     }
 
@@ -186,7 +199,7 @@ public class MapTravel : MonoBehaviour
             if (entrance.Map != _currentArea)
                 continue;
 
-            Vector3Int cell = _currentArea.WorldToCell(entrance.WorldPosition);
+            Vector3Int cell = _currentArea.WorldToCell(entrance.transform.position);
 
             if (_entrancesByCell.ContainsKey(cell))
             {
@@ -205,7 +218,7 @@ public class MapTravel : MonoBehaviour
             if (exits[i].Map != _currentArea)
                 continue;
 
-            _exitCells.Add(_currentArea.WorldToCell(exits[i].WorldPosition));
+            _exitCells.Add(_currentArea.WorldToCell(exits[i].transform.position));
         }
     }
 

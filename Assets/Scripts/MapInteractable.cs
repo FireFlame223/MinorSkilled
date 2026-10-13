@@ -9,8 +9,8 @@ public class MapInteractable : MonoBehaviour
     [Tooltip("The grid this POI is standing on. It can only be used while the player is on this map.")]
     [SerializeField] private MapArea map;
 
-    [Tooltip("Optional. If unset, this object's position defines the interaction cell.")]
-    [SerializeField] private Transform interactionPoint;
+    // [Tooltip("Optional. If unset, this object's position defines the interaction cell.")]
+    // [SerializeField] private Transform interactionPoint;
 
     [Header("Interaction")]
     [SerializeField] private string displayName;
@@ -111,14 +111,14 @@ public class MapInteractable : MonoBehaviour
     public string JournalTitle => journalTitle;
     public string JournalDescription => journalDescription;
 
-    public Vector2 InteractionWorldPosition
-    {
-        get
-        {
-            Transform point = interactionPoint != null ? interactionPoint : transform;
-            return point.position;
-        }
-    }
+    // public Vector2 InteractionWorldPosition
+    // {
+    //     get
+    //     {
+    //         Transform point = interactionPoint != null ? interactionPoint : transform;
+    //         return point.position;
+    //     }
+    // }
 
     public string GetMenuOptionText(int index)
     {
@@ -240,7 +240,7 @@ public class MapInteractable : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Vector2 p = InteractionWorldPosition;
+        Vector2 p = transform.position;
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(new Vector3(p.x, p.y, 0f), 0.2f);
     }

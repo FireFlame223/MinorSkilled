@@ -8,27 +8,17 @@ public class LocationEntrance : MonoBehaviour
     [Tooltip("The grid this object is standing on. A door on the main map uses the main map, even when it leads into the Tower.")]
     [SerializeField] private MapArea map;
 
-    [Tooltip("The grid the player moves to.")]
+    [Tooltip("The grid the player moves to. The player appears on that grid's Location Exit.")]
     [SerializeField] private MapArea destination;
-
-    [Tooltip("Cell on the destination grid where the player appears.")]
-    [SerializeField] private Vector2Int entryCell;
-
-    [Tooltip("Optional. If unset, this object's position is the cell that opens the location.")]
-    [SerializeField] private Transform interactionPoint;
 
     public MapArea Map => map;
 
     public MapArea Destination => destination;
 
-    public Vector3Int EntryCell => new Vector3Int(entryCell.x, entryCell.y, 0);
-
-    public Vector2 WorldPosition
+    private void OnDrawGizmosSelected()
     {
-        get
-        {
-            Transform point = interactionPoint != null ? interactionPoint : transform;
-            return point.position;
-        }
+        Vector2 p = transform.position;
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(new Vector3(p.x, p.y, 0f), 0.2f);
     }
 }

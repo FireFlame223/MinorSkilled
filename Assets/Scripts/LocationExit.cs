@@ -1,25 +1,20 @@
 using UnityEngine;
 
 /// <summary>
-/// Walking onto this cell leaves the current location and returns the player to the entrance they used.
-/// Place the object on the exit tile. A physics collider is not required.
+/// Pressing interact on this cell returns the player to the entrance they used.
+/// The player also appears here when they enter from that entrance.
 /// </summary>
 public class LocationExit : MonoBehaviour
 {
     [Tooltip("The grid this exit is standing on. An exit inside the Tower uses the Tower map.")]
     [SerializeField] private MapArea map;
 
-    [Tooltip("Optional. If unset, this object's position is the exit cell.")]
-    [SerializeField] private Transform exitPoint;
-
     public MapArea Map => map;
 
-    public Vector2 WorldPosition
+    private void OnDrawGizmosSelected()
     {
-        get
-        {
-            Transform point = exitPoint != null ? exitPoint : transform;
-            return point.position;
-        }
+        Vector2 p = transform.position;
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(new Vector3(p.x, p.y, 0f), 0.2f);
     }
 }
