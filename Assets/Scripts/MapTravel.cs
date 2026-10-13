@@ -3,26 +3,18 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 /// <summary>
-/// Switches the cursor between map areas. Interact on an entrance appears at that map's exit; interact on the exit returns to the entrance.
+/// Switches the cursor between map areas when the player interacts with a <see cref="MapSwitcher"/>.
 /// </summary>
 [DefaultExecutionOrder(100)]
 public class MapTravel : MonoBehaviour
 {
-    private struct ReturnPoint
-    {
-        public MapArea Area;
-        public Vector3Int Cell;
-    }
-
     [SerializeField] private GridCursor cursor;
 
     [SerializeField] private MapInteraction mapInteraction;
 
     [SerializeField] private MapArea startingArea;
 
-    private readonly Dictionary<Vector3Int, LocationEntrance> _entrancesByCell = new Dictionary<Vector3Int, LocationEntrance>();
-    private readonly HashSet<Vector3Int> _exitCells = new HashSet<Vector3Int>();
-    private readonly Stack<ReturnPoint> _returnPoints = new Stack<ReturnPoint>();
+    private readonly Dictionary<Vector3Int, MapSwitcher> _switchersByCell = new Dictionary<Vector3Int, MapSwitcher>();
 
     private MapArea _currentArea;
 
@@ -64,46 +56,23 @@ public class MapTravel : MonoBehaviour
         WarnAboutMissingMaps();
     }
 
-    /// <summary>Enters or leaves through the door on this cell. Returns false when the cell has no door.</summary>
+    /// <summary>Switches maps through the door on this cell. Returns false when the cell has no switcher.</summary>
     public bool TryEnter(Vector3Int cell)
     {
-        if (_exitCells.Contains(cell) && _returnPoints.Count > 0)
-        {
-            ReturnPoint returnPoint = _returnPoints.Peek();
-            if (SwitchTo(returnPoint.Area, returnPoint.Cell))
-                _returnPoints.Pop();
-
-            return true;
-        }
-
-        if (!_entrancesByCell.TryGetValue(cell, out LocationEntrance entrance))
+        if (!_switchersByCell.TryGetValue(cell, out MapSwitcher here))
             return false;
 
-        if (entrance.Destination == null)
+        if (!TryGetDestination(here, out MapSwitcher destination))
+            return true;
+
+        if (destination.Map == null)
         {
-            Debug.LogError("LocationEntrance: assign a destination map.", entrance);
+            Debug.LogError("MapSwitcher: assign the map this object stands on.", destination);
             return true;
         }
 
-        if (entrance.Destination == _currentArea)
-        {
-            Debug.LogError("LocationEntrance: destination is the map the player is already on.", entrance);
-            return true;
-        }
-
-        if (!TryGetExitCell(entrance.Destination, out Vector3Int arrivalCell))
-            return true;
-
-        MapArea returnArea = _currentArea;
-        if (!SwitchTo(entrance.Destination, arrivalCell))
-            return true;
-
-        _returnPoints.Push(new ReturnPoint
-        {
-            Area = returnArea,
-            Cell = cell
-        });
-
+        Vector3Int arrivalCell = destination.Map.WorldToCell(destination.transform.position);
+        SwitchTo(destination.Map, arrivalCell);
         return true;
     }
 
@@ -136,106 +105,86 @@ public class MapTravel : MonoBehaviour
         if (mapInteraction != null)
             mapInteraction.SetActiveArea(area);
 
-        RebuildTravelPoints();
+        RebuildSwitchers();
         return true;
     }
 
-    private static bool TryGetExitCell(MapArea destination, out Vector3Int cell)
+    private static bool TryGetDestination(MapSwitcher here, out MapSwitcher destination)
     {
-        cell = default;
-        if (destination == null)
-            return false;
+        destination = here.Destination;
+        if (destination != null && destination != here)
+            return true;
 
-        LocationExit[] exits = FindObjectsByType<LocationExit>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-        LocationExit found = null;
+        MapSwitcher[] switchers = FindObjectsByType<MapSwitcher>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        MapSwitcher partner = null;
         int count = 0;
-        for (int i = 0; i < exits.Length; i++)
+        for (int i = 0; i < switchers.Length; i++)
         {
-            if (exits[i].Map != destination)
+            if (switchers[i] == here || switchers[i].Destination != here)
                 continue;
 
             count++;
-            found = exits[i];
+            partner = switchers[i];
         }
 
-        if (count != 1)
+        if (count == 1)
         {
-            Debug.LogError(
-                count == 0
-                    ? "MapTravel: the destination needs one Location Exit. The player appears on that object."
-                    : "MapTravel: the destination has more than one Location Exit, so the arrival cell is ambiguous.",
-                destination
-            );
-            return false;
+            destination = partner;
+            return true;
         }
 
-        cell = destination.WorldToCell(found.transform.position);
-        return true;
+        Debug.LogError(
+            count == 0
+                ? "MapSwitcher: assign a destination."
+                : "MapSwitcher: more than one switcher points here, so the destination is ambiguous.",
+            here
+        );
+        destination = null;
+        return false;
     }
 
     private bool IsUnderArea(Transform target)
     {
-        if (target == null)
+        if (target == null || _currentArea == null)
             return false;
 
-        if (_currentArea != null && target.IsChildOf(_currentArea.transform))
-            return true;
-
-        return false;
+        return target.IsChildOf(_currentArea.transform);
     }
 
-    private void RebuildTravelPoints()
+    private void RebuildSwitchers()
     {
-        _entrancesByCell.Clear();
-        _exitCells.Clear();
+        _switchersByCell.Clear();
 
-        if (_currentArea == null || cursor == null)
+        if (_currentArea == null)
             return;
 
-        LocationEntrance[] entrances = FindObjectsByType<LocationEntrance>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-        for (int i = 0; i < entrances.Length; i++)
+        MapSwitcher[] switchers = FindObjectsByType<MapSwitcher>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        for (int i = 0; i < switchers.Length; i++)
         {
-            LocationEntrance entrance = entrances[i];
-            if (entrance.Map != _currentArea)
+            MapSwitcher switcher = switchers[i];
+            if (switcher.Map != _currentArea)
                 continue;
 
-            Vector3Int cell = _currentArea.WorldToCell(entrance.transform.position);
-
-            if (_entrancesByCell.ContainsKey(cell))
+            Vector3Int cell = _currentArea.WorldToCell(switcher.transform.position);
+            if (_switchersByCell.ContainsKey(cell))
             {
                 Debug.LogWarning(
-                    $"MapTravel: multiple entrances share cell {cell}; using the last one registered.",
-                    entrance
+                    $"MapTravel: multiple switchers share cell {cell}; using the last one registered.",
+                    switcher
                 );
             }
 
-            _entrancesByCell[cell] = entrance;
-        }
-
-        LocationExit[] exits = FindObjectsByType<LocationExit>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-        for (int i = 0; i < exits.Length; i++)
-        {
-            if (exits[i].Map != _currentArea)
-                continue;
-
-            _exitCells.Add(_currentArea.WorldToCell(exits[i].transform.position));
+            _switchersByCell[cell] = switcher;
         }
     }
 
     private static void WarnAboutMissingMaps()
     {
-        LocationEntrance[] entrances = FindObjectsByType<LocationEntrance>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-        for (int i = 0; i < entrances.Length; i++)
+        MapSwitcher[] switchers = FindObjectsByType<MapSwitcher>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        for (int i = 0; i < switchers.Length; i++)
         {
-            if (entrances[i].Map == null)
-                Debug.LogError("LocationEntrance: assign the map this object stands on.", entrances[i]);
-        }
-
-        LocationExit[] exits = FindObjectsByType<LocationExit>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-        for (int i = 0; i < exits.Length; i++)
-        {
-            if (exits[i].Map == null)
-                Debug.LogError("LocationExit: assign the map this object stands on.", exits[i]);
+            if (switchers[i].Map == null)
+                Debug.LogError("MapSwitcher: assign the map this object stands on.", switchers[i]);
         }
     }
 }
