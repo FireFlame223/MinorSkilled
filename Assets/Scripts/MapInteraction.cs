@@ -54,6 +54,9 @@ public class MapInteraction : MonoBehaviour
 
     private void Update()
     {
+        if (GameplayInput.IsBlocked)
+            return;
+
         if (!cursor.isActiveAndEnabled)
             return;
 

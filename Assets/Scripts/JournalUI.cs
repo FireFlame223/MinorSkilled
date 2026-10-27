@@ -74,21 +74,24 @@ public class JournalUI : MonoBehaviour
 
     private void Update()
     {
-        if (WasTabPressed())
+        if (!GameplayInput.IsBlocked)
         {
+            if (WasTabPressed())
+            {
+                if (IsOpen)
+                    Close();
+                else
+                    Open();
+            }
+
             if (IsOpen)
-                Close();
-            else
-                Open();
-        }
+            {
+                if (WasPreviousPagePressed())
+                    ShowPreviousPage();
 
-        if (IsOpen)
-        {
-            if (WasPreviousPagePressed())
-                ShowPreviousPage();
-
-            if (WasNextPagePressed())
-                ShowNextPage();
+                if (WasNextPagePressed())
+                    ShowNextPage();
+            }
         }
 
         if (slideRoot == null)

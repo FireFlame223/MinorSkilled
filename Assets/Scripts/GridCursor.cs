@@ -50,6 +50,15 @@ public class GridCursor : MonoBehaviour
         if (grid == null || walkableTilemap == null)
             return;
 
+        if (GameplayInput.IsBlocked)
+        {
+            if (isSliding)
+                AdvanceSlide();
+
+            ClearHeldMovement();
+            return;
+        }
+
         if (isSliding)
             AdvanceSlide();
 

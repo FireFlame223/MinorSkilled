@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Tracks which of the four tokens the player owns and unlocks more from designer-authored rules.
+/// Tracks which of the four tokens the player owns. Deduction puzzles award new tokens.
 /// </summary>
 public class TokenUnlockManager : MonoBehaviour
 {
@@ -36,11 +36,16 @@ public class TokenUnlockManager : MonoBehaviour
         public int unlockToken = 3;
     }
 
+    [Header("Names")]
+    [Tooltip("Display names for tokens 1–4, in order.")]
+    [SerializeField] private string[] tokenNames = { "Seen", "Heard", "Done", "Told" };
+
     [Header("Starting tokens")]
     [Tooltip("Tokens 1–4 the player has at the start of a session.")]
     [SerializeField] private int[] startingUnlockedTokens = { 1, 2 };
 
     [Header("Unlock rules")]
+    [Tooltip("No longer awards tokens. Deduction puzzles grant tokens instead. Point-of-interest text is unchanged.")]
     [SerializeField] private TokenUnlockRule[] unlockRules = Array.Empty<TokenUnlockRule>();
 
     private readonly HashSet<int> _unlockedTokenIndices = new HashSet<int>();
@@ -64,6 +69,25 @@ public class TokenUnlockManager : MonoBehaviour
     public bool IsTokenUnlocked(int tokenIndex)
     {
         return tokenIndex >= 0 && tokenIndex < TokenCount && _unlockedTokenIndices.Contains(tokenIndex);
+    }
+
+    /// <summary>Display name for token number 1–4.</summary>
+    public string GetTokenName(int tokenNumber)
+    {
+        int index = ToTokenIndex(tokenNumber);
+        if (index < 0)
+            return string.Empty;
+
+        if (tokenNames != null && index < tokenNames.Length && !string.IsNullOrWhiteSpace(tokenNames[index]))
+            return tokenNames[index];
+
+        return tokenNumber.ToString();
+    }
+
+    /// <summary>Awards token number 1–4. Returns true only the first time that token is acquired.</summary>
+    public bool UnlockToken(int tokenNumber)
+    {
+        return UnlockTokenNumber(tokenNumber);
     }
 
     /// <summary>

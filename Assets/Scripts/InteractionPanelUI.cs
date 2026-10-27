@@ -86,6 +86,9 @@ public class InteractionPanelUI : MonoBehaviour
 
     private void Update()
     {
+        if (GameplayInput.IsBlocked)
+            return;
+
         if (!IsVisible || BlocksDismissal || !_tokensRevealed)
             return;
 
@@ -223,9 +226,6 @@ public class InteractionPanelUI : MonoBehaviour
 
         if (journalDiscoveryLog != null)
             journalDiscoveryLog.RecordTokenOutcome(_currentInteractable, confirmedIndices);
-
-        if (tokenUnlockManager != null)
-            tokenUnlockManager.EvaluateUnlocks(_currentInteractable, confirmedIndices);
 
         string body = _currentInteractable.GetTokenChoiceText(confirmedIndices);
         ShowBodyWithTypewriter(body, false);
