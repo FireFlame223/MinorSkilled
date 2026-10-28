@@ -9,9 +9,6 @@ public class MapInteractable : MonoBehaviour
     [Tooltip("The grid this POI is standing on. It can only be used while the player is on this map.")]
     [SerializeField] private MapArea map;
 
-    // [Tooltip("Optional. If unset, this object's position defines the interaction cell.")]
-    // [SerializeField] private Transform interactionPoint;
-
     [Header("Interaction")]
     [SerializeField] private string displayName;
 
@@ -110,15 +107,6 @@ public class MapInteractable : MonoBehaviour
     public string JournalId => string.IsNullOrWhiteSpace(journalId) ? name : journalId;
     public string JournalTitle => journalTitle;
     public string JournalDescription => journalDescription;
-
-    // public Vector2 InteractionWorldPosition
-    // {
-    //     get
-    //     {
-    //         Transform point = interactionPoint != null ? interactionPoint : transform;
-    //         return point.position;
-    //     }
-    // }
 
     public string GetMenuOptionText(int index)
     {

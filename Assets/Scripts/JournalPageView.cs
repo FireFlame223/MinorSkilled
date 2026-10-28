@@ -12,8 +12,6 @@ public class JournalPageView : MonoBehaviour
     [SerializeField] private TMP_Text bodyText;
     [SerializeField] private TMP_Text pageNumberText;
 
-    public bool IsPlaceholder { get; private set; }
-
     private void OnEnable()
     {
         foreach (Graphic graphic in GetComponentsInChildren<Graphic>(true))
@@ -28,14 +26,11 @@ public class JournalPageView : MonoBehaviour
 
     public void ConfigureAsTitlePage(string pageNumberLabel)
     {
-        IsPlaceholder = false;
         SetPageNumber(pageNumberLabel);
     }
 
     public void ShowPlaceholder(string title, string placeholderText)
     {
-        IsPlaceholder = true;
-
         if (titleText != null)
             titleText.text = title;
 
@@ -45,8 +40,6 @@ public class JournalPageView : MonoBehaviour
 
     public void ShowEntry(string title, string body)
     {
-        IsPlaceholder = false;
-
         if (titleText != null)
             titleText.text = title;
 

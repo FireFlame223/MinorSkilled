@@ -22,9 +22,6 @@ public class MapInteraction : MonoBehaviour
     private readonly Dictionary<Vector3Int, MapInteractable> _interactablesByCell = new Dictionary<Vector3Int, MapInteractable>();
     private MapArea _activeArea;
 
-    /// <summary>Raised when interact input hits a POI (E or Enter).</summary>
-    public event System.Action SuccessfulInteraction;
-
     /// <summary>Only POIs whose Map field is this area can be interacted with.</summary>
     public void SetActiveArea(MapArea area)
     {
@@ -98,8 +95,6 @@ public class MapInteraction : MonoBehaviour
         if (!_interactablesByCell.TryGetValue(selectedCell, out MapInteractable interactable))
             return;
 
-        SuccessfulInteraction?.Invoke();
-
         bool firstVisit = !interactable.Explored;
         interactable.Explored = true;
 
@@ -118,11 +113,6 @@ public class MapInteraction : MonoBehaviour
                (keyboard.eKey.wasPressedThisFrame ||
                 keyboard.enterKey.wasPressedThisFrame ||
                 keyboard.numpadEnterKey.wasPressedThisFrame);
-
-#elif ENABLE_LEGACY_INPUT_MANAGER
-        return Input.GetKeyDown(KeyCode.E) ||
-               Input.GetKeyDown(KeyCode.Return) ||
-               Input.GetKeyDown(KeyCode.KeypadEnter);
 #else
         return false;
 #endif

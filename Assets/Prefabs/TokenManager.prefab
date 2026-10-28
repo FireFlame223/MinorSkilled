@@ -45,14 +45,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TokenUnlockManager
   startingUnlockedTokens: 0100000002000000
-  unlockRules:
-  - poi: {fileID: 0}
-    requirement: 0
-    requiredToken1: 1
-    requiredToken2: 1
-    unlockToken: 3
-  - poi: {fileID: 0}
-    requirement: 1
-    requiredToken1: 1
-    requiredToken2: 3
-    unlockToken: 4

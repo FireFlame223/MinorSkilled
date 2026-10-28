@@ -403,20 +403,6 @@ public class InteractionPanelUI : MonoBehaviour
             return false;
 
         return true;
-
-#elif ENABLE_LEGACY_INPUT_MANAGER
-        if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
-            tokenIndex = 0;
-        else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2))
-            tokenIndex = 1;
-        else if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3))
-            tokenIndex = 2;
-        else if (Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Keypad4))
-            tokenIndex = 3;
-        else
-            return false;
-
-        return true;
 #else
         return false;
 #endif

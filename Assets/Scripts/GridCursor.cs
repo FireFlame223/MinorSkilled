@@ -28,9 +28,6 @@ public class GridCursor : MonoBehaviour
     /// <summary>When false, movement input is ignored (e.g. while the interaction panel is open).</summary>
     public bool CanMove { get; set; } = true;
 
-    /// <summary>True when WASD and arrow keys are currently used to move the cursor.</summary>
-    public bool AcceptsMovementInput => isActiveAndEnabled && CanMove && !IsJournalBlockingMovement();
-
     private Grid grid;
     private Tilemap walkableTilemap;
     private Vector2Int minCell;
@@ -191,16 +188,6 @@ public class GridCursor : MonoBehaviour
             return Vector3Int.left;
         if (keyboard.dKey.wasPressedThisFrame || keyboard.rightArrowKey.wasPressedThisFrame)
             return Vector3Int.right;
-
-#elif ENABLE_LEGACY_INPUT_MANAGER
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
-            return Vector3Int.up;
-        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
-            return Vector3Int.down;
-        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
-            return Vector3Int.left;
-        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
-            return Vector3Int.right;
 #endif
 
         return Vector3Int.zero;
@@ -220,16 +207,6 @@ public class GridCursor : MonoBehaviour
         if (keyboard.aKey.isPressed || keyboard.leftArrowKey.isPressed)
             return Vector3Int.left;
         if (keyboard.dKey.isPressed || keyboard.rightArrowKey.isPressed)
-            return Vector3Int.right;
-
-#elif ENABLE_LEGACY_INPUT_MANAGER
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
-            return Vector3Int.up;
-        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-            return Vector3Int.down;
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-            return Vector3Int.left;
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
             return Vector3Int.right;
 #endif
 
@@ -254,16 +231,6 @@ public class GridCursor : MonoBehaviour
             return keyboard.aKey.isPressed || keyboard.leftArrowKey.isPressed;
         if (direction == Vector3Int.right)
             return keyboard.dKey.isPressed || keyboard.rightArrowKey.isPressed;
-
-#elif ENABLE_LEGACY_INPUT_MANAGER
-        if (direction == Vector3Int.up)
-            return Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
-        if (direction == Vector3Int.down)
-            return Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
-        if (direction == Vector3Int.left)
-            return Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
-        if (direction == Vector3Int.right)
-            return Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
 #endif
 
         return false;

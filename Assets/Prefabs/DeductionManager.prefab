@@ -1,0 +1,198 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2588909038003686853
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1990389734086236063}
+  - component: {fileID: 2760794824977288558}
+  m_Layer: 0
+  m_Name: DeductionManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1990389734086236063
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2588909038003686853}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2760794824977288558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2588909038003686853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4a91e7b2d8f4c0a9e6b15d3f7a84c02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DeductionPuzzlePanel
+  blankOption: 
+  puzzles:
+  - fixedParts:
+    - 'The Golden Skull '
+    - ' during the '
+    - ' between '
+    - ' and '
+    - .
+    gaps:
+    - options:
+      - got stolen
+      - exploded
+      - vanished
+      - got replaced
+      correctOption: 0
+    - options:
+      - ritual
+      - sandstorm
+      - chess game
+      - night
+      correctOption: 2
+    - options:
+      - 18:00
+      - 18:30
+      - 19:00
+      - 19:30
+      - 20:00
+      correctOption: 1
+    - options:
+      - 18:00
+      - 18:30
+      - 19:00
+      - 19:30
+      - 20:00
+      correctOption: 3
+    rewardToken: 2
+  - fixedParts:
+    - 'The Skull was '
+    - ' in a '
+    - ' to the '
+    - .
+    gaps:
+    - options:
+      - displayed
+      - placed
+      - hidden
+      - seen
+      - transported
+      correctOption: 4
+    - options:
+      - large crate
+      - glass can
+      - cactus
+      - cloth
+      correctOption: 0
+    - options:
+      - green house
+      - back door
+      - library
+      - main square
+      correctOption: 1
+    rewardToken: 3
+  - fixedParts:
+    - 'Then,  '
+    - ' helped '
+    - ' by '
+    - ' his position as the '
+    - .
+    gaps:
+    - options:
+      - Anubis
+      - Horus
+      - Osiris
+      - Seth
+      - Thoth
+      correctOption: 1
+    - options:
+      - their boss
+      - the victim
+      - the thief
+      - the witness
+      - himself
+      correctOption: 2
+    - options:
+      - distracting
+      - stealing
+      - taking back
+      - exploiting
+      correctOption: 3
+    - options:
+      - doctor
+      - caretaker
+      - owner
+      - landlord
+      - librarian
+      correctOption: 1
+    rewardToken: 4
+  - fixedParts:
+    - 'Finally, '
+    - ' stole the '
+    - ' , with '
+    - ' acting as the'
+    - .
+    gaps:
+    - options:
+      - Anubis
+      - Horus
+      - Osiris
+      - Seth
+      - Thoth
+      correctOption: 3
+    - options:
+      - crate
+      - Golden Skull
+      - books
+      - chess board
+      correctOption: 1
+    - options:
+      - Anubis
+      - Horus
+      - Osiris
+      - Seth
+      - Thoth
+      correctOption: 1
+    - options:
+      - real victim
+      - leader
+      - accomplice
+      correctOption: 2
+    rewardToken: 4
+  slideDuration: 0.35
+  notificationSeconds: 2
+  creditsText: Thanks for playing!
+  creditsDelay: 1
+  fadeDuration: 1.5
+  secondsPerCharacter: 0.04
+  tokenUnlockManager: {fileID: 0}
+  journal: {fileID: 0}
+  interactionPanel: {fileID: 0}
+  cursor: {fileID: 0}
+  uiRoot: {fileID: 0}
+  panelRect: {fileID: 0}
+  sentenceRoot: {fileID: 0}
+  wordTemplate: {fileID: 0}
+  gapTemplate: {fileID: 0}
+  confirmButton: {fileID: 0}
+  notificationLabel: {fileID: 0}
+  notificationGroup: {fileID: 0}
+  endingGroup: {fileID: 0}
+  creditsLabel: {fileID: 0}
+  exitButton: {fileID: 0}
+  exitGroup: {fileID: 0}

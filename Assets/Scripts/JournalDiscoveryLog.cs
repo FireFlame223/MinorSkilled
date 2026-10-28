@@ -39,10 +39,7 @@ public class JournalDiscoveryLog : MonoBehaviour
     private readonly Dictionary<MapInteractable, JournalPageView> _pageByPoi = new Dictionary<MapInteractable, JournalPageView>();
     private readonly Dictionary<string, List<string>> _bulletsByJournalId = new Dictionary<string, List<string>>();
     private readonly HashSet<string> _discoveredPoiIntroIds = new HashSet<string>();
-    private readonly List<string> _discoveredPoiIntroOrder = new List<string>();
     private readonly HashSet<string> _discoveredTokenOutcomeKeys = new HashSet<string>();
-
-    public IReadOnlyList<string> DiscoveredJournalIdsInOrder => _discoveredPoiIntroOrder;
 
     private void Awake()
     {
@@ -64,7 +61,6 @@ public class JournalDiscoveryLog : MonoBehaviour
             return;
 
         _discoveredPoiIntroIds.Add(journalId);
-        _discoveredPoiIntroOrder.Add(journalId);
 
         if (!string.IsNullOrWhiteSpace(interactable.JournalDescription))
             AppendBullet(journalId, interactable.JournalDescription);
@@ -258,7 +254,6 @@ public class JournalDiscoveryLog : MonoBehaviour
         _pageByPoi.Clear();
         _bulletsByJournalId.Clear();
         _discoveredPoiIntroIds.Clear();
-        _discoveredPoiIntroOrder.Clear();
         _discoveredTokenOutcomeKeys.Clear();
         _titlePageView = existingTitlePage;
 

@@ -630,8 +630,6 @@ public class DeductionPuzzlePanel : MonoBehaviour
 #if ENABLE_INPUT_SYSTEM
         Keyboard keyboard = Keyboard.current;
         return keyboard != null && keyboard.spaceKey.wasPressedThisFrame;
-#elif ENABLE_LEGACY_INPUT_MANAGER
-        return Input.GetKeyDown(KeyCode.Space);
 #else
         return false;
 #endif

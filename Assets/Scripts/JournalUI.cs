@@ -32,11 +32,6 @@ public class JournalUI : MonoBehaviour
 
     public bool IsOpen { get; private set; }
 
-    /// <summary>Raised each time the journal slides open.</summary>
-    public event System.Action Opened;
-
-    public int CurrentPageIndex => _currentPageIndex;
-
     private void Awake()
     {
         if (slideRoot == null)
@@ -131,7 +126,6 @@ public class JournalUI : MonoBehaviour
     {
         IsOpen = true;
         _moveTarget = _openAnchoredPosition;
-        Opened?.Invoke();
     }
 
     public void Close()
@@ -213,9 +207,6 @@ public class JournalUI : MonoBehaviour
 #if ENABLE_INPUT_SYSTEM
         Keyboard keyboard = Keyboard.current;
         return keyboard != null && keyboard.tabKey.wasPressedThisFrame;
-
-#elif ENABLE_LEGACY_INPUT_MANAGER
-        return Input.GetKeyDown(KeyCode.Tab);
 #else
         return false;
 #endif
@@ -227,9 +218,6 @@ public class JournalUI : MonoBehaviour
         Keyboard keyboard = Keyboard.current;
         return keyboard != null &&
                (keyboard.aKey.wasPressedThisFrame || keyboard.leftArrowKey.wasPressedThisFrame);
-
-#elif ENABLE_LEGACY_INPUT_MANAGER
-        return Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow);
 #else
         return false;
 #endif
@@ -241,9 +229,6 @@ public class JournalUI : MonoBehaviour
         Keyboard keyboard = Keyboard.current;
         return keyboard != null &&
                (keyboard.dKey.wasPressedThisFrame || keyboard.rightArrowKey.wasPressedThisFrame);
-
-#elif ENABLE_LEGACY_INPUT_MANAGER
-        return Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow);
 #else
         return false;
 #endif
