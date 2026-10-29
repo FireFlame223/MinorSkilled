@@ -16,16 +16,42 @@ public class TokenUnlockManager : MonoBehaviour
     [Tooltip("Tokens 1–4 the player has at the start of a session.")]
     [SerializeField] private int[] startingUnlockedTokens = { 1, 2 };
 
+    [Tooltip("Start with all four tokens so interactions can be checked without solving the deduction puzzles. Leave this off for a normal session.")]
+    [SerializeField] private bool unlockAllTokens;
+
     private readonly HashSet<int> _unlockedTokenIndices = new HashSet<int>();
+    private bool _appliedUnlockAll;
 
     private void Awake()
     {
         ResetToStartingTokens();
+        _appliedUnlockAll = unlockAllTokens;
+    }
+
+    private void OnValidate()
+    {
+        if (!Application.isPlaying || _appliedUnlockAll == unlockAllTokens)
+            return;
+
+        _appliedUnlockAll = unlockAllTokens;
+        ResetToStartingTokens();
+
+        InteractionPanelUI panel = FindFirstObjectByType<InteractionPanelUI>();
+        if (panel != null)
+            panel.RefreshUnlockedTokens();
     }
 
     public void ResetToStartingTokens()
     {
         _unlockedTokenIndices.Clear();
+
+        if (unlockAllTokens)
+        {
+            for (int tokenNumber = 1; tokenNumber <= TokenCount; tokenNumber++)
+                UnlockTokenNumber(tokenNumber);
+
+            return;
+        }
 
         if (startingUnlockedTokens == null)
             return;

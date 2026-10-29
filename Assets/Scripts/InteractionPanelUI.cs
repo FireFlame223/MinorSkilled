@@ -124,6 +124,12 @@ public class InteractionPanelUI : MonoBehaviour
         ShowBodyWithTypewriter(interactable.Description, true);
     }
 
+    public void RefreshUnlockedTokens()
+    {
+        if (_tokensRevealed)
+            RefreshTokenAvailability();
+    }
+
     public void Hide()
     {
         StopTypewriter();
