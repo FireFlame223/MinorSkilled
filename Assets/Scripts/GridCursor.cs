@@ -28,6 +28,9 @@ public class GridCursor : MonoBehaviour
     /// <summary>When false, movement input is ignored (e.g. while the interaction panel is open).</summary>
     public bool CanMove { get; set; } = true;
 
+    /// <summary>True while the journal panel is open.</summary>
+    public bool IsJournalOpen => journal != null && journal.IsOpen;
+
     private Grid grid;
     private Tilemap walkableTilemap;
     private Vector2Int minCell;

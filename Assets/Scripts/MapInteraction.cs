@@ -57,6 +57,9 @@ public class MapInteraction : MonoBehaviour
         if (!cursor.isActiveAndEnabled)
             return;
 
+        if (cursor.IsJournalOpen)
+            return;
+
         if (!WasInteractPressed())
             return;
 

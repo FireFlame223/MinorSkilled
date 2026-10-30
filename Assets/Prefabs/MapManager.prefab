@@ -1,5 +1,165 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &596211951520742060
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8850183460787988316}
+  m_Layer: 0
+  m_Name: Museum
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8850183460787988316
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 596211951520742060}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 9035372303940107018}
+  - {fileID: 7956823210006351495}
+  - {fileID: 6532223173817375170}
+  - {fileID: 3310141638918297582}
+  - {fileID: 8323424424333081017}
+  - {fileID: 9026103126709265253}
+  m_Father: {fileID: 820900199408963178}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &647670522733538556
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4480408789277566887}
+  - component: {fileID: 5915978795506360365}
+  m_Layer: 0
+  m_Name: Seth
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4480408789277566887
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647670522733538556}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -6, y: 6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1583457210158078462}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5915978795506360365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647670522733538556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acc9ca5f5359d33458dfaac8dc7efcb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MapInteractable
+  map: {fileID: 0}
+  displayName: Seth
+  description: What's up?
+  token1: In the afternoon, I saw Thoth carrying a bunch of books home. I have no
+    idea why he needs all that stuff.
+  token2: Today morning, I was hanging out in the square and I heard Osiris talking
+    about his collection again.
+  token3: In the evening, I helped out Thoth with moving some books around the Library.
+  token4: I was at the doctor Anubis this morning. He prescribed some expensive herbs
+    for me.
+  tokenPair1And2: On the square, Osiris was singing and chanting about his new shiny
+    Skull trophy.
+  tokenPair1And3: While I was helping Thoth out with some books, all I saw were dusty
+    shelves and boxes, nothing weird.
+  tokenPair1And4: I was told about the loss, but I wasn't there to see it myself.
+  tokenPair2And3: While I was busy with the books, all I could hear was Thoth muttering
+    to himself.
+  tokenPair2And4: I heard about the theft after everyone started talking about it.
+  tokenPair3And4: When I found out about the theft, I just decided to let it be.
+    Who am I to interfere?
+  journalId: seth
+  journalTitle: Seth
+  journalDescription: He looks unhealthy.
+  journalToken1Body: 
+  journalToken2Body: 
+  journalToken3Body: Was helping Thoth with his books.
+  journalToken4Body: Was prescribed expensive herbs
+  journalPair1And2Body: 
+  journalPair1And3Body: 
+  journalPair1And4Body: Never witnessed the theft.
+  journalPair2And3Body: 
+  journalPair2And4Body: Was unawair of the theft.
+  journalPair3And4Body: 
+--- !u!1 &712837122972656353
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3310141638918297582}
+  - component: {fileID: 8264533812798150954}
+  m_Layer: 0
+  m_Name: LeftExit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3310141638918297582
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712837122972656353}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -6, y: 4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8850183460787988316}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8264533812798150954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712837122972656353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74cc1d923b2a5be468414f74d5105eff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocationEntrance
+  map: {fileID: 0}
+  destination: {fileID: 6506488024247042040}
 --- !u!1 &808386799584021873
 GameObject:
   m_ObjectHideFlags: 0
@@ -11,7 +171,7 @@ GameObject:
   - component: {fileID: 575749726671216507}
   - component: {fileID: 5042761812274895213}
   m_Layer: 0
-  m_Name: Tower
+  m_Name: Anubis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,7 +186,7 @@ Transform:
   m_GameObject: {fileID: 808386799584021873}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8, y: 3, z: 0}
+  m_LocalPosition: {x: -5, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -44,16 +204,462 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acc9ca5f5359d33458dfaac8dc7efcb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapInteractable
-  interactionPoint: {fileID: 575749726671216507}
-  displayName: Tower
-  description: Wizard's tower.
-  menuOption1: token 1 was pressed on the tower
-  menuOption2: token 2 was pressed on the tower
-  menuOption3: token 3 was pressed on the tower
-  menuOption4: token 4 was pressed on the tower
-  journalId: tower
-  journalTitle: Tower
-  journalDescription: '- Wizard lives in here.'
+  map: {fileID: 0}
+  displayName: Anubis
+  description: How can I assist you?
+  token1: When me and Osiris finished with chess, I took a look at the clock and
+    it was 19:30.
+  token2: I might've heard something creaking behind the wall during our game.
+  token3: In the evening, I was playing chess with Osiris in his office.
+  token4: Thoth asked me for some help with his books, but I already had plans with
+    Osiris for the game.
+  tokenPair1And2: When I heard a loud screeching noise coming from behind the door,
+    I checked my watch. It was around 19:00.
+  tokenPair1And3: While I was playing, all I could see was Osiris and the chessboard.
+    We were at it for about an hour.
+  tokenPair1And4: Osiris said the Skull was missing and when I went to the showroom,
+    the pedestal was indeed empty.
+  tokenPair2And3: When I heard the noise, I just kept playing. I thought Horus might
+    be moving the furniture or something.
+  tokenPair2And4: Osiris said Horus was going to clean the showroom, so I wasn't
+    really paying attention to the noises.
+  tokenPair3And4: Osiris invited me over for some chess in the evening. I got there
+    at 18:30 and we finished up an hour later.
+  journalId: anubis
+  journalTitle: Anubis
+  journalDescription: He's a doctor.
+  journalToken1Body: Chess match ended at 19:30.
+  journalToken2Body: 
+  journalToken3Body: 
+  journalToken4Body: Couldn't help Thoth with the books.
+  journalPair1And2Body: Noises from the showroom started right in the middle of the
+    chess match.
+  journalPair1And3Body: 
+  journalPair1And4Body: 
+  journalPair2And3Body: 
+  journalPair2And4Body: 
+  journalPair3And4Body: 
+--- !u!1 &964927862026277184
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9116982873299833446}
+  m_Layer: 0
+  m_Name: Library
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9116982873299833446
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 964927862026277184}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6985037715120025810}
+  - {fileID: 1617414236255697516}
+  m_Father: {fileID: 820900199408963178}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1476931192328101705
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2750728923573494807}
+  - component: {fileID: 2776178406532396867}
+  m_Layer: 0
+  m_Name: Thoth
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2750728923573494807
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476931192328101705}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -6, y: 5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1583457210158078462}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2776178406532396867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476931192328101705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acc9ca5f5359d33458dfaac8dc7efcb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MapInteractable
+  map: {fileID: 0}
+  displayName: Thoth
+  description: What can I help with?
+  token1: From the Library window, one can catch a glimpse of a portion of the museum
+    and the pathway near it.
+  token2: There are no sounds coming from the museum to the Library.
+  token3: That day, I was engaged in the task of categorizing books and creating
+    space on the bookshelves.
+  token4: The museum has borrowed a sizable wooden cleaning crate from me.
+  tokenPair1And2: In the stillness of the night, I could only see Seth wandering
+    around on the street.
+  tokenPair1And3: In the morning, I delivered the box to the door of the Library.
+    Later, as I peered out, I saw Horus carrying it away.
+  tokenPair1And4: Horus requested a cleaning crate from me. Later, I noticed Seth
+    at the back door of the museum, which is where my crate was later found.
+  tokenPair2And3: When I was busy with the books, I only could hear the creaking
+    of ancient holdings of knowledge.
+  tokenPair2And4: Horus was preoccupied with the crate. He made some remark regarding
+    his hasty boss.
+  tokenPair3And4: I sought the assistance of Anubis in sorting the books, but alas,
+    he was busy. Consequently, I was left to tackle the task myself for the entire
+    evening.
+  journalId: thoth
+  journalTitle: Thoth
+  journalDescription: He's a librarian.
+  journalToken1Body: 
+  journalToken2Body: 
+  journalToken3Body: 
+  journalToken4Body: 
+  journalPair1And2Body: 
+  journalPair1And3Body: Lent a large crate to Horus.
+  journalPair1And4Body: Saw Seth near the location of borrowed crate.
+  journalPair2And3Body: 
+  journalPair2And4Body: 
+  journalPair3And4Body: Was working alone in the library in the evening.
+--- !u!1 &1796340464573092489
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9035372303940107018}
+  - component: {fileID: 6506488024247042040}
+  m_Layer: 0
+  m_Name: LeftEnter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9035372303940107018
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1796340464573092489}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -8, y: 8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8850183460787988316}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6506488024247042040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1796340464573092489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74cc1d923b2a5be468414f74d5105eff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocationEntrance
+  map: {fileID: 0}
+  destination: {fileID: 8264533812798150954}
+--- !u!1 &1983745276016641994
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3473567091532406023}
+  - component: {fileID: 1443764027375237223}
+  m_Layer: 0
+  m_Name: Osiris
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3473567091532406023
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1983745276016641994}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -5, y: 8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1583457210158078462}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1443764027375237223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1983745276016641994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acc9ca5f5359d33458dfaac8dc7efcb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MapInteractable
+  map: {fileID: 0}
+  displayName: Osiris
+  description: Yes?
+  token1: Before the game, the Skull was on a stand. When we came back, it was gone.
+  token2: I usually don't hear a lot from the office. The walls in here are pretty
+    thick.
+  token3: I played some chess with Anubis in the evening and after that I was about
+    to to close the museum.
+  token4: Horus told me that the clean-up would be done before the museum closed.
+  tokenPair1And2: When we got back to the showroom, there was an empty stand and
+    a soft wind whistling.
+  tokenPair1And3: Before the game, I checked out the showroom. I saw that everything
+    was in place. Horus usually takes care of the cleaning and moving of museum stuff.
+  tokenPair1And4: Horus told me that "everything was cool", but when I got back,
+    the Skull went missing.
+  tokenPair2And3: While I was playing with Anubis, I didn't hear anything unusual.
+  tokenPair2And4: Anubis thought he heard something outside the door, but I couldn't
+    hear anything.
+  tokenPair3And4: I suggested we chess some more, but then Anubis reminded me it
+    was time to close the museum.
+  journalId: osiris
+  journalTitle: Osiris
+  journalDescription: He's a museum director.
+  journalToken1Body: The Skull dissapeared during the game of chess with Anubis.
+  journalToken2Body: 
+  journalToken3Body: 
+  journalToken4Body: 
+  journalPair1And2Body: 
+  journalPair1And3Body: Horus is responsible for cleaning the showroom.
+  journalPair1And4Body: 
+  journalPair2And3Body: 
+  journalPair2And4Body: 
+  journalPair3And4Body: 
+--- !u!1 &2231912205069014132
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6070932571361426607}
+  - component: {fileID: 9202897306282226977}
+  m_Layer: 0
+  m_Name: Horus
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6070932571361426607
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2231912205069014132}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -7, y: 5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1583457210158078462}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9202897306282226977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2231912205069014132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acc9ca5f5359d33458dfaac8dc7efcb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MapInteractable
+  map: {fileID: 0}
+  displayName: Horus
+  description: Reporting for duty.
+  token1: At 18:30, I saw my boss and a guest walk into the office.
+  token2: The only thing you can hear in the museum is the floorboards creaking day
+    and night.
+  token3: In the evening, I was giving the showroom a clean.
+  token4: My boss told me to clean up the showroom before we closed.
+  tokenPair1And2: I saw my boss leaving with a guest in their office. I could only
+    hear them having a little chat.
+  tokenPair1And3: When I was cleaning the showroom, I there was no one left except
+    my boss's guest. I didn't go anywhere myself.
+  tokenPair1And4: My boss said he'd be busy playing. I saw the guest holding a chessboard.
+  tokenPair2And3: I didn't hear anything special during the cleaning.
+  tokenPair2And4: No one told me about any weird noises.
+  tokenPair3And4: My boss asked me to clean the room, which I had been busy with
+    all evening.
+  journalId: horus
+  journalTitle: Horus
+  journalDescription: He's a museum caretaker.
+  journalToken1Body: At 18:30 his boss had a visitor.
+  journalToken2Body: 
+  journalToken3Body: Is responsible for cleaning the showroom.
+  journalToken4Body: 
+  journalPair1And2Body: 
+  journalPair1And3Body: Was the last remaining in the showroom.
+  journalPair1And4Body: 
+  journalPair2And3Body: 
+  journalPair2And4Body: 
+  journalPair3And4Body: 
+--- !u!1 &2406437334627752350
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2213316231910451175}
+  - component: {fileID: 7520981519841555748}
+  m_Layer: 0
+  m_Name: Exit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2213316231910451175
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2406437334627752350}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4, y: 4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2980881370244952494}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7520981519841555748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2406437334627752350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74cc1d923b2a5be468414f74d5105eff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocationEntrance
+  map: {fileID: 0}
+  destination: {fileID: 4262014643149180955}
+--- !u!1 &2914845174128547113
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2566760738647285645}
+  m_Layer: 0
+  m_Name: GreenHouse
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2566760738647285645
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2914845174128547113}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 411141937940913574}
+  - {fileID: 961206798082701451}
+  m_Father: {fileID: 820900199408963178}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3052011051076344220
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2980881370244952494}
+  m_Layer: 0
+  m_Name: SethHouse
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2980881370244952494
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3052011051076344220}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 126129369006494377}
+  - {fileID: 2213316231910451175}
+  m_Father: {fileID: 820900199408963178}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3215386371806198771
 GameObject:
   m_ObjectHideFlags: 0
@@ -64,6 +670,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2388162001614144193}
   - component: {fileID: 3045537525107746534}
+  - component: {fileID: 4992506219571451955}
   m_Layer: 0
   m_Name: MapManager
   m_TagString: Untagged
@@ -85,6 +692,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1583457210158078462}
+  - {fileID: 820900199408963178}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3045537525107746534
@@ -102,7 +710,68 @@ MonoBehaviour:
   cursor: {fileID: 0}
   interactionPanel: {fileID: 0}
   journalDiscoveryLog: {fileID: 0}
-  interactablesRoot: {fileID: 1583457210158078462}
+  mapTravel: {fileID: 4992506219571451955}
+--- !u!114 &4992506219571451955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3215386371806198771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca2d790edd8cab7418df70095233c8a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MapTravel
+  cursor: {fileID: 0}
+  mapInteraction: {fileID: 3045537525107746534}
+  startingArea: {fileID: 0}
+--- !u!1 &3987847663878699568
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9026103126709265253}
+  - component: {fileID: 2820218431315549846}
+  m_Layer: 0
+  m_Name: BackDoorExit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9026103126709265253
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3987847663878699568}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3, y: 8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8850183460787988316}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2820218431315549846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3987847663878699568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74cc1d923b2a5be468414f74d5105eff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocationEntrance
+  map: {fileID: 0}
+  destination: {fileID: 8083547130579597132}
 --- !u!1 &4371003475554647006
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,12 +802,13 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 575749726671216507}
-  - {fileID: 2897419111956955278}
-  - {fileID: 6318803788082923871}
-  - {fileID: 1074663207103992215}
+  - {fileID: 2750728923573494807}
+  - {fileID: 4480408789277566887}
+  - {fileID: 6070932571361426607}
+  - {fileID: 3473567091532406023}
   m_Father: {fileID: 2388162001614144193}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &5819249279433953941
+--- !u!1 &4608562091918073441
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,53 +816,91 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1074663207103992215}
-  - component: {fileID: 8763283455507989763}
+  - component: {fileID: 6985037715120025810}
+  - component: {fileID: 3509748351575742822}
   m_Layer: 0
-  m_Name: Well
+  m_Name: Enter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1074663207103992215
+--- !u!4 &6985037715120025810
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5819249279433953941}
+  m_GameObject: {fileID: 4608562091918073441}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3, y: 7, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9116982873299833446}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3509748351575742822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4608562091918073441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74cc1d923b2a5be468414f74d5105eff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocationEntrance
+  map: {fileID: 0}
+  destination: {fileID: 3921882011945561265}
+--- !u!1 &4725347656763913595
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7956823210006351495}
+  - component: {fileID: 3619322905843898576}
+  m_Layer: 0
+  m_Name: RightEnter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7956823210006351495
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4725347656763913595}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -7, y: 8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1583457210158078462}
+  m_Father: {fileID: 8850183460787988316}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8763283455507989763
+--- !u!114 &3619322905843898576
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5819249279433953941}
+  m_GameObject: {fileID: 4725347656763913595}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acc9ca5f5359d33458dfaac8dc7efcb2, type: 3}
+  m_Script: {fileID: 11500000, guid: 74cc1d923b2a5be468414f74d5105eff, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MapInteractable
-  interactionPoint: {fileID: 1074663207103992215}
-  displayName: Well
-  description: Old well.
-  menuOption1: 
-  menuOption2: 
-  menuOption3: 
-  menuOption4: 
-  journalId: well
-  journalTitle: Well
-  journalDescription: '- Nobody lives here.'
---- !u!1 &7376741546550088751
+  m_EditorClassIdentifier: Assembly-CSharp::LocationEntrance
+  map: {fileID: 0}
+  destination: {fileID: 6692309838879276030}
+--- !u!1 &5667305338444187720
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -200,53 +908,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6318803788082923871}
-  - component: {fileID: 525563139292842638}
+  - component: {fileID: 6532223173817375170}
+  - component: {fileID: 8083547130579597132}
   m_Layer: 0
-  m_Name: House
+  m_Name: BackDoorEnter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6318803788082923871
+--- !u!4 &6532223173817375170
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7376741546550088751}
+  m_GameObject: {fileID: 5667305338444187720}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2, y: 8, z: 0}
+  m_LocalPosition: {x: -5, y: 9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1583457210158078462}
+  m_Father: {fileID: 8850183460787988316}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &525563139292842638
+--- !u!114 &8083547130579597132
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7376741546550088751}
+  m_GameObject: {fileID: 5667305338444187720}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acc9ca5f5359d33458dfaac8dc7efcb2, type: 3}
+  m_Script: {fileID: 11500000, guid: 74cc1d923b2a5be468414f74d5105eff, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MapInteractable
-  interactionPoint: {fileID: 6318803788082923871}
-  displayName: House
-  description: My house.
-  menuOption1: 
-  menuOption2: 
-  menuOption3: 
-  menuOption4: 
-  journalId: house
-  journalTitle: House
-  journalDescription: '- I live here.'
---- !u!1 &7446454242463312632
+  m_EditorClassIdentifier: Assembly-CSharp::LocationEntrance
+  map: {fileID: 0}
+  destination: {fileID: 2820218431315549846}
+--- !u!1 &5991718396424543716
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -254,49 +954,260 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2897419111956955278}
-  - component: {fileID: 1937274607886521203}
+  - component: {fileID: 820900199408963178}
   m_Layer: 0
-  m_Name: Castle
+  m_Name: TravelPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2897419111956955278
+--- !u!4 &820900199408963178
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7446454242463312632}
+  m_GameObject: {fileID: 5991718396424543716}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2566760738647285645}
+  - {fileID: 9116982873299833446}
+  - {fileID: 2980881370244952494}
+  - {fileID: 8850183460787988316}
+  m_Father: {fileID: 2388162001614144193}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6258734165962007231
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 411141937940913574}
+  - component: {fileID: 432651969184668937}
+  m_Layer: 0
+  m_Name: Enter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &411141937940913574
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6258734165962007231}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -9, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2566760738647285645}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &432651969184668937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6258734165962007231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74cc1d923b2a5be468414f74d5105eff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocationEntrance
+  map: {fileID: 0}
+  destination: {fileID: 6130320267633455939}
+--- !u!1 &6264233629760366298
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 961206798082701451}
+  - component: {fileID: 6130320267633455939}
+  m_Layer: 0
+  m_Name: Exit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &961206798082701451
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6264233629760366298}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -7, y: 4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2566760738647285645}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6130320267633455939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6264233629760366298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74cc1d923b2a5be468414f74d5105eff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocationExit
+  map: {fileID: 0}
+  destination: {fileID: 432651969184668937}
+--- !u!1 &6694766282041099481
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1617414236255697516}
+  - component: {fileID: 3921882011945561265}
+  m_Layer: 0
+  m_Name: Exit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1617414236255697516
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6694766282041099481}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4, y: 4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9116982873299833446}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3921882011945561265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6694766282041099481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74cc1d923b2a5be468414f74d5105eff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocationEntrance
+  map: {fileID: 0}
+  destination: {fileID: 3509748351575742822}
+--- !u!1 &7673946078625420710
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 126129369006494377}
+  - component: {fileID: 4262014643149180955}
+  m_Layer: 0
+  m_Name: Enter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &126129369006494377
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7673946078625420710}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -2, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1583457210158078462}
+  m_Father: {fileID: 2980881370244952494}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1937274607886521203
+--- !u!114 &4262014643149180955
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7446454242463312632}
+  m_GameObject: {fileID: 7673946078625420710}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acc9ca5f5359d33458dfaac8dc7efcb2, type: 3}
+  m_Script: {fileID: 11500000, guid: 74cc1d923b2a5be468414f74d5105eff, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MapInteractable
-  interactionPoint: {fileID: 2897419111956955278}
-  displayName: Castle
-  description: King's castle.
-  menuOption1: 
-  menuOption2: 
-  menuOption3: 
-  menuOption4: 
-  journalId: castle
-  journalTitle: Castle
-  journalDescription: '- King lives in here.'
+  m_EditorClassIdentifier: Assembly-CSharp::LocationEntrance
+  map: {fileID: 0}
+  destination: {fileID: 7520981519841555748}
+--- !u!1 &8130805607644012108
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8323424424333081017}
+  - component: {fileID: 6692309838879276030}
+  m_Layer: 0
+  m_Name: RightExit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8323424424333081017
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8130805607644012108}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -5, y: 4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8850183460787988316}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6692309838879276030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8130805607644012108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74cc1d923b2a5be468414f74d5105eff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocationEntrance
+  map: {fileID: 0}
+  destination: {fileID: 3619322905843898576}
