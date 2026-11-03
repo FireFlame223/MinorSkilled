@@ -110,7 +110,10 @@ public class InteractionPanelUI : MonoBehaviour
         ResetTokenSelection();
 
         if (nameText != null)
+        {
+            nameText.gameObject.SetActive(true);
             nameText.text = interactable.DisplayName;
+        }
 
         if (descriptionText != null)
             descriptionText.text = string.Empty;
@@ -122,6 +125,38 @@ public class InteractionPanelUI : MonoBehaviour
 
         SetTokensVisible(false);
         ShowBodyWithTypewriter(interactable.Description, true);
+    }
+
+    /// <summary>Title and description only. Tokens stay hidden, and a second interact closes the panel.</summary>
+    public void Show(LocationClue clue)
+    {
+        if (clue == null || panelRoot == null)
+            return;
+
+        _currentInteractable = null;
+
+        if (journal != null)
+            journal.Close();
+
+        StopTypewriter();
+        ResetTokenSelection();
+
+        if (nameText != null)
+        {
+            nameText.gameObject.SetActive(true);
+            nameText.text = clue.DisplayName;
+        }
+
+        if (descriptionText != null)
+            descriptionText.text = string.Empty;
+
+        panelRoot.SetActive(true);
+
+        if (interactionMenu != null && interactionMenu != panelRoot)
+            interactionMenu.SetActive(true);
+
+        SetTokensVisible(false);
+        ShowBodyWithTypewriter(clue.Description, false);
     }
 
     public void RefreshUnlockedTokens()

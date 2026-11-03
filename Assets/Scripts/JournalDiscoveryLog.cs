@@ -1,15 +1,52 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
+public enum JournalRosterEntryKind
+{
+    Poi,
+    Location
+}
+
+/// <summary>One journal page. A row is either a single POI or a location page that collects clues.</summary>
+[Serializable]
+public class JournalRosterEntry
+{
+    [SerializeField] private JournalRosterEntryKind kind;
+
+    [SerializeField] private MapInteractable poi;
+
+    [Tooltip("Page title. Each LocationClue filed here must use this same text in its Location Page field.")]
+    [SerializeField] private string locationPage;
+
+    public JournalRosterEntryKind Kind => kind;
+
+    public MapInteractable Poi => poi;
+
+    public string LocationPage => locationPage;
+
+    public JournalRosterEntry()
+    {
+    }
+
+    public JournalRosterEntry(MapInteractable source)
+    {
+        kind = JournalRosterEntryKind.Poi;
+        poi = source;
+    }
+}
+
 /// <summary>
-/// One journal page per roster POI; first visit and token outcomes append bullet lines to that page's body.
+/// One journal page per roster row. POI rows gain bullets from that POI. Location rows gain a bullet each time a clue for that page is read.
 /// </summary>
 public class JournalDiscoveryLog : MonoBehaviour
 {
-    [Header("POI roster")]
-    [Tooltip("One journal page per entry, in roster order.")]
-    [SerializeField] private MapInteractable[] poiRoster = new MapInteractable[0];
+    [Header("Roster")]
+    [Tooltip("Journal order. Each row is one POI page or one location page. Location page text must match the Location Page field on each clue.")]
+    [SerializeField] private JournalRosterEntry[] roster = new JournalRosterEntry[0];
+
+    [SerializeField, HideInInspector] private MapInteractable[] poiRoster = new MapInteractable[0];
 
     [Header("Title page")]
     [SerializeField] private JournalPageView existingTitlePage;
@@ -35,18 +72,29 @@ public class JournalDiscoveryLog : MonoBehaviour
     [SerializeField] private string pageNumberFormat = "{0}";
 
     private JournalPageView _titlePageView;
-    private readonly List<JournalPageView> _poiPageViews = new List<JournalPageView>();
+    private readonly List<JournalPageView> _rosterPageViews = new List<JournalPageView>();
     private readonly Dictionary<MapInteractable, JournalPageView> _pageByPoi = new Dictionary<MapInteractable, JournalPageView>();
+    private readonly Dictionary<string, JournalPageView> _pageByLocation = new Dictionary<string, JournalPageView>();
+    private readonly Dictionary<string, string> _locationTitleByKey = new Dictionary<string, string>();
     private readonly Dictionary<string, List<string>> _bulletsByJournalId = new Dictionary<string, List<string>>();
     private readonly HashSet<string> _discoveredPoiIntroIds = new HashSet<string>();
     private readonly HashSet<string> _discoveredTokenOutcomeKeys = new HashSet<string>();
+    private readonly HashSet<string> _discoveredLocationKeys = new HashSet<string>();
+    private readonly HashSet<LocationClue> _recordedClues = new HashSet<LocationClue>();
+
+    private void OnValidate()
+    {
+        MigrateLegacyRoster();
+    }
 
     private void Awake()
     {
+        MigrateLegacyRoster();
         ValidateRoster();
         ClearGeneratedDiscoveryPages();
         EnsureTitlePage();
         CreateRosterPages();
+        WarnAboutUnassignedClues();
         PushPagesToJournal();
     }
 
@@ -67,6 +115,7 @@ public class JournalDiscoveryLog : MonoBehaviour
 
         ApplyPageContent(interactable, page);
         PushPagesToJournal();
+        FocusUpdatedPage(page);
     }
 
     /// <summary>First time this token combo is confirmed: append that outcome's journal bullet line.</summary>
@@ -90,6 +139,40 @@ public class JournalDiscoveryLog : MonoBehaviour
         AppendBullet(journalId, bulletLine);
         ApplyPageContent(interactable, page);
         PushPagesToJournal();
+        FocusUpdatedPage(page);
+    }
+
+    /// <summary>First time this clue is read: append its journal line to its location page, in find order.</summary>
+    public void RecordLocationClue(LocationClue clue)
+    {
+        if (clue == null || _recordedClues.Contains(clue))
+            return;
+
+        string key = NormalizeLocation(clue.LocationPage);
+        if (string.IsNullOrEmpty(key) || !_pageByLocation.TryGetValue(key, out JournalPageView page))
+        {
+            Debug.LogWarning(
+                $"JournalDiscoveryLog: \"{clue.name}\" uses location page \"{clue.LocationPage}\", which is not in the roster.",
+                clue
+            );
+            return;
+        }
+
+        _recordedClues.Add(clue);
+        _discoveredLocationKeys.Add(key);
+
+        if (!string.IsNullOrWhiteSpace(clue.JournalLine))
+            AppendBullet(LocationBulletKey(key), clue.JournalLine);
+
+        ApplyLocationPageContent(key, page);
+        PushPagesToJournal();
+        FocusUpdatedPage(page);
+    }
+
+    private void FocusUpdatedPage(JournalPageView page)
+    {
+        if (journalUI != null && page != null)
+            journalUI.ShowPageOnNextOpen(page.gameObject);
     }
 
     private void AppendBullet(string journalId, string line)
@@ -120,6 +203,18 @@ public class JournalDiscoveryLog : MonoBehaviour
         page.ShowEntry(title, body);
     }
 
+    private void ApplyLocationPageContent(string locationKey, JournalPageView page)
+    {
+        if (page == null || !_discoveredLocationKeys.Contains(locationKey))
+            return;
+
+        string title = _locationTitleByKey.TryGetValue(locationKey, out string rosterTitle)
+            ? rosterTitle
+            : locationKey;
+        string body = FormatBullets(_bulletsByJournalId, LocationBulletKey(locationKey));
+        page.ShowEntry(title, body);
+    }
+
     private static string FormatBullets(Dictionary<string, List<string>> bulletsByJournalId, string journalId)
     {
         if (!bulletsByJournalId.TryGetValue(journalId, out List<string> bullets) || bullets.Count == 0)
@@ -140,25 +235,61 @@ public class JournalDiscoveryLog : MonoBehaviour
 
     private void CreateRosterPages()
     {
-        _poiPageViews.Clear();
+        _rosterPageViews.Clear();
         _pageByPoi.Clear();
+        _pageByLocation.Clear();
+        _locationTitleByKey.Clear();
 
-        if (poiRoster == null)
+        if (roster == null)
             return;
 
-        foreach (MapInteractable poi in poiRoster)
+        foreach (JournalRosterEntry entry in roster)
         {
-            if (poi == null)
+            if (entry == null)
                 continue;
 
-            JournalPageView view = CreateDiscoveryPageView();
-            if (view == null)
+            if (entry.Kind == JournalRosterEntryKind.Location)
+            {
+                CreateLocationPage(entry);
                 continue;
+            }
 
-            view.ShowPlaceholder(emptyPageTitle, emptyPageText);
-            _poiPageViews.Add(view);
-            _pageByPoi[poi] = view;
+            CreatePoiPage(entry);
         }
+    }
+
+    private void CreatePoiPage(JournalRosterEntry entry)
+    {
+        MapInteractable poi = entry.Poi;
+        if (poi == null)
+            return;
+
+        JournalPageView view = CreateDiscoveryPageView();
+        if (view == null)
+            return;
+
+        view.ShowPlaceholder(emptyPageTitle, emptyPageText);
+        _rosterPageViews.Add(view);
+        _pageByPoi[poi] = view;
+    }
+
+    private void CreateLocationPage(JournalRosterEntry entry)
+    {
+        string key = NormalizeLocation(entry.LocationPage);
+        if (string.IsNullOrEmpty(key))
+            return;
+
+        if (_pageByLocation.ContainsKey(key))
+            return;
+
+        JournalPageView view = CreateDiscoveryPageView();
+        if (view == null)
+            return;
+
+        view.ShowPlaceholder(emptyPageTitle, emptyPageText);
+        _rosterPageViews.Add(view);
+        _pageByLocation[key] = view;
+        _locationTitleByKey[key] = entry.LocationPage.Trim();
     }
 
     private bool TryGetPoiPage(MapInteractable interactable, out JournalPageView page)
@@ -221,7 +352,7 @@ public class JournalDiscoveryLog : MonoBehaviour
         if (_titlePageView != null)
             pageObjects.Add(_titlePageView.gameObject);
 
-        foreach (JournalPageView view in _poiPageViews)
+        foreach (JournalPageView view in _rosterPageViews)
         {
             if (view != null)
                 pageObjects.Add(view.gameObject);
@@ -236,9 +367,9 @@ public class JournalDiscoveryLog : MonoBehaviour
         if (_titlePageView != null)
             _titlePageView.SetPageNumber(titlePageNumber);
 
-        for (int i = 0; i < _poiPageViews.Count; i++)
+        for (int i = 0; i < _rosterPageViews.Count; i++)
         {
-            JournalPageView view = _poiPageViews[i];
+            JournalPageView view = _rosterPageViews[i];
             if (view == null)
                 continue;
 
@@ -250,11 +381,15 @@ public class JournalDiscoveryLog : MonoBehaviour
 
     private void ClearGeneratedDiscoveryPages()
     {
-        _poiPageViews.Clear();
+        _rosterPageViews.Clear();
         _pageByPoi.Clear();
+        _pageByLocation.Clear();
+        _locationTitleByKey.Clear();
         _bulletsByJournalId.Clear();
         _discoveredPoiIntroIds.Clear();
         _discoveredTokenOutcomeKeys.Clear();
+        _discoveredLocationKeys.Clear();
+        _recordedClues.Clear();
         _titlePageView = existingTitlePage;
 
         if (pageContainer == null)
@@ -274,25 +409,106 @@ public class JournalDiscoveryLog : MonoBehaviour
         }
     }
 
-    private void ValidateRoster()
+    private void MigrateLegacyRoster()
     {
-        if (poiRoster == null)
+        if (roster != null && roster.Length > 0)
             return;
 
-        var seenIds = new HashSet<string>();
-        foreach (MapInteractable entry in poiRoster)
+        if (poiRoster == null || poiRoster.Length == 0)
+            return;
+
+        var migrated = new List<JournalRosterEntry>();
+        foreach (MapInteractable poi in poiRoster)
+        {
+            if (poi == null)
+                continue;
+
+            migrated.Add(new JournalRosterEntry(poi));
+        }
+
+        if (migrated.Count == 0)
+            return;
+
+        roster = migrated.ToArray();
+        poiRoster = new MapInteractable[0];
+    }
+
+    private void ValidateRoster()
+    {
+        if (roster == null)
+            return;
+
+        var seenPoiIds = new HashSet<string>();
+        var seenLocations = new HashSet<string>();
+
+        foreach (JournalRosterEntry entry in roster)
         {
             if (entry == null)
                 continue;
 
-            string id = entry.JournalId;
-            if (!seenIds.Add(id))
+            if (entry.Kind == JournalRosterEntryKind.Location)
+            {
+                string key = NormalizeLocation(entry.LocationPage);
+                if (string.IsNullOrEmpty(key))
+                {
+                    Debug.LogWarning("JournalDiscoveryLog: a location row has no page name.", this);
+                    continue;
+                }
+
+                if (!seenLocations.Add(key))
+                {
+                    Debug.LogWarning(
+                        $"JournalDiscoveryLog: duplicate location page \"{entry.LocationPage.Trim()}\" in the roster.",
+                        this
+                    );
+                }
+
+                continue;
+            }
+
+            MapInteractable poi = entry.Poi;
+            if (poi == null)
+                continue;
+
+            string id = poi.JournalId;
+            if (!seenPoiIds.Add(id))
             {
                 Debug.LogWarning(
-                    $"JournalDiscoveryLog: duplicate journal id \"{id}\" in POI roster.",
-                    entry
+                    $"JournalDiscoveryLog: duplicate journal id \"{id}\" in the roster.",
+                    poi
                 );
             }
         }
+    }
+
+    private void WarnAboutUnassignedClues()
+    {
+        LocationClue[] clues = FindObjectsByType<LocationClue>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        foreach (LocationClue clue in clues)
+        {
+            if (clue == null)
+                continue;
+
+            string key = NormalizeLocation(clue.LocationPage);
+            if (!string.IsNullOrEmpty(key) && _pageByLocation.ContainsKey(key))
+                continue;
+
+            Debug.LogWarning(
+                $"JournalDiscoveryLog: \"{clue.name}\" uses location page \"{clue.LocationPage}\", which is not in the roster.",
+                clue
+            );
+        }
+    }
+
+    private static string NormalizeLocation(string locationPage)
+    {
+        return string.IsNullOrWhiteSpace(locationPage)
+            ? string.Empty
+            : locationPage.Trim().ToLowerInvariant();
+    }
+
+    private static string LocationBulletKey(string locationKey)
+    {
+        return "location:" + locationKey;
     }
 }

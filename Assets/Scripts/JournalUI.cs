@@ -29,6 +29,7 @@ public class JournalUI : MonoBehaviour
     private Vector2 _closedAnchoredPosition;
     private Vector2 _moveTarget;
     private int _currentPageIndex;
+    private int _openOnPageIndex = -1;
 
     public bool IsOpen { get; private set; }
 
@@ -122,8 +123,37 @@ public class JournalUI : MonoBehaviour
         SetPages(pages, index);
     }
 
+    /// <summary>
+    /// Next time the journal opens, show this page. A later update replaces it until the journal is opened.
+    /// If the journal is already open, show the page immediately.
+    /// </summary>
+    public void ShowPageOnNextOpen(GameObject page)
+    {
+        if (page == null)
+            return;
+
+        int index = _pages.IndexOf(page);
+        if (index < 0)
+            return;
+
+        if (IsOpen)
+        {
+            ShowPage(index);
+            _openOnPageIndex = -1;
+            return;
+        }
+
+        _openOnPageIndex = index;
+    }
+
     public void Open()
     {
+        if (_openOnPageIndex >= 0)
+        {
+            ShowPage(_openOnPageIndex);
+            _openOnPageIndex = -1;
+        }
+
         IsOpen = true;
         _moveTarget = _openAnchoredPosition;
     }

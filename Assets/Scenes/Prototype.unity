@@ -14106,6 +14106,87 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1529801716
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1529801717}
+  m_Layer: 0
+  m_Name: Clues
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1529801717
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1529801716}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1546442308}
+  m_Father: {fileID: 1630982451}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1546442307
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1546442308}
+  - component: {fileID: 1546442309}
+  m_Layer: 0
+  m_Name: Crate
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1546442308
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546442307}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4, y: 9, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1529801717}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1546442309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546442307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3ee0ecc88a967746bf534dc7a781049, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocationClue
+  map: {fileID: 228476829}
+  locationPage: Museum
+  displayName: Hidden object
+  description: There's a large wooden crate behind the rocks. It's open and empty.
+  journalLine: A crate is hidden outside of the back door.
 --- !u!1 &1575016419
 GameObject:
   m_ObjectHideFlags: 0
@@ -14593,6 +14674,11 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!4 &1630982451 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2388162001614144193, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+  m_PrefabInstance: {fileID: 141136660749987725}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1669112387 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2776178406532396867, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
@@ -17273,6 +17359,10 @@ PrefabInstance:
       propertyPath: map
       value: 
       objectReference: {fileID: 410831963}
+    - target: {fileID: 1443764027375237223, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: displayName
+      value: Osiris, the Director
+      objectReference: {fileID: 0}
     - target: {fileID: 2388162001614144193, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -17317,6 +17407,10 @@ PrefabInstance:
       propertyPath: map
       value: 
       objectReference: {fileID: 914564327}
+    - target: {fileID: 2776178406532396867, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: displayName
+      value: Thoth, the Librarian
+      objectReference: {fileID: 0}
     - target: {fileID: 2820218431315549846, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
       propertyPath: map
       value: 
@@ -17353,6 +17447,10 @@ PrefabInstance:
       propertyPath: map
       value: 
       objectReference: {fileID: 228476829}
+    - target: {fileID: 4371003475554647006, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: m_Name
+      value: NPCs
+      objectReference: {fileID: 0}
     - target: {fileID: 4992506219571451955, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
       propertyPath: cursor
       value: 
@@ -17365,10 +17463,18 @@ PrefabInstance:
       propertyPath: map
       value: 
       objectReference: {fileID: 1088003534}
+    - target: {fileID: 5042761812274895213, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: displayName
+      value: Anubis, the Doctor
+      objectReference: {fileID: 0}
     - target: {fileID: 5915978795506360365, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
       propertyPath: map
       value: 
       objectReference: {fileID: 2141841608}
+    - target: {fileID: 5915978795506360365, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: displayName
+      value: Seth, the Landlord
+      objectReference: {fileID: 0}
     - target: {fileID: 6130320267633455939, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
       propertyPath: map
       value: 
@@ -17397,9 +17503,16 @@ PrefabInstance:
       propertyPath: map
       value: 
       objectReference: {fileID: 410831963}
+    - target: {fileID: 9202897306282226977, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: displayName
+      value: Horus, the Caretaker
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 2388162001614144193, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1529801717}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
 --- !u!1001 &1548971261996017166
@@ -17887,11 +18000,11 @@ PrefabInstance:
       objectReference: {fileID: 827067248}
     - target: {fileID: 5310411219544198901, guid: 0701e7fbdaf5ae9439f7f1c1f5fcfe54, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 5310411219544198901, guid: 0701e7fbdaf5ae9439f7f1c1f5fcfe54, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5310411219544198901, guid: 0701e7fbdaf5ae9439f7f1c1f5fcfe54, type: 3}
       propertyPath: m_LocalPosition.z
@@ -18063,6 +18176,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InteractionMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 2175054271621209076, guid: 7eb99209d3475ed4a8431e38c44ae096, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4906124464217145710, guid: 7eb99209d3475ed4a8431e38c44ae096, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -18217,8 +18334,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4229721083226640909}
     - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
+      propertyPath: roster.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
       propertyPath: poiRoster.Array.size
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
       propertyPath: 'poiRoster.Array.data[0]'
@@ -18240,6 +18361,118 @@ PrefabInstance:
       propertyPath: 'poiRoster.Array.data[4]'
       value: 
       objectReference: {fileID: 1669112387}
+    - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
+      propertyPath: roster.Array.data[0].poi
+      value: 
+      objectReference: {fileID: 1669112387}
+    - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
+      propertyPath: roster.Array.data[1].poi
+      value: 
+      objectReference: {fileID: 1669112387}
+    - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
+      propertyPath: roster.Array.data[2].poi
+      value: 
+      objectReference: {fileID: 421796323}
+    - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
+      propertyPath: roster.Array.data[3].poi
+      value: 
+      objectReference: {fileID: 1669112387}
+    - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
+      propertyPath: roster.Array.data[4].poi
+      value: 
+      objectReference: {fileID: 1669112387}
+    - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
+      propertyPath: roster.Array.data[5].poi
+      value: 
+      objectReference: {fileID: 1669112387}
+    - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
+      propertyPath: roster.Array.data[6].poi
+      value: 
+      objectReference: {fileID: 1828213330}
+    - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
+      propertyPath: roster.Array.data[7].poi
+      value: 
+      objectReference: {fileID: 1669112387}
+    - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
+      propertyPath: roster.Array.data[8].poi
+      value: 
+      objectReference: {fileID: 511574036}
+    - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
+      propertyPath: roster.Array.data[9].poi
+      value: 
+      objectReference: {fileID: 1950299552}
+    - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
+      propertyPath: roster.Array.data[0].kind
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
+      propertyPath: roster.Array.data[1].kind
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
+      propertyPath: roster.Array.data[3].kind
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
+      propertyPath: roster.Array.data[4].kind
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
+      propertyPath: roster.Array.data[5].kind
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
+      propertyPath: roster.Array.data[6].kind
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
+      propertyPath: roster.Array.data[7].kind
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
+      propertyPath: roster.Array.data[8].kind
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
+      propertyPath: roster.Array.data[9].kind
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
+      propertyPath: roster.Array.data[0].locationPage
+      value: Main Square
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
+      propertyPath: roster.Array.data[1].locationPage
+      value: Clinic
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
+      propertyPath: roster.Array.data[3].locationPage
+      value: Library
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
+      propertyPath: roster.Array.data[4].locationPage
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
+      propertyPath: roster.Array.data[5].locationPage
+      value: Seth's House
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
+      propertyPath: roster.Array.data[6].locationPage
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
+      propertyPath: roster.Array.data[7].locationPage
+      value: Museum
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
+      propertyPath: roster.Array.data[8].locationPage
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747665955680046141, guid: ca446364256d0ab46b37df157a778d60, type: 3}
+      propertyPath: roster.Array.data[9].locationPage
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6217242833979382561, guid: ca446364256d0ab46b37df157a778d60, type: 3}
       propertyPath: m_Name
       value: JournalManager
@@ -18309,6 +18542,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 437742933743347125, guid: fc7d0a587866e2e4a8d12b0fc60444de, type: 3}
+      propertyPath: startCell.x
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 437742933743347125, guid: fc7d0a587866e2e4a8d12b0fc60444de, type: 3}
+      propertyPath: startCell.y
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 505854365440981579, guid: fc7d0a587866e2e4a8d12b0fc60444de, type: 3}
       propertyPath: m_Name
       value: Map

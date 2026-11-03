@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 #endif
 
 /// <summary>
-/// Handles interact input, maps grid cells to <see cref="MapInteractable"/> POIs, and drives the interaction UI and journal discoveries.
+/// Handles interact input, maps grid cells to POIs and location clues, and drives the interaction UI and journal discoveries.
 /// </summary>
 public class MapInteraction : MonoBehaviour
 {
@@ -20,9 +20,10 @@ public class MapInteraction : MonoBehaviour
     [SerializeField] private MapTravel mapTravel;
 
     private readonly Dictionary<Vector3Int, MapInteractable> _interactablesByCell = new Dictionary<Vector3Int, MapInteractable>();
+    private readonly Dictionary<Vector3Int, LocationClue> _cluesByCell = new Dictionary<Vector3Int, LocationClue>();
     private MapArea _activeArea;
 
-    /// <summary>Only POIs whose Map field is this area can be interacted with.</summary>
+    /// <summary>Only POIs and clues whose Map field is this area can be interacted with.</summary>
     public void SetActiveArea(MapArea area)
     {
         _activeArea = area;
@@ -34,6 +35,7 @@ public class MapInteraction : MonoBehaviour
     private void BuildInteractableLookup()
     {
         _interactablesByCell.Clear();
+        _cluesByCell.Clear();
 
         if (_activeArea == null)
             return;
@@ -46,6 +48,24 @@ public class MapInteraction : MonoBehaviour
 
             Vector3Int gridCell = _activeArea.WorldToCell(interactable.transform.position);
             _interactablesByCell[gridCell] = interactable;
+        }
+
+        LocationClue[] clues = FindObjectsByType<LocationClue>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        foreach (LocationClue clue in clues)
+        {
+            if (clue == null || clue.Map != _activeArea)
+                continue;
+
+            Vector3Int gridCell = _activeArea.WorldToCell(clue.transform.position);
+            if (_interactablesByCell.ContainsKey(gridCell))
+            {
+                Debug.LogWarning(
+                    $"LocationClue \"{clue.name}\" is on the same cell as a POI. The POI is used.",
+                    clue
+                );
+            }
+
+            _cluesByCell[gridCell] = clue;
         }
     }
 
@@ -95,16 +115,29 @@ public class MapInteraction : MonoBehaviour
         if (mapTravel.TryEnter(selectedCell))
             return;
 
-        if (!_interactablesByCell.TryGetValue(selectedCell, out MapInteractable interactable))
+        if (_interactablesByCell.TryGetValue(selectedCell, out MapInteractable interactable))
+        {
+            bool firstVisit = !interactable.Explored;
+            interactable.Explored = true;
+
+            if (firstVisit)
+                journalDiscoveryLog.RecordDiscovery(interactable);
+
+            interactionPanel.Show(interactable);
+            cursor.CanMove = false;
+            return;
+        }
+
+        if (!_cluesByCell.TryGetValue(selectedCell, out LocationClue clue))
             return;
 
-        bool firstVisit = !interactable.Explored;
-        interactable.Explored = true;
+        bool firstClueVisit = !clue.Explored;
+        clue.Explored = true;
 
-        if (firstVisit)
-            journalDiscoveryLog.RecordDiscovery(interactable);
+        if (firstClueVisit)
+            journalDiscoveryLog.RecordLocationClue(clue);
 
-        interactionPanel.Show(interactable);
+        interactionPanel.Show(clue);
         cursor.CanMove = false;
     }
 
