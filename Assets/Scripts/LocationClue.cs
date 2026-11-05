@@ -36,7 +36,7 @@ public class LocationClue : MonoBehaviour
 
     public bool Explored { get; set; }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         Vector2 p = transform.position;
         Gizmos.color = new Color(0.3f, 0.85f, 1f);

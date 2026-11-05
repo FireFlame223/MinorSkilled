@@ -1,0 +1,6 @@
+Chucky Assets - Free Sample Licence
+
+You may use these assets in free and commercial games and projects, edited or not.
+Credit ("Chucky Assets") is appreciated but not required.
+You may not resell or redistribute the assets themselves (edited or not, alone or in another asset pack),
+and you may not use them to train generative AI models.

@@ -82,7 +82,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapInteractable
   map: {fileID: 0}
-  displayName: Seth
+  displayName: Seth, the Landlord
   description: What's up?
   token1: In the afternoon, I saw Thoth carrying a bunch of books home. I have no
     idea why he needs all that stuff.
@@ -140,7 +140,7 @@ Transform:
   m_GameObject: {fileID: 712837122972656353}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6, y: 4, z: 0}
+  m_LocalPosition: {x: -6, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapInteractable
   map: {fileID: 0}
-  displayName: Anubis
+  displayName: Anubis, the Doctor
   description: How can I assist you?
   token1: When me and Osiris finished with chess, I took a look at the clock and
     it was 19:30.
@@ -239,6 +239,56 @@ MonoBehaviour:
   journalPair2And3Body: 
   journalPair2And4Body: 
   journalPair3And4Body: 
+--- !u!1 &898218452459459431
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6882935837417864398}
+  - component: {fileID: 8447653930353441430}
+  m_Layer: 0
+  m_Name: Marks
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6882935837417864398
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 898218452459459431}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4, y: 7, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6385259121082183819}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8447653930353441430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 898218452459459431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3ee0ecc88a967746bf534dc7a781049, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocationClue
+  map: {fileID: 0}
+  locationPage: Museum
+  displayName: Clue
+  description: There are scratchy marks on the floor leading from the Skull pedestal
+    to the back door.
+  journalLine: 'Marks from the pedestal to the back door. '
 --- !u!1 &964927862026277184
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,6 +322,52 @@ Transform:
   - {fileID: 1617414236255697516}
   m_Father: {fileID: 820900199408963178}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1129801751947046923
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7077348732363187395}
+  - component: {fileID: 6429045700744369796}
+  m_Layer: 0
+  m_Name: Exit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7077348732363187395
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129801751947046923}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -7, y: 4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6446105099882190659}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6429045700744369796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129801751947046923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74cc1d923b2a5be468414f74d5105eff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocationEntrance
+  map: {fileID: 0}
+  destination: {fileID: 5496269884705025846}
 --- !u!1 &1476931192328101705
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,7 +413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapInteractable
   map: {fileID: 0}
-  displayName: Thoth
+  displayName: Thoth, the Librarian
   description: What can I help with?
   token1: From the Library window, one can catch a glimpse of a portion of the museum
     and the pathway near it.
@@ -397,6 +493,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LocationEntrance
   map: {fileID: 0}
   destination: {fileID: 8264533812798150954}
+--- !u!1 &1814507116598920734
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3430170383144605365}
+  - component: {fileID: 5496269884705025846}
+  m_Layer: 0
+  m_Name: Enter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3430170383144605365
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814507116598920734}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -8, y: 9, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6446105099882190659}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5496269884705025846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814507116598920734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74cc1d923b2a5be468414f74d5105eff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocationEntrance
+  map: {fileID: 0}
+  destination: {fileID: 6429045700744369796}
 --- !u!1 &1983745276016641994
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,7 +565,7 @@ Transform:
   m_GameObject: {fileID: 1983745276016641994}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5, y: 8, z: 0}
+  m_LocalPosition: {x: -5, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -442,7 +584,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapInteractable
   map: {fileID: 0}
-  displayName: Osiris
+  displayName: Osiris, the Director
   description: Yes?
   token1: Before the game, the Skull was on a stand. When we came back, it was gone.
   token2: I usually don't hear a lot from the office. The walls in here are pretty
@@ -500,7 +642,7 @@ Transform:
   m_GameObject: {fileID: 2231912205069014132}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7, y: 5, z: 0}
+  m_LocalPosition: {x: -6, y: 6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -519,7 +661,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapInteractable
   map: {fileID: 0}
-  displayName: Horus
+  displayName: Horus, the Caretaker
   description: Reporting for duty.
   token1: At 18:30, I saw my boss and a guest walk into the office.
   token2: The only thing you can hear in the museum is the floorboards creaking day
@@ -660,6 +802,39 @@ Transform:
   - {fileID: 2213316231910451175}
   m_Father: {fileID: 820900199408963178}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3112607235730822293
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6385259121082183819}
+  m_Layer: 0
+  m_Name: Museum
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6385259121082183819
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3112607235730822293}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8534325402296786065}
+  - {fileID: 6882935837417864398}
+  m_Father: {fileID: 7022030873389863868}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3215386371806198771
 GameObject:
   m_ObjectHideFlags: 0
@@ -693,6 +868,7 @@ Transform:
   m_Children:
   - {fileID: 1583457210158078462}
   - {fileID: 820900199408963178}
+  - {fileID: 7022030873389863868}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3045537525107746534
@@ -726,6 +902,88 @@ MonoBehaviour:
   cursor: {fileID: 0}
   mapInteraction: {fileID: 3045537525107746534}
   startingArea: {fileID: 0}
+--- !u!1 &3538671022004741485
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6446105099882190659}
+  m_Layer: 0
+  m_Name: Office
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6446105099882190659
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3538671022004741485}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3430170383144605365}
+  - {fileID: 7077348732363187395}
+  m_Father: {fileID: 820900199408963178}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3817925483671665545
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8534325402296786065}
+  - component: {fileID: 8798068052088102398}
+  m_Layer: 0
+  m_Name: Crate
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8534325402296786065
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3817925483671665545}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4, y: 9, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6385259121082183819}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8798068052088102398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3817925483671665545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3ee0ecc88a967746bf534dc7a781049, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocationClue
+  map: {fileID: 0}
+  locationPage: Museum
+  displayName: Hidden object
+  description: There's a large wooden crate behind the rocks. It's open and empty.
+  journalLine: A crate is hidden outside of the back door.
 --- !u!1 &3987847663878699568
 GameObject:
   m_ObjectHideFlags: 0
@@ -752,7 +1010,7 @@ Transform:
   m_GameObject: {fileID: 3987847663878699568}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3, y: 8, z: 0}
+  m_LocalPosition: {x: -2, y: 8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -782,7 +1040,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1583457210158078462}
   m_Layer: 0
-  m_Name: Interactables
+  m_Name: NPCs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -900,6 +1158,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LocationEntrance
   map: {fileID: 0}
   destination: {fileID: 6692309838879276030}
+--- !u!1 &5272591121253303274
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7022030873389863868}
+  m_Layer: 0
+  m_Name: Clues
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7022030873389863868
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5272591121253303274}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6385259121082183819}
+  m_Father: {fileID: 2388162001614144193}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5667305338444187720
 GameObject:
   m_ObjectHideFlags: 0
@@ -979,6 +1269,7 @@ Transform:
   - {fileID: 9116982873299833446}
   - {fileID: 2980881370244952494}
   - {fileID: 8850183460787988316}
+  - {fileID: 6446105099882190659}
   m_Father: {fileID: 2388162001614144193}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6258734165962007231
@@ -1191,7 +1482,7 @@ Transform:
   m_GameObject: {fileID: 8130805607644012108}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5, y: 4, z: 0}
+  m_LocalPosition: {x: -5, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
