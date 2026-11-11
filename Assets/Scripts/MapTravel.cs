@@ -42,6 +42,7 @@ public class MapTravel : MonoBehaviour
         MapSwitcher destination = here.Destination;
         Vector3Int arrivalCell = destination.Map.WorldToCell(destination.transform.position);
         SwitchTo(destination.Map, arrivalCell);
+        TutorialDirector.Instance?.NotifyMapSwitched();
         return true;
     }
 

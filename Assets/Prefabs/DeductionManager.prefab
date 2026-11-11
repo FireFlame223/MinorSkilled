@@ -176,7 +176,6 @@ MonoBehaviour:
     rewardToken: 4
   slideDuration: 0.35
   notificationSeconds: 2
-  creditsText: Thanks for playing!
   creditsDelay: 1
   fadeDuration: 1.5
   secondsPerCharacter: 0.04
@@ -194,5 +193,4 @@ MonoBehaviour:
   notificationGroup: {fileID: 0}
   endingGroup: {fileID: 0}
   creditsLabel: {fileID: 0}
-  exitButton: {fileID: 0}
   exitGroup: {fileID: 0}

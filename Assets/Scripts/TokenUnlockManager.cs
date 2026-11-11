@@ -60,6 +60,8 @@ public class TokenUnlockManager : MonoBehaviour
             UnlockTokenNumber(tokenNumber);
     }
 
+    public int UnlockedCount => _unlockedTokenIndices.Count;
+
     public bool IsTokenUnlocked(int tokenIndex)
     {
         return tokenIndex >= 0 && tokenIndex < TokenCount && _unlockedTokenIndices.Contains(tokenIndex);

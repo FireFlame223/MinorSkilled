@@ -85,10 +85,6 @@ public class DeductionPuzzlePanel : MonoBehaviour
     [SerializeField] private float notificationSeconds = 2f;
 
     [Header("Ending")]
-    [TextArea(4, 12)]
-    [Tooltip("Typed on the Credits object. If that object already has text, its text is used instead.")]
-    [SerializeField] private string creditsText = "Credits\n\nThank you for playing.";
-
     [Tooltip("Seconds to wait after the screen has gone black, before the credits start.")]
     [Min(0f)]
     [SerializeField] private float creditsDelay = 1f;
@@ -118,7 +114,6 @@ public class DeductionPuzzlePanel : MonoBehaviour
     [SerializeField] private CanvasGroup notificationGroup;
     [SerializeField] private CanvasGroup endingGroup;
     [SerializeField] private TMP_Text creditsLabel;
-    [SerializeField] private Button exitButton;
     [SerializeField] private CanvasGroup exitGroup;
 
     public bool HasSceneUi => panelRect != null && sentenceRoot != null && wordTemplate != null && gapTemplate != null;
@@ -157,16 +152,12 @@ public class DeductionPuzzlePanel : MonoBehaviour
     {
         if (confirmButton != null)
             confirmButton.onClick.AddListener(Confirm);
-        if (exitButton != null)
-            exitButton.onClick.AddListener(ExitGame);
     }
 
     void OnDisable()
     {
         if (confirmButton != null)
             confirmButton.onClick.RemoveListener(Confirm);
-        if (exitButton != null)
-            exitButton.onClick.RemoveListener(ExitGame);
     }
 
     void OnValidate()
@@ -195,11 +186,23 @@ public class DeductionPuzzlePanel : MonoBehaviour
     {
         AnimateSlide();
 
+        if (!ending && isOpen && GameplayInput.TryConsumeEscape())
+        {
+            Close();
+            return;
+        }
+
         if (ending || !WasSpacePressed())
+            return;
+
+        TutorialDirector tutorial = TutorialDirector.Instance;
+        if (tutorial != null && !isOpen && !tutorial.AllowsDeduction)
             return;
 
         if (AnyGapExpanded())
             return;
+
+        tutorial?.NotifyDeductionSpacePressed();
 
         if (isOpen)
             Close();
@@ -283,6 +286,8 @@ public class DeductionPuzzlePanel : MonoBehaviour
         if (!IsSolved(puzzle))
             return;
 
+        TutorialDirector.Instance?.NotifyFirstDeductionSolved();
+
         bool unlocked = tokenUnlockManager != null && tokenUnlockManager.UnlockToken(puzzle.rewardToken);
         bool last = puzzleIndex >= puzzles.Length - 1;
         puzzleIndex++;
@@ -303,6 +308,7 @@ public class DeductionPuzzlePanel : MonoBehaviour
     void BeginEnding()
     {
         ending = true;
+        TutorialDirector.Instance?.NotifyGameEnded();
         GameplayInput.BlockPermanently();
         HideExpandedGaps();
         isOpen = false;
@@ -474,14 +480,8 @@ public class DeductionPuzzlePanel : MonoBehaviour
 
         if (creditsLabel != null)
         {
-            if (string.IsNullOrWhiteSpace(creditsLabel.text))
-                creditsLabel.text = creditsText;
             creditsFull = creditsLabel.text;
             creditsLabel.text = string.Empty;
-        }
-        else
-        {
-            creditsFull = creditsText;
         }
 
         if (notificationLabel != null)
@@ -614,15 +614,6 @@ public class DeductionPuzzlePanel : MonoBehaviour
         dropdown.value = 0;
         dropdown.RefreshShownValue();
         return dropdown;
-    }
-
-    static void ExitGame()
-    {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
     }
 
     static bool WasSpacePressed()

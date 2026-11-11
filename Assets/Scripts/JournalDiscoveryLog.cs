@@ -82,6 +82,12 @@ public class JournalDiscoveryLog : MonoBehaviour
     private readonly HashSet<string> _discoveredLocationKeys = new HashSet<string>();
     private readonly HashSet<LocationClue> _recordedClues = new HashSet<LocationClue>();
 
+    /// <summary>Bullets actually written. Empty journal lines never increment this.</summary>
+    public int BulletCount { get; private set; }
+
+    /// <summary>Passes the new total after a bullet is written.</summary>
+    public event Action<int> BulletAdded;
+
     private void OnValidate()
     {
         MigrateLegacyRoster();
@@ -187,6 +193,8 @@ public class JournalDiscoveryLog : MonoBehaviour
         }
 
         bullets.Add(line.Trim());
+        BulletCount++;
+        BulletAdded?.Invoke(BulletCount);
     }
 
     private void ApplyPageContent(MapInteractable interactable, JournalPageView page)

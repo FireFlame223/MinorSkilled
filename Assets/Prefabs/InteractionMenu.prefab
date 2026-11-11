@@ -271,7 +271,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2413806693520163455, guid: 774da17b86d6c4044aee503db6d130f1, type: 3}
+  m_Sprite: {fileID: 1080825480604336155, guid: ad0872e118fba3845a6d29789d27e2ff, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -337,10 +337,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e112716032d07c46b0ff941a0edc2c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractionTokenVisual
-  targetImage: {fileID: 0}
+  targetImage: {fileID: 5429677837939299168}
+  inactiveSprite: {fileID: 1080825480604336155, guid: ad0872e118fba3845a6d29789d27e2ff, type: 3}
+  selectedSprite: {fileID: 7448113381798972013, guid: ad0872e118fba3845a6d29789d27e2ff, type: 3}
   selectedIndicator: {fileID: 0}
-  normalColor: {r: 1, g: 1, b: 1, a: 1}
-  selectedColor: {r: 1, g: 0.92, b: 0.55, a: 1}
   lockedColor: {r: 0.55, g: 0.55, b: 0.55, a: 0.65}
   normalScale: 1
   selectedScale: 1.08
@@ -361,7 +361,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6653413757258517225
 RectTransform:
   m_ObjectHideFlags: 0
@@ -800,7 +800,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2413806693520163455, guid: 774da17b86d6c4044aee503db6d130f1, type: 3}
+  m_Sprite: {fileID: 82707731993968007, guid: ad0872e118fba3845a6d29789d27e2ff, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -866,10 +866,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e112716032d07c46b0ff941a0edc2c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractionTokenVisual
-  targetImage: {fileID: 0}
+  targetImage: {fileID: 1763549792739997869}
+  inactiveSprite: {fileID: 82707731993968007, guid: ad0872e118fba3845a6d29789d27e2ff, type: 3}
+  selectedSprite: {fileID: 8160775752198118580, guid: ad0872e118fba3845a6d29789d27e2ff, type: 3}
   selectedIndicator: {fileID: 0}
-  normalColor: {r: 1, g: 1, b: 1, a: 1}
-  selectedColor: {r: 1, g: 0.92, b: 0.55, a: 1}
   lockedColor: {r: 0.55, g: 0.55, b: 0.55, a: 0.65}
   normalScale: 1
   selectedScale: 1.08
@@ -1029,7 +1029,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7515629138385201867
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1200,7 +1200,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2413806693520163455, guid: 774da17b86d6c4044aee503db6d130f1, type: 3}
+  m_Sprite: {fileID: -1557013538026691241, guid: ad0872e118fba3845a6d29789d27e2ff, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1266,10 +1266,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e112716032d07c46b0ff941a0edc2c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractionTokenVisual
-  targetImage: {fileID: 0}
+  targetImage: {fileID: 7900659663514423055}
+  inactiveSprite: {fileID: -1557013538026691241, guid: ad0872e118fba3845a6d29789d27e2ff, type: 3}
+  selectedSprite: {fileID: 8586885197115800619, guid: ad0872e118fba3845a6d29789d27e2ff, type: 3}
   selectedIndicator: {fileID: 0}
-  normalColor: {r: 1, g: 1, b: 1, a: 1}
-  selectedColor: {r: 1, g: 0.92, b: 0.55, a: 1}
   lockedColor: {r: 0.55, g: 0.55, b: 0.55, a: 0.65}
   normalScale: 1
   selectedScale: 1.08
@@ -1290,7 +1290,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1035784330950756961
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1478,7 +1478,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2413806693520163455, guid: 774da17b86d6c4044aee503db6d130f1, type: 3}
+  m_Sprite: {fileID: -9136572144232859775, guid: ad0872e118fba3845a6d29789d27e2ff, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1544,10 +1544,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e112716032d07c46b0ff941a0edc2c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractionTokenVisual
-  targetImage: {fileID: 0}
+  targetImage: {fileID: 5907292062512729781}
+  inactiveSprite: {fileID: -9136572144232859775, guid: ad0872e118fba3845a6d29789d27e2ff, type: 3}
+  selectedSprite: {fileID: 7843416716369364892, guid: ad0872e118fba3845a6d29789d27e2ff, type: 3}
   selectedIndicator: {fileID: 0}
-  normalColor: {r: 1, g: 1, b: 1, a: 1}
-  selectedColor: {r: 1, g: 0.92, b: 0.55, a: 1}
   lockedColor: {r: 0.55, g: 0.55, b: 0.55, a: 0.65}
   normalScale: 1
   selectedScale: 1.08
@@ -1568,7 +1568,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &737310039048879679
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1705,7 +1705,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6345094419792456931
 RectTransform:
   m_ObjectHideFlags: 0

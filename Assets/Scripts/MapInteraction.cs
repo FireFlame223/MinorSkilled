@@ -74,11 +74,22 @@ public class MapInteraction : MonoBehaviour
         if (GameplayInput.IsBlocked)
             return;
 
+        TutorialDirector tutorial = TutorialDirector.Instance;
+        if (tutorial != null && !tutorial.AllowsInteract)
+            return;
+
         if (!cursor.isActiveAndEnabled)
             return;
 
         if (cursor.IsJournalOpen)
             return;
+
+        if (interactionPanel.IsVisible && GameplayInput.TryConsumeEscape())
+        {
+            interactionPanel.Hide();
+            cursor.CanMove = true;
+            return;
+        }
 
         if (!WasInteractPressed())
             return;
@@ -119,6 +130,8 @@ public class MapInteraction : MonoBehaviour
         {
             bool firstVisit = !interactable.Explored;
             interactable.Explored = true;
+
+            TutorialDirector.Instance?.NotifyInteractableOpened();
 
             if (firstVisit)
                 journalDiscoveryLog.RecordDiscovery(interactable);

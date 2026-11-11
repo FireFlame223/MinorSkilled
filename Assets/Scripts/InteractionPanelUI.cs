@@ -57,6 +57,9 @@ public class InteractionPanelUI : MonoBehaviour
 
     private readonly List<int> _selectedTokenIndices = new List<int>(MaxSelectedTokens);
 
+    private bool _wantsTokens;
+    private bool _tutorialSubscribed;
+
     public bool IsVisible => panelRoot != null && panelRoot.activeSelf;
 
     public bool BlocksDismissal => journal != null && journal.IsOpen;
@@ -76,6 +79,24 @@ public class InteractionPanelUI : MonoBehaviour
         WireConfirmButton();
         RefreshTokenAvailability();
         Hide();
+    }
+
+    private void OnEnable()
+    {
+        SubscribeTutorial();
+    }
+
+    private void Start()
+    {
+        SubscribeTutorial();
+    }
+
+    private void OnDisable()
+    {
+        if (_tutorialSubscribed && TutorialDirector.Instance != null)
+            TutorialDirector.Instance.GatesChanged -= OnTutorialGatesChanged;
+
+        _tutorialSubscribed = false;
     }
 
     private void OnDestroy()
@@ -102,6 +123,7 @@ public class InteractionPanelUI : MonoBehaviour
             return;
 
         _currentInteractable = interactable;
+        _wantsTokens = true;
 
         if (journal != null)
             journal.Close();
@@ -134,6 +156,7 @@ public class InteractionPanelUI : MonoBehaviour
             return;
 
         _currentInteractable = null;
+        _wantsTokens = false;
 
         if (journal != null)
             journal.Close();
@@ -168,6 +191,7 @@ public class InteractionPanelUI : MonoBehaviour
     public void Hide()
     {
         StopTypewriter();
+        _wantsTokens = false;
         _revealTokensWhenTypewriterCompletes = false;
         ResetTokenSelection();
         SetTokensVisible(false);
@@ -243,10 +267,17 @@ public class InteractionPanelUI : MonoBehaviour
         if (!IsTokenUnlocked(tokenIndex))
             return;
 
+        if (!TutorialAllowsTokens())
+            return;
+
+        int maxTokens = MaxTokensAllowed();
+
         if (_selectedTokenIndices.Contains(tokenIndex))
             _selectedTokenIndices.Remove(tokenIndex);
-        else if (_selectedTokenIndices.Count < MaxSelectedTokens)
+        else if (_selectedTokenIndices.Count < maxTokens)
             _selectedTokenIndices.Add(tokenIndex);
+        else if (maxTokens >= 2)
+            TutorialDirector.Instance?.NotifyThirdTokenAttempt();
 
         RefreshTokenVisuals();
         RefreshConfirmButton();
@@ -264,12 +295,15 @@ public class InteractionPanelUI : MonoBehaviour
             return;
 
         var confirmedIndices = new List<int>(_selectedTokenIndices);
+        int confirmedCount = confirmedIndices.Count;
 
         if (journalDiscoveryLog != null)
             journalDiscoveryLog.RecordTokenOutcome(_currentInteractable, confirmedIndices);
 
         string body = _currentInteractable.GetTokenChoiceText(confirmedIndices);
+        _wantsTokens = false;
         ShowBodyWithTypewriter(body, false);
+        TutorialDirector.Instance?.NotifyTokensConfirmed(confirmedCount);
         ResetTokenSelection();
         RefreshTokenAvailability();
     }
@@ -377,8 +411,41 @@ public class InteractionPanelUI : MonoBehaviour
         _typewriterRoutine = StartCoroutine(RevealDescriptionByCharacter(_typewriterFullText));
     }
 
+    private void SubscribeTutorial()
+    {
+        if (_tutorialSubscribed || TutorialDirector.Instance == null)
+            return;
+
+        TutorialDirector.Instance.GatesChanged += OnTutorialGatesChanged;
+        _tutorialSubscribed = true;
+    }
+
+    private void OnTutorialGatesChanged()
+    {
+        if (!IsVisible || !_wantsTokens || IsTypewriterRunning)
+            return;
+
+        if (TutorialAllowsTokens())
+            SetTokensVisible(true);
+    }
+
+    private static bool TutorialAllowsTokens()
+    {
+        TutorialDirector tutorial = TutorialDirector.Instance;
+        return tutorial == null || tutorial.AllowsTokens;
+    }
+
+    private static int MaxTokensAllowed()
+    {
+        TutorialDirector tutorial = TutorialDirector.Instance;
+        return tutorial != null ? tutorial.MaxSelectableTokens : MaxSelectedTokens;
+    }
+
     private void SetTokensVisible(bool visible)
     {
+        if (visible && !TutorialAllowsTokens())
+            visible = false;
+
         _tokensRevealed = visible;
         _revealTokensWhenTypewriterCompletes = false;
 

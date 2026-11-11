@@ -15569,17 +15569,6 @@ CanvasGroup:
   m_CorrespondingSourceObject: {fileID: 2339216778558537916, guid: ac1532382a676f04c8437a6a67b2e3ac, type: 3}
   m_PrefabInstance: {fileID: 1548971261996017166}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1244621636 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5113912796216838063, guid: ac1532382a676f04c8437a6a67b2e3ac, type: 3}
-  m_PrefabInstance: {fileID: 1548971261996017166}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!1 &1245226600
 GameObject:
   m_ObjectHideFlags: 0
@@ -25747,6 +25736,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7565626265548685136, guid: ac1532382a676f04c8437a6a67b2e3ac, type: 3}
+      propertyPath: m_text
+      value: Thanks for playing!
+      objectReference: {fileID: 0}
     - target: {fileID: 9166155901690235908, guid: ac1532382a676f04c8437a6a67b2e3ac, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -26045,10 +26038,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1698818850}
     - target: {fileID: 2760794824977288558, guid: 78fc70db9b8d81f4aaf569569ffcf762, type: 3}
-      propertyPath: exitButton
-      value: 
-      objectReference: {fileID: 1244621636}
-    - target: {fileID: 2760794824977288558, guid: 78fc70db9b8d81f4aaf569569ffcf762, type: 3}
       propertyPath: endingGroup
       value: 
       objectReference: {fileID: 1426993744}
@@ -26151,7 +26140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8374491803849278242, guid: c2016ee83f7a8a34c8772714aa00fdfd, type: 3}
       propertyPath: unlockAllTokens
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8374491803849278242, guid: c2016ee83f7a8a34c8772714aa00fdfd, type: 3}
       propertyPath: startingUnlockedTokens.Array.size

@@ -2,19 +2,21 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// Selected/unselected and locked look for a token button (color, scale, optional marker).
+/// Selected/unselected and locked look for a token button (sprite, scale, optional marker).
 /// </summary>
 [DisallowMultipleComponent]
 public class InteractionTokenVisual : MonoBehaviour
 {
     [SerializeField] private Image targetImage;
 
+    [Tooltip("Sprite shown while this token is not selected.")]
+    [SerializeField] private Sprite inactiveSprite;
+
+    [Tooltip("Sprite shown while this token is selected.")]
+    [SerializeField] private Sprite selectedSprite;
+
     [Tooltip("Optional checkmark, border, or glow shown while selected.")]
     [SerializeField] private GameObject selectedIndicator;
-
-    [SerializeField] private Color normalColor = Color.white;
-
-    [SerializeField] private Color selectedColor = new Color(1f, 0.92f, 0.55f, 1f);
 
     [SerializeField] private Color lockedColor = new Color(0.55f, 0.55f, 0.55f, 0.65f);
 
@@ -55,6 +57,8 @@ public class InteractionTokenVisual : MonoBehaviour
             if (selectedIndicator != null)
                 selectedIndicator.SetActive(false);
 
+            ApplySprite(inactiveSprite);
+
             if (targetImage != null)
                 targetImage.color = lockedColor;
 
@@ -65,9 +69,19 @@ public class InteractionTokenVisual : MonoBehaviour
         if (selectedIndicator != null)
             selectedIndicator.SetActive(_selected);
 
+        ApplySprite(_selected ? selectedSprite : inactiveSprite);
+
         if (targetImage != null)
-            targetImage.color = _selected ? selectedColor : normalColor;
+            targetImage.color = Color.white;
 
         transform.localScale = Vector3.one * (_selected ? selectedScale : normalScale);
+    }
+
+    private void ApplySprite(Sprite sprite)
+    {
+        if (targetImage == null || sprite == null)
+            return;
+
+        targetImage.sprite = sprite;
     }
 }

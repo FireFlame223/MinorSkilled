@@ -72,12 +72,21 @@ public class JournalUI : MonoBehaviour
     {
         if (!GameplayInput.IsBlocked)
         {
+            if (IsOpen && GameplayInput.TryConsumeEscape())
+                Close();
+
             if (WasTabPressed())
             {
-                if (IsOpen)
-                    Close();
-                else
-                    Open();
+                TutorialDirector tutorial = TutorialDirector.Instance;
+                if (tutorial == null || tutorial.AllowsJournal)
+                {
+                    tutorial?.NotifyJournalTabPressed();
+
+                    if (IsOpen)
+                        Close();
+                    else
+                        Open();
+                }
             }
 
             if (IsOpen)
