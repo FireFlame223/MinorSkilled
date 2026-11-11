@@ -15398,10 +15398,10 @@ MonoBehaviour:
   boxAnimator: {fileID: 883660332}
   appearState: HintAppear
   disappearState: HintDisappear
-  delayAfterFirstMove: 3
+  delayAfterFirstMove: 1
   deductionDismissDelay: 5
-  thirdTokenMessageDuration: 3
-  cluesBeforeDeduction: 3
+  thirdTokenMessageDuration: 2
+  cluesBeforeDeduction: 2
   moveMessage: Press WASD or arrow keys to Move.
   interactMessage: Press E to Interact with Objects, NPCs or Entrances/Exits.
   tokensMessage: Tokens represent topics that you can discuss. Press 1 or click on
