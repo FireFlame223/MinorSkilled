@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{b845c71d-d041-416d-9347-7554372bd025}">
+		<property name="assetPath">
+			<value>Who-Wants-to-Be-a-Millionaire-Music-Loop-for-1-Hour.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>3609.1297959183676</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{83db597d-6d09-458f-a52b-4f66cbc7bffe}</destination>
+		</relationship>
+	</object>
+</objects>

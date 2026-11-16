@@ -175,6 +175,13 @@ MonoBehaviour:
       correctOption: 2
     rewardToken: 4
   slideDuration: 0.35
+  deductionMusic:
+    Guid:
+      Data1: 1514817571
+      Data2: 1111580973
+      Data3: 640961161
+      Data4: -147000356
+    Path: event:/Music/Who-Wants-to-Be-a-Millionaire-Music-Loop-for-1-Hour
   notificationSeconds: 2
   creditsDelay: 1
   fadeDuration: 1.5

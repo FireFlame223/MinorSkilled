@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using FMODUnity;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -44,8 +45,18 @@ public class InteractionPanelUI : MonoBehaviour
     [SerializeField] private TokenUnlockManager tokenUnlockManager;
 
     [Header("Typewriter")]
+    [Tooltip("Seconds between characters when the line has no character voice. A point of interest uses the speed on its character in FMOD Events.")]
     [Min(0.001f)]
     [SerializeField] private float secondsPerCharacter = 0.04f;
+
+    private struct SpokenLine
+    {
+        public float secondsPerCharacter;
+        public int lettersPerBleep;
+        public float minimumBleepInterval;
+        public EventReference voiceEvent;
+        public bool playBleeps;
+    }
 
     private Coroutine _typewriterRoutine;
     private string _typewriterFullText = string.Empty;
@@ -146,7 +157,7 @@ public class InteractionPanelUI : MonoBehaviour
             interactionMenu.SetActive(true);
 
         SetTokensVisible(false);
-        ShowBodyWithTypewriter(interactable.Description, true);
+        ShowBodyWithTypewriter(interactable.Description, true, interactable.Voice);
     }
 
     /// <summary>Title and description only. Tokens stay hidden, and a second interact closes the panel.</summary>
@@ -302,7 +313,7 @@ public class InteractionPanelUI : MonoBehaviour
 
         string body = _currentInteractable.GetTokenChoiceText(confirmedIndices);
         _wantsTokens = false;
-        ShowBodyWithTypewriter(body, false);
+        ShowBodyWithTypewriter(body, false, _currentInteractable.Voice);
         TutorialDirector.Instance?.NotifyTokensConfirmed(confirmedCount);
         ResetTokenSelection();
         RefreshTokenAvailability();
@@ -391,7 +402,7 @@ public class InteractionPanelUI : MonoBehaviour
             SetTokensVisible(true);
     }
 
-    private void ShowBodyWithTypewriter(string fullText, bool revealTokensOnComplete)
+    private void ShowBodyWithTypewriter(string fullText, bool revealTokensOnComplete, CharacterVoiceId voiceId = CharacterVoiceId.None)
     {
         StopTypewriter();
         _typewriterFullText = fullText ?? string.Empty;
@@ -408,7 +419,28 @@ public class InteractionPanelUI : MonoBehaviour
             return;
         }
 
-        _typewriterRoutine = StartCoroutine(RevealDescriptionByCharacter(_typewriterFullText));
+        _typewriterRoutine = StartCoroutine(RevealDescriptionByCharacter(_typewriterFullText, BuildSpokenLine(voiceId)));
+    }
+
+    private SpokenLine BuildSpokenLine(CharacterVoiceId voiceId)
+    {
+        SpokenLine line = new SpokenLine
+        {
+            secondsPerCharacter = secondsPerCharacter,
+            lettersPerBleep = 2,
+            minimumBleepInterval = 0.06f
+        };
+
+        if (voiceId == CharacterVoiceId.None || FMODEvents.Instance == null)
+            return line;
+
+        CharacterVoice voice = FMODEvents.Instance.GetCharacterVoice(voiceId);
+        line.secondsPerCharacter = voice.secondsPerCharacter;
+        line.lettersPerBleep = voice.lettersPerBleep;
+        line.minimumBleepInterval = voice.minimumBleepInterval;
+        line.voiceEvent = voice.Event;
+        line.playBleeps = !voice.Event.IsNull;
+        return line;
     }
 
     private void SubscribeTutorial()
@@ -474,20 +506,81 @@ public class InteractionPanelUI : MonoBehaviour
         _typewriterRoutine = null;
     }
 
-    private IEnumerator RevealDescriptionByCharacter(string fullDescription)
+    private IEnumerator RevealDescriptionByCharacter(string fullDescription, SpokenLine line)
     {
-        for (int i = 0; i < fullDescription.Length; i++)
-        {
-            descriptionText.text += fullDescription[i];
+        float delay = Mathf.Max(0.001f, line.secondsPerCharacter);
+        int lettersPerBleep = Mathf.Max(1, line.lettersPerBleep);
+        int spokenLetters = 0;
+        float nextBleepTime = 0f;
+        int index = 0;
 
-            if (i < fullDescription.Length - 1)
-                yield return new WaitForSeconds(secondsPerCharacter);
+        while (index < fullDescription.Length)
+        {
+            if (TryReadRichTextTag(fullDescription, index, out int tagLength))
+            {
+                descriptionText.text += fullDescription.Substring(index, tagLength);
+                index += tagLength;
+                continue;
+            }
+
+            char character = fullDescription[index];
+            descriptionText.text += character;
+            index++;
+
+            if (line.playBleeps && IsSpokenLetter(character))
+            {
+                spokenLetters++;
+                if (spokenLetters >= lettersPerBleep && Time.time >= nextBleepTime)
+                {
+                    PlaySpokenBleep(line.voiceEvent);
+                    spokenLetters = 0;
+                    nextBleepTime = Time.time + Mathf.Max(0f, line.minimumBleepInterval);
+                }
+            }
+
+            if (index < fullDescription.Length)
+                yield return new WaitForSeconds(delay);
         }
 
         _typewriterRoutine = null;
 
         if (_revealTokensWhenTypewriterCompletes)
             SetTokensVisible(true);
+    }
+
+    private static bool TryReadRichTextTag(string text, int index, out int length)
+    {
+        length = 0;
+        if (index < 0 || index >= text.Length || text[index] != '<')
+            return false;
+
+        int next = index + 1;
+        if (next >= text.Length)
+            return false;
+
+        char marker = text[next];
+        if (marker != '/' && marker != '#' && !char.IsLetter(marker))
+            return false;
+
+        int close = text.IndexOf('>', next);
+        if (close < 0)
+            return false;
+
+        length = close - index + 1;
+        return true;
+    }
+
+    private static bool IsSpokenLetter(char character)
+    {
+        return char.IsLetterOrDigit(character);
+    }
+
+    private static void PlaySpokenBleep(EventReference voiceEvent)
+    {
+        if (voiceEvent.IsNull)
+            return;
+
+        RuntimeManager.PlayOneShot(voiceEvent);
     }
 
     private bool TryGetTokenIndexFromNumberKey(out int tokenIndex)

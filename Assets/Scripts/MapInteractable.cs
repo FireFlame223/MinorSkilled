@@ -15,6 +15,9 @@ public class MapInteractable : MonoBehaviour
     [TextArea(3, 8)]
     [SerializeField] private string description;
 
+    [Tooltip("Character from FMOD Events. Speaks the description and the token confirmation text. None stays silent.")]
+    [SerializeField] private CharacterVoiceId voice;
+
     [Header("Tokens — single choice")]
     [TextArea(3, 8)]
     [SerializeField] private string token1;
@@ -102,6 +105,7 @@ public class MapInteractable : MonoBehaviour
 
     public string DisplayName => displayName;
     public string Description => description;
+    public CharacterVoiceId Voice => voice;
     public bool Explored { get; set; }
 
     public string JournalId => string.IsNullOrWhiteSpace(journalId) ? name : journalId;

@@ -8531,6 +8531,126 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &726510915
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 726510916}
+  - component: {fileID: 726510917}
+  m_Layer: 0
+  m_Name: FMODEvents
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &726510916
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726510915}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1416316970}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &726510917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726510915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbd0aacc7314cad4d9911245efd18e24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FMODEvents
+  <Osiris>k__BackingField:
+    Event:
+      Guid:
+        Data1: -2026785823
+        Data2: 1102005862
+        Data3: -801169481
+        Data4: -359567173
+      Path: event:/Voices/OsirisVoice
+    lettersPerBleep: 2
+    minimumBleepInterval: 0.06
+    secondsPerCharacter: 0.03
+  <Horus>k__BackingField:
+    Event:
+      Guid:
+        Data1: -627185367
+        Data2: 1314580149
+        Data3: -1203522682
+        Data4: 426185623
+      Path: event:/Voices/HorusVoice
+    lettersPerBleep: 2
+    minimumBleepInterval: 0.05
+    secondsPerCharacter: 0.04
+  <Seth>k__BackingField:
+    Event:
+      Guid:
+        Data1: -750093811
+        Data2: 1108291062
+        Data3: -1748072313
+        Data4: -1466835192
+      Path: event:/Voices/SethVoice
+    lettersPerBleep: 2
+    minimumBleepInterval: 0.06
+    secondsPerCharacter: 0.05
+  <Thoth>k__BackingField:
+    Event:
+      Guid:
+        Data1: 667970315
+        Data2: 1208808148
+        Data3: 2019944888
+        Data4: 550609847
+      Path: event:/Voices/ThothVoice
+    lettersPerBleep: 3
+    minimumBleepInterval: 0.06
+    secondsPerCharacter: 0.06
+  <Anubis>k__BackingField:
+    Event:
+      Guid:
+        Data1: 1215594549
+        Data2: 1261073743
+        Data3: -1409505634
+        Data4: 1975656821
+      Path: event:/Voices/AnubisVoice
+    lettersPerBleep: 2
+    minimumBleepInterval: 0.06
+    secondsPerCharacter: 0.04
+  <clickUI>k__BackingField:
+    Guid:
+      Data1: 344775472
+      Data2: 1321787994
+      Data3: -1361374040
+      Data4: -2098522003
+    Path: event:/UI Clicks/Click
+  <musicName>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <ambienceName>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!1 &729096520
 GameObject:
   m_ObjectHideFlags: 0
@@ -17632,6 +17752,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b90d921fc54a52c49a0227f30d42c9e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridCursor
+--- !u!1 &1416316968
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1416316970}
+  - component: {fileID: 1416316969}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1416316969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416316968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00d8712e1c526b34a8aa8c712162ef2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  masterVolume: 1
+  musicVolume: 1
+  sfxVolume: 1
+  ambienceVolume: 1
+--- !u!4 &1416316970
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416316968}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1466.0104, y: 470.44778, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 726510916}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1416998928
 GameObject:
   m_ObjectHideFlags: 0
@@ -25529,6 +25698,10 @@ PrefabInstance:
       propertyPath: map
       value: 
       objectReference: {fileID: 1896560028}
+    - target: {fileID: 1443764027375237223, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: voice
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1617414236255697516, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
       propertyPath: m_LocalPosition.y
       value: 3
@@ -25585,6 +25758,10 @@ PrefabInstance:
       propertyPath: map
       value: 
       objectReference: {fileID: 914564327}
+    - target: {fileID: 2776178406532396867, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: voice
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2820218431315549846, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
       propertyPath: map
       value: 
@@ -25641,6 +25818,10 @@ PrefabInstance:
       propertyPath: map
       value: 
       objectReference: {fileID: 1088003534}
+    - target: {fileID: 5042761812274895213, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: voice
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5496269884705025846, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
       propertyPath: map
       value: 
@@ -25649,6 +25830,10 @@ PrefabInstance:
       propertyPath: map
       value: 
       objectReference: {fileID: 2141841608}
+    - target: {fileID: 5915978795506360365, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: voice
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6130320267633455939, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
       propertyPath: map
       value: 
@@ -25697,6 +25882,10 @@ PrefabInstance:
       propertyPath: map
       value: 
       objectReference: {fileID: 410831963}
+    - target: {fileID: 9202897306282226977, guid: 6077378f6a5ef274687b3ba67eaee406, type: 3}
+      propertyPath: voice
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -26850,6 +27039,7 @@ SceneRoots:
   - {fileID: 6079043947517198398}
   - {fileID: 5993376959453352893}
   - {fileID: 141136660749987725}
+  - {fileID: 1416316970}
   - {fileID: 2026841787}
   - {fileID: 2045642343}
   - {fileID: 1010406126}
