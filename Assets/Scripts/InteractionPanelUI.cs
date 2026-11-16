@@ -278,10 +278,13 @@ public class InteractionPanelUI : MonoBehaviour
         if (!IsTokenUnlocked(tokenIndex))
             return;
 
-        if (!TutorialAllowsTokens())
+        // The first token is part of every POI panel. Later tokens wait for the token lesson.
+        if (tokenIndex != 0 && !TutorialAllowsTokens())
             return;
 
         int maxTokens = MaxTokensAllowed();
+        if (tokenIndex == 0)
+            maxTokens = Mathf.Max(maxTokens, 1);
 
         if (_selectedTokenIndices.Contains(tokenIndex))
             _selectedTokenIndices.Remove(tokenIndex);
@@ -361,6 +364,10 @@ public class InteractionPanelUI : MonoBehaviour
 
     private bool IsTokenUnlocked(int tokenIndex)
     {
+        // Token 1 stays available on every POI. It is not turned off by the unlock list.
+        if (tokenIndex == 0)
+            return true;
+
         if (tokenUnlockManager == null)
             return true;
 
@@ -457,7 +464,7 @@ public class InteractionPanelUI : MonoBehaviour
         if (!IsVisible || !_wantsTokens || IsTypewriterRunning)
             return;
 
-        if (TutorialAllowsTokens())
+        if (TutorialAllowsTokens() || _tokensRevealed)
             SetTokensVisible(true);
     }
 
@@ -475,8 +482,12 @@ public class InteractionPanelUI : MonoBehaviour
 
     private void SetTokensVisible(bool visible)
     {
-        if (visible && !TutorialAllowsTokens())
-            visible = false;
+        bool lessonAllowsTokens = TutorialAllowsTokens();
+        if (visible && !lessonAllowsTokens)
+        {
+            RevealFirstToken();
+            return;
+        }
 
         _tokensRevealed = visible;
         _revealTokensWhenTypewriterCompletes = false;
@@ -495,6 +506,36 @@ public class InteractionPanelUI : MonoBehaviour
 
         if (visible)
             RefreshTokenAvailability();
+    }
+
+    /// <summary>
+    /// Shows token 1 on the open POI panel. Later tokens stay hidden until their lesson.
+    /// </summary>
+    private void RevealFirstToken()
+    {
+        _tokensRevealed = true;
+        _revealTokensWhenTypewriterCompletes = false;
+
+        if (confirmButton != null)
+            confirmButton.gameObject.SetActive(true);
+
+        if (tokenButtons != null)
+        {
+            for (int i = 0; i < tokenButtons.Length && i < TokenCount; i++)
+            {
+                Button button = tokenButtons[i];
+                if (button == null)
+                    continue;
+
+                bool show = i == 0;
+                button.gameObject.SetActive(show);
+                if (show)
+                    button.interactable = true;
+            }
+        }
+
+        RefreshTokenVisuals();
+        RefreshConfirmButton();
     }
 
     private void StopTypewriter()

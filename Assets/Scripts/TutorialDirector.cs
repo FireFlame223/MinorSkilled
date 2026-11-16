@@ -295,6 +295,10 @@ public class TutorialDirector : MonoBehaviour
             Enqueue(Lesson.Tokens);
         }
 
+        // Any POI continues the interact lesson. It is not tied to one character.
+        if (_current == Lesson.Interact)
+            CompleteCurrent();
+
         if (!_twoTokensEnqueued && UnlockedTokenCount() >= 2)
         {
             _twoTokensEnqueued = true;

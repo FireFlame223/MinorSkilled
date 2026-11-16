@@ -58,7 +58,7 @@ public class FMODEvents : MonoBehaviour
 {
     public static FMODEvents Instance;
 
-    [field: Header("SFX")]
+    [field: Header("Voices")]
     [field: Tooltip("Voice, blip rate, and typing speed. Assign this character on a point of interest.")]
     [field: SerializeField] public CharacterVoice Osiris { get; private set; }
 
@@ -74,7 +74,7 @@ public class FMODEvents : MonoBehaviour
     [field: Tooltip("Voice, blip rate, and typing speed. Assign this character on a point of interest.")]
     [field: SerializeField] public CharacterVoice Anubis { get; private set; }
 
-    [field: Header("Sounds")]
+    [field: Header("SFX")]
     [field: SerializeField] public EventReference clickUI { get; private set; }
 
     [field: Header("Music")]
