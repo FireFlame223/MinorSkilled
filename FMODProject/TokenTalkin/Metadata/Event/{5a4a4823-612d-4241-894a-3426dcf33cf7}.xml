@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="Event" id="{5a4a4823-612d-4241-894a-3426dcf33cf7}">
 		<property name="name">
-			<value>Who-Wants-to-Be-a-Millionaire-Music-Loop-for-1-Hour</value>
+			<value>Thinking</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
@@ -142,6 +142,12 @@
 		</property>
 		<property name="initialValue">
 			<value>-80</value>
+		</property>
+		<property name="attackTime">
+			<value>700</value>
+		</property>
+		<property name="releaseTime">
+			<value>700</value>
 		</property>
 		<property name="finalValue">
 			<value>-80</value>

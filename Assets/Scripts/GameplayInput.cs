@@ -1,9 +1,12 @@
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Shared switch for gameplay keys (movement, interact, journal, hypothesis).
+/// The block lives for the whole play session, so a new scene has to clear it.
 /// </summary>
 public static class GameplayInput
 {
@@ -11,6 +14,27 @@ public static class GameplayInput
     static int escapeConsumedFrame = -1;
 
     public static bool IsBlocked { get; private set; }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    static void ResetOnPlay()
+    {
+        permanent = false;
+        IsBlocked = false;
+        escapeConsumedFrame = -1;
+    }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    static void ListenForSceneLoads()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        permanent = false;
+        IsBlocked = false;
+    }
 
     public static bool WasEscapePressed()
     {

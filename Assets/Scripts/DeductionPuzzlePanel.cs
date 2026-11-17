@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using FMOD.Studio;
-using FMODUnity;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -81,10 +79,6 @@ public class DeductionPuzzlePanel : MonoBehaviour
     [Min(0f)]
     [SerializeField] private float slideDuration = 0.35f;
 
-    [Header("Audio")]
-    [Tooltip("FMOD event that plays while this panel is open. Assign the existing event here. It fades out on close.")]
-    [SerializeField] private EventReference deductionMusic;
-
     [Header("Token notification")]
     [Tooltip("Seconds the unlock message stays fully visible. The message text is the Token Notification object. Include {0} where the token name goes.")]
     [Min(0f)]
@@ -133,10 +127,8 @@ public class DeductionPuzzlePanel : MonoBehaviour
     bool ending;
     bool warnedEmpty;
     bool warnedMissingUi;
-    bool warnedMissingMusic;
     Coroutine notificationRoutine;
     Coroutine endingRoutine;
-    EventInstance deductionMusicInstance;
     Vector2 openPosition;
     Vector2 closedPosition;
     string creditsFull = string.Empty;
@@ -166,8 +158,6 @@ public class DeductionPuzzlePanel : MonoBehaviour
     {
         if (confirmButton != null)
             confirmButton.onClick.RemoveListener(Confirm);
-
-        StopDeductionMusic();
     }
 
     void OnValidate()
@@ -275,18 +265,24 @@ public class DeductionPuzzlePanel : MonoBehaviour
         }
 
         EnsurePuzzleBuilt();
+        bool wasClosed = !isOpen;
         isOpen = true;
         GameplayInput.SetBlocked(true);
-        StartDeductionMusic();
+
+        if (wasClosed)
+            PlayPanelSound(FMODEvents.Instance != null ? FMODEvents.Instance.deductionOpen : default);
     }
 
     void Close()
     {
+        bool wasOpen = isOpen;
         isOpen = false;
         HideExpandedGaps();
-        StopDeductionMusic();
         if (!ending)
             GameplayInput.SetBlocked(false);
+
+        if (wasOpen)
+            PlayPanelSound(FMODEvents.Instance != null ? FMODEvents.Instance.deductionClose : default);
     }
 
     void Confirm()
@@ -304,6 +300,9 @@ public class DeductionPuzzlePanel : MonoBehaviour
         bool last = puzzleIndex >= puzzles.Length - 1;
         puzzleIndex++;
         builtPuzzle = -1;
+
+        if (unlocked)
+            PlayTokenNotification();
 
         if (last)
         {
@@ -324,7 +323,8 @@ public class DeductionPuzzlePanel : MonoBehaviour
         GameplayInput.BlockPermanently();
         HideExpandedGaps();
         isOpen = false;
-        StopDeductionMusic();
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayCreditsTheme();
 
         if (journal != null && journal.IsOpen)
             journal.Close();
@@ -390,6 +390,19 @@ public class DeductionPuzzlePanel : MonoBehaviour
         }
     }
 
+    static void PlayTokenNotification()
+    {
+        PlayPanelSound(FMODEvents.Instance != null ? FMODEvents.Instance.tokenNotification : default);
+    }
+
+    static void PlayPanelSound(FMODUnity.EventReference sound)
+    {
+        if (AudioManager.Instance == null)
+            return;
+
+        AudioManager.Instance.PlayOneShot(sound);
+    }
+
     void ShowNotification(string tokenName)
     {
         if (notificationLabel == null || notificationGroup == null)
@@ -413,41 +426,6 @@ public class DeductionPuzzlePanel : MonoBehaviour
         yield return FadeAlpha(notificationGroup, 0f, 0.35f);
         notificationGroup.blocksRaycasts = false;
         notificationRoutine = null;
-    }
-
-    void StartDeductionMusic()
-    {
-        if (deductionMusic.IsNull)
-        {
-            if (!warnedMissingMusic)
-            {
-                warnedMissingMusic = true;
-                Debug.LogWarning("Deduction puzzles: assign the deduction music event on Deduction Puzzle Panel.", this);
-            }
-
-            return;
-        }
-
-        if (AudioManager.Instance == null)
-            return;
-
-        if (!deductionMusicInstance.isValid())
-            deductionMusicInstance = AudioManager.Instance.CreateInstance(deductionMusic);
-
-        deductionMusicInstance.getPlaybackState(out PLAYBACK_STATE state);
-        if (state == PLAYBACK_STATE.PLAYING || state == PLAYBACK_STATE.STARTING)
-            return;
-
-        deductionMusicInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
-        deductionMusicInstance.start();
-    }
-
-    void StopDeductionMusic()
-    {
-        if (!deductionMusicInstance.isValid())
-            return;
-
-        deductionMusicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
 
     static IEnumerator FadeAlpha(CanvasGroup group, float target, float duration)

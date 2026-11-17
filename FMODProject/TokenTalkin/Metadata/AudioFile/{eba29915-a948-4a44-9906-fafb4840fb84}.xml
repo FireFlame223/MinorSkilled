@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{eba29915-a948-4a44-9906-fafb4840fb84}">
+		<property name="assetPath">
+			<value>freesound_community-turnpage-99756.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>24</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.76800000000000002</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{83db597d-6d09-458f-a52b-4f66cbc7bffe}</destination>
+		</relationship>
+	</object>
+</objects>

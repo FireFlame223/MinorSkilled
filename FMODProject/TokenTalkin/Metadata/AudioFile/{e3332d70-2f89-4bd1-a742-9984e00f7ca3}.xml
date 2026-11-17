@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{e3332d70-2f89-4bd1-a742-9984e00f7ca3}">
+		<property name="assetPath">
+			<value>freesound_community-closing-a-book-14771.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>7.732244897959184</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{83db597d-6d09-458f-a52b-4f66cbc7bffe}</destination>
+		</relationship>
+	</object>
+</objects>

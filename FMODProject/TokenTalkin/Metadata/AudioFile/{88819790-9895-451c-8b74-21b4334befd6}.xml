@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{88819790-9895-451c-8b74-21b4334befd6}">
+		<property name="assetPath">
+			<value>01 HoliznaCC0 - Asteroids.ogg</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>150.25777777777779</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{83db597d-6d09-458f-a52b-4f66cbc7bffe}</destination>
+		</relationship>
+	</object>
+</objects>

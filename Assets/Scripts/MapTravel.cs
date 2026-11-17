@@ -43,7 +43,25 @@ public class MapTravel : MonoBehaviour
         Vector3Int arrivalCell = destination.Map.WorldToCell(destination.transform.position);
         SwitchTo(destination.Map, arrivalCell);
         TutorialDirector.Instance?.NotifyMapSwitched();
+        PlayTravelSound(here);
         return true;
+    }
+
+    private static void PlayTravelSound(MapSwitcher door)
+    {
+        if (door == null || FMODEvents.Instance == null || AudioManager.Instance == null)
+            return;
+
+        string doorName = door.name;
+        FMODUnity.EventReference sound;
+        if (doorName.IndexOf("Exit", System.StringComparison.OrdinalIgnoreCase) >= 0)
+            sound = FMODEvents.Instance.locationExit;
+        else if (doorName.IndexOf("Enter", System.StringComparison.OrdinalIgnoreCase) >= 0)
+            sound = FMODEvents.Instance.locationEnter;
+        else
+            return;
+
+        AudioManager.Instance.PlayOneShot(sound);
     }
 
     private void SwitchTo(MapArea area, Vector3Int cell)

@@ -10776,7 +10776,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2074906951011919147, guid: fc7d0a587866e2e4a8d12b0fc60444de, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2085866124}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 505854365440981579, guid: fc7d0a587866e2e4a8d12b0fc60444de, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1524615430}
   m_SourcePrefab: {fileID: 100100000, guid: fc7d0a587866e2e4a8d12b0fc60444de, type: 3}
 --- !u!4 &446225743 stripped
 Transform:
@@ -12467,6 +12470,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1476275175}
   m_CullTransparentMesh: 1
+--- !u!1 &1524615427 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 505854365440981579, guid: fc7d0a587866e2e4a8d12b0fc60444de, type: 3}
+  m_PrefabInstance: {fileID: 446225742}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1524615430
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524615427}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0e13cf22a97c0fc46aa527dfa9794c7e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1593248516
 GameObject:
   m_ObjectHideFlags: 0
@@ -12978,6 +13008,126 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: <clickUI>k__BackingField.Path
+      value: event:/SFX/ButtonClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: <tokenSelect>k__BackingField.Path
+      value: event:/SFX/TokenSelect
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: <tokenConfirm>k__BackingField.Path
+      value: event:/SFX/TokenConfirm
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: <clickUI>k__BackingField.Guid.Data1
+      value: -390463366
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: <clickUI>k__BackingField.Guid.Data2
+      value: 1099051359
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: <clickUI>k__BackingField.Guid.Data3
+      value: -898992473
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: <clickUI>k__BackingField.Guid.Data4
+      value: -1072245519
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: <tokenDeselect>k__BackingField.Path
+      value: event:/SFX/TokenDeselect
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: <journalPageFlip>k__BackingField.Path
+      value: event:/SFX/PageFlip
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: <tokenNotification>k__BackingField.Path
+      value: event:/SFX/Notification
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: <tokenSelect>k__BackingField.Guid.Data1
+      value: -472060115
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: <tokenSelect>k__BackingField.Guid.Data2
+      value: 1191347241
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: <tokenSelect>k__BackingField.Guid.Data3
+      value: 614983318
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: <tokenSelect>k__BackingField.Guid.Data4
+      value: 321890362
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: <tokenConfirm>k__BackingField.Guid.Data1
+      value: 1214925828
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: <tokenConfirm>k__BackingField.Guid.Data2
+      value: 1193168436
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: <tokenConfirm>k__BackingField.Guid.Data3
+      value: 1432543922
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: <tokenConfirm>k__BackingField.Guid.Data4
+      value: 1186438358
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: <tokenDeselect>k__BackingField.Guid.Data1
+      value: 587718285
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: <tokenDeselect>k__BackingField.Guid.Data2
+      value: 1144930157
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: <tokenDeselect>k__BackingField.Guid.Data3
+      value: -2110514777
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: <tokenDeselect>k__BackingField.Guid.Data4
+      value: 839580291
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: <journalPageFlip>k__BackingField.Guid.Data1
+      value: 794990328
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: <journalPageFlip>k__BackingField.Guid.Data2
+      value: 1150550673
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: <journalPageFlip>k__BackingField.Guid.Data3
+      value: -523962218
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: <journalPageFlip>k__BackingField.Guid.Data4
+      value: -1002750254
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: <tokenNotification>k__BackingField.Guid.Data1
+      value: 1605832088
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: <tokenNotification>k__BackingField.Guid.Data2
+      value: 1284996824
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: <tokenNotification>k__BackingField.Guid.Data3
+      value: -1915638606
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: <tokenNotification>k__BackingField.Guid.Data4
+      value: 218850188
+      objectReference: {fileID: 0}
     - target: {fileID: 8051102264992219875, guid: f640b54354f6546489b27c7f2f283538, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.90136
@@ -13018,6 +13168,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8624387045634928943, guid: f640b54354f6546489b27c7f2f283538, type: 3}
+      propertyPath: masterVolume
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13054,11 +13208,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayOneShotAudio
   soundToPlay:
     Guid:
-      Data1: 344775472
-      Data2: 1321787994
-      Data3: -1361374040
-      Data4: -2098522003
-    Path: event:/UI Clicks/Click
+      Data1: -390463366
+      Data2: 1099051359
+      Data3: -898992473
+      Data4: -1072245519
+    Path: event:/UI Clicks/ButtonClick
 --- !u!4 &2008118570
 Transform:
   m_ObjectHideFlags: 0

@@ -157,6 +157,8 @@ public class JournalUI : MonoBehaviour
 
     public void Open()
     {
+        bool wasClosed = !IsOpen;
+
         if (_openOnPageIndex >= 0)
         {
             ShowPage(_openOnPageIndex);
@@ -165,12 +167,19 @@ public class JournalUI : MonoBehaviour
 
         IsOpen = true;
         _moveTarget = _openAnchoredPosition;
+
+        if (wasClosed)
+            PlayJournalSound(FMODEvents.Instance != null ? FMODEvents.Instance.journalOpen : default);
     }
 
     public void Close()
     {
+        bool wasOpen = IsOpen;
         IsOpen = false;
         _moveTarget = _closedAnchoredPosition;
+
+        if (wasOpen)
+            PlayJournalSound(FMODEvents.Instance != null ? FMODEvents.Instance.journalClose : default);
     }
 
     public void ShowPreviousPage()
@@ -179,6 +188,7 @@ public class JournalUI : MonoBehaviour
             return;
 
         ShowPage(_currentPageIndex - 1);
+        PlayJournalSound(FMODEvents.Instance != null ? FMODEvents.Instance.journalPageFlip : default);
     }
 
     public void ShowNextPage()
@@ -187,6 +197,15 @@ public class JournalUI : MonoBehaviour
             return;
 
         ShowPage(_currentPageIndex + 1);
+        PlayJournalSound(FMODEvents.Instance != null ? FMODEvents.Instance.journalPageFlip : default);
+    }
+
+    private static void PlayJournalSound(FMODUnity.EventReference sound)
+    {
+        if (AudioManager.Instance == null)
+            return;
+
+        AudioManager.Instance.PlayOneShot(sound);
     }
 
     private void ShowPage(int index)

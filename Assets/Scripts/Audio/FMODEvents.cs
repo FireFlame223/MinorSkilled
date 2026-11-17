@@ -77,11 +77,48 @@ public class FMODEvents : MonoBehaviour
     [field: Header("SFX")]
     [field: SerializeField] public EventReference clickUI { get; private set; }
 
-    [field: Header("Music")]
-    [field: SerializeField] public EventReference musicName { get; private set; }
+    [field: Tooltip("One shot played when the journal opens.")]
+    [field: SerializeField] public EventReference journalOpen { get; private set; }
 
-    [field: Header("Ambience")]
-    [field: SerializeField] public EventReference ambienceName { get; private set; }
+    [field: Tooltip("One shot played when the journal closes.")]
+    [field: SerializeField] public EventReference journalClose { get; private set; }
+
+    [field: Tooltip("One shot played each time the journal changes page.")]
+    [field: SerializeField] public EventReference journalPageFlip { get; private set; }
+
+    [field: Tooltip("One shot played when the deduction panel opens.")]
+    [field: SerializeField] public EventReference deductionOpen { get; private set; }
+
+    [field: Tooltip("One shot played when the deduction panel closes.")]
+    [field: SerializeField] public EventReference deductionClose { get; private set; }
+
+    [field: Tooltip("One shot played when the player uses a door named Enter.")]
+    [field: SerializeField] public EventReference locationEnter { get; private set; }
+
+    [field: Tooltip("One shot played when the player uses a door named Exit.")]
+    [field: SerializeField] public EventReference locationExit { get; private set; }
+
+    [field: Tooltip("One shot played when a token is selected.")]
+    [field: SerializeField] public EventReference tokenSelect { get; private set; }
+
+    [field: Tooltip("One shot played when a token is deselected.")]
+    [field: SerializeField] public EventReference tokenDeselect { get; private set; }
+
+    [field: Tooltip("One shot played when the token selection is confirmed.")]
+    [field: SerializeField] public EventReference tokenConfirm { get; private set; }
+
+    [field: Tooltip("One shot played when a solved deduction awards a new token.")]
+    [field: SerializeField] public EventReference tokenNotification { get; private set; }
+
+    [field: Header("Music")]
+    [field: Tooltip("Plays on the Main Menu scene.")]
+    [field: SerializeField] public EventReference mainMenuTheme { get; private set; }
+
+    [field: Tooltip("Plays on the Tutorial and Level scenes.")]
+    [field: SerializeField] public EventReference gameTheme { get; private set; }
+
+    [field: Tooltip("Plays from the start of the credits until the scene changes.")]
+    [field: SerializeField] public EventReference creditsTheme { get; private set; }
 
     public CharacterVoice GetCharacterVoice(CharacterVoiceId id)
     {

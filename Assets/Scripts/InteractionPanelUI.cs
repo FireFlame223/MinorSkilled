@@ -287,9 +287,15 @@ public class InteractionPanelUI : MonoBehaviour
             maxTokens = Mathf.Max(maxTokens, 1);
 
         if (_selectedTokenIndices.Contains(tokenIndex))
+        {
             _selectedTokenIndices.Remove(tokenIndex);
+            PlayUiSound(FMODEvents.Instance != null ? FMODEvents.Instance.tokenDeselect : default);
+        }
         else if (_selectedTokenIndices.Count < maxTokens)
+        {
             _selectedTokenIndices.Add(tokenIndex);
+            PlayUiSound(FMODEvents.Instance != null ? FMODEvents.Instance.tokenSelect : default);
+        }
         else if (maxTokens >= 2)
             TutorialDirector.Instance?.NotifyThirdTokenAttempt();
 
@@ -307,6 +313,8 @@ public class InteractionPanelUI : MonoBehaviour
     {
         if (!_tokensRevealed || _currentInteractable == null || _selectedTokenIndices.Count == 0)
             return;
+
+        PlayUiSound(FMODEvents.Instance != null ? FMODEvents.Instance.tokenConfirm : default);
 
         var confirmedIndices = new List<int>(_selectedTokenIndices);
         int confirmedCount = confirmedIndices.Count;
@@ -609,6 +617,14 @@ public class InteractionPanelUI : MonoBehaviour
 
         length = close - index + 1;
         return true;
+    }
+
+    private static void PlayUiSound(EventReference sound)
+    {
+        if (AudioManager.Instance == null)
+            return;
+
+        AudioManager.Instance.PlayOneShot(sound);
     }
 
     private static bool IsSpokenLetter(char character)

@@ -150,22 +150,106 @@ MonoBehaviour:
     secondsPerCharacter: 0.04
   <clickUI>k__BackingField:
     Guid:
-      Data1: 344775472
-      Data2: 1321787994
-      Data3: -1361374040
-      Data4: -2098522003
-    Path: event:/UI Clicks/Click
-  <musicName>k__BackingField:
+      Data1: -390463366
+      Data2: 1099051359
+      Data3: -898992473
+      Data4: -1072245519
+    Path: event:/SFX/ButtonClick
+  <journalOpen>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  <ambienceName>k__BackingField:
+      Data1: 1916012989
+      Data2: 1292111708
+      Data3: -526143583
+      Data4: -123965951
+    Path: event:/SFX/OpenJournal
+  <journalClose>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 1915676162
+      Data2: 1325416377
+      Data3: 1087596720
+      Data4: 995743063
+    Path: event:/SFX/CloseJournal
+  <journalPageFlip>k__BackingField:
+    Guid:
+      Data1: 794990328
+      Data2: 1150550673
+      Data3: -523962218
+      Data4: -1002750254
+    Path: event:/SFX/PageFlip
+  <deductionOpen>k__BackingField:
+    Guid:
+      Data1: -1439363333
+      Data2: 1325946462
+      Data3: -550126181
+      Data4: -1762369844
+    Path: event:/SFX/DeductionOpen
+  <deductionClose>k__BackingField:
+    Guid:
+      Data1: 1854802563
+      Data2: 1271588937
+      Data3: 1941775503
+      Data4: 60093615
+    Path: event:/SFX/DeductionClose
+  <locationEnter>k__BackingField:
+    Guid:
+      Data1: -681854113
+      Data2: 1131773063
+      Data3: -1937671269
+      Data4: 753259916
+    Path: event:/SFX/DoorOpen
+  <locationExit>k__BackingField:
+    Guid:
+      Data1: -1318665796
+      Data2: 1179484068
+      Data3: 251084433
+      Data4: -844116964
+    Path: event:/SFX/DoorClose
+  <tokenSelect>k__BackingField:
+    Guid:
+      Data1: -472060115
+      Data2: 1191347241
+      Data3: 614983318
+      Data4: 321890362
+    Path: event:/SFX/TokenSelect
+  <tokenDeselect>k__BackingField:
+    Guid:
+      Data1: 587718285
+      Data2: 1144930157
+      Data3: -2110514777
+      Data4: 839580291
+    Path: event:/SFX/TokenDeselect
+  <tokenConfirm>k__BackingField:
+    Guid:
+      Data1: 1214925828
+      Data2: 1193168436
+      Data3: 1432543922
+      Data4: 1186438358
+    Path: event:/SFX/TokenConfirm
+  <tokenNotification>k__BackingField:
+    Guid:
+      Data1: 1605832088
+      Data2: 1284996824
+      Data3: -1915638606
+      Data4: 218850188
+    Path: event:/SFX/Notification
+  <mainMenuTheme>k__BackingField:
+    Guid:
+      Data1: -1479056328
+      Data2: 1320303616
+      Data3: -418535243
+      Data4: -1941756469
+    Path: event:/Music/MainMenuTheme
+  <gameTheme>k__BackingField:
+    Guid:
+      Data1: 1629670908
+      Data2: 1125382364
+      Data3: -1202750297
+      Data4: 1470609458
+    Path: event:/Music/GameTheme
+  <creditsTheme>k__BackingField:
+    Guid:
+      Data1: 715734570
+      Data2: 1300469550
+      Data3: -321603694
+      Data4: -1800767724
+    Path: event:/Music/CreditsTheme
