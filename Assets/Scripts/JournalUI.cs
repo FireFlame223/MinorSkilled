@@ -30,6 +30,7 @@ public class JournalUI : MonoBehaviour
     private Vector2 _moveTarget;
     private int _currentPageIndex;
     private int _openOnPageIndex = -1;
+    private int _ignoreTabFrame = -1;
 
     public bool IsOpen { get; private set; }
 
@@ -72,7 +73,7 @@ public class JournalUI : MonoBehaviour
     {
         if (!GameplayInput.IsBlocked)
         {
-            if (WasTabPressed())
+            if (WasTabPressed() && _ignoreTabFrame != Time.frameCount)
             {
                 TutorialDirector tutorial = TutorialDirector.Instance;
                 if (tutorial == null || tutorial.AllowsJournal)
@@ -154,6 +155,7 @@ public class JournalUI : MonoBehaviour
 
     public void Open()
     {
+        _ignoreTabFrame = Time.frameCount;
         bool wasClosed = !IsOpen;
 
         if (_openOnPageIndex >= 0)

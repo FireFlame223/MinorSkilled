@@ -189,10 +189,22 @@ public class DeductionPuzzlePanel : MonoBehaviour
         if (GameplayInput.IsPaused)
             return;
 
+        TutorialDirector tutorial = TutorialDirector.Instance;
+
+        if (!ending && isOpen && WasTabPressed())
+        {
+            if (tutorial == null || tutorial.AllowsJournal)
+            {
+                tutorial?.NotifyJournalTabPressed();
+                Close();
+                if (journal != null)
+                    journal.Open();
+                return;
+            }
+        }
+
         if (ending || !WasSpacePressed())
             return;
-
-        TutorialDirector tutorial = TutorialDirector.Instance;
         if (tutorial != null && !isOpen && !tutorial.AllowsDeduction)
             return;
 
@@ -644,6 +656,16 @@ public class DeductionPuzzlePanel : MonoBehaviour
 #if ENABLE_INPUT_SYSTEM
         Keyboard keyboard = Keyboard.current;
         return keyboard != null && keyboard.spaceKey.wasPressedThisFrame;
+#else
+        return false;
+#endif
+    }
+
+    static bool WasTabPressed()
+    {
+#if ENABLE_INPUT_SYSTEM
+        Keyboard keyboard = Keyboard.current;
+        return keyboard != null && keyboard.tabKey.wasPressedThisFrame;
 #else
         return false;
 #endif
