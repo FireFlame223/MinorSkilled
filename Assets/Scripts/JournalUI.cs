@@ -72,9 +72,6 @@ public class JournalUI : MonoBehaviour
     {
         if (!GameplayInput.IsBlocked)
         {
-            if (IsOpen && GameplayInput.TryConsumeEscape())
-                Close();
-
             if (WasTabPressed())
             {
                 TutorialDirector tutorial = TutorialDirector.Instance;
@@ -184,7 +181,7 @@ public class JournalUI : MonoBehaviour
 
     public void ShowPreviousPage()
     {
-        if (_currentPageIndex <= 0)
+        if (GameplayInput.IsPaused || _currentPageIndex <= 0)
             return;
 
         ShowPage(_currentPageIndex - 1);
@@ -193,7 +190,7 @@ public class JournalUI : MonoBehaviour
 
     public void ShowNextPage()
     {
-        if (_currentPageIndex >= _pages.Count - 1)
+        if (GameplayInput.IsPaused || _currentPageIndex >= _pages.Count - 1)
             return;
 
         ShowPage(_currentPageIndex + 1);

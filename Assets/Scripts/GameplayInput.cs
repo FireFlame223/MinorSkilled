@@ -5,22 +5,25 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// Shared switch for gameplay keys (movement, interact, journal, hypothesis).
-/// The block lives for the whole play session, so a new scene has to clear it.
+/// Shared switch for gameplay keys (movement, interact, journal, deduction).
+/// Pause stacks on top of the normal block, so closing the pause menu restores whatever was blocked before.
+/// A new scene clears both.
 /// </summary>
 public static class GameplayInput
 {
     static bool permanent;
-    static int escapeConsumedFrame = -1;
+    static bool blocked;
 
-    public static bool IsBlocked { get; private set; }
+    public static bool IsPaused { get; private set; }
+
+    public static bool IsBlocked => permanent || blocked || IsPaused;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     static void ResetOnPlay()
     {
         permanent = false;
-        IsBlocked = false;
-        escapeConsumedFrame = -1;
+        blocked = false;
+        IsPaused = false;
     }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -33,7 +36,8 @@ public static class GameplayInput
     static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         permanent = false;
-        IsBlocked = false;
+        blocked = false;
+        IsPaused = false;
     }
 
     public static bool WasEscapePressed()
@@ -46,30 +50,22 @@ public static class GameplayInput
 #endif
     }
 
-    /// <summary>True for the first panel that closes with Escape this frame.</summary>
-    public static bool TryConsumeEscape()
+    public static void SetPaused(bool paused)
     {
-        if (!WasEscapePressed() || escapeConsumedFrame == UnityEngine.Time.frameCount)
-            return false;
-
-        escapeConsumedFrame = UnityEngine.Time.frameCount;
-        return true;
+        IsPaused = paused;
     }
 
-    public static void SetBlocked(bool blocked)
+    public static void SetBlocked(bool value)
     {
         if (permanent)
-        {
-            IsBlocked = true;
             return;
-        }
 
-        IsBlocked = blocked;
+        blocked = value;
     }
 
     public static void BlockPermanently()
     {
         permanent = true;
-        IsBlocked = true;
+        blocked = true;
     }
 }

@@ -186,11 +186,8 @@ public class DeductionPuzzlePanel : MonoBehaviour
     {
         AnimateSlide();
 
-        if (!ending && isOpen && GameplayInput.TryConsumeEscape())
-        {
-            Close();
+        if (GameplayInput.IsPaused)
             return;
-        }
 
         if (ending || !WasSpacePressed())
             return;
@@ -287,7 +284,7 @@ public class DeductionPuzzlePanel : MonoBehaviour
 
     void Confirm()
     {
-        if (ending || puzzles == null || puzzleIndex < 0 || puzzleIndex >= puzzles.Length)
+        if (ending || GameplayInput.IsPaused || puzzles == null || puzzleIndex < 0 || puzzleIndex >= puzzles.Length)
             return;
 
         DeductionPuzzle puzzle = puzzles[puzzleIndex];

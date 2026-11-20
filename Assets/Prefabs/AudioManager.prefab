@@ -176,6 +176,13 @@ MonoBehaviour:
       Data3: -523962218
       Data4: -1002750254
     Path: event:/SFX/PageFlip
+  <journalEntry>k__BackingField:
+    Guid:
+      Data1: -1429943204
+      Data2: 1270755209
+      Data3: 1272963970
+      Data4: -2137142921
+    Path: event:/SFX/PencilWrite
   <deductionOpen>k__BackingField:
     Guid:
       Data1: -1439363333
@@ -190,6 +197,13 @@ MonoBehaviour:
       Data3: 1941775503
       Data4: 60093615
     Path: event:/SFX/DeductionClose
+  <pauseMenu>k__BackingField:
+    Guid:
+      Data1: -1622978862
+      Data2: 1132891406
+      Data3: 1261409725
+      Data4: -1402430034
+    Path: event:/SFX/PauseMenu
   <locationEnter>k__BackingField:
     Guid:
       Data1: -681854113

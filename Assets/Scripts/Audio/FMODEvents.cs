@@ -86,11 +86,17 @@ public class FMODEvents : MonoBehaviour
     [field: Tooltip("One shot played each time the journal changes page.")]
     [field: SerializeField] public EventReference journalPageFlip { get; private set; }
 
+    [field: Tooltip("One shot played when a new line is written into the journal.")]
+    [field: SerializeField] public EventReference journalEntry { get; private set; }
+
     [field: Tooltip("One shot played when the deduction panel opens.")]
     [field: SerializeField] public EventReference deductionOpen { get; private set; }
 
     [field: Tooltip("One shot played when the deduction panel closes.")]
     [field: SerializeField] public EventReference deductionClose { get; private set; }
+
+    [field: Tooltip("One shot played when the pause menu opens or closes.")]
+    [field: SerializeField] public EventReference pauseMenu { get; private set; }
 
     [field: Tooltip("One shot played when the player uses a door named Enter.")]
     [field: SerializeField] public EventReference locationEnter { get; private set; }

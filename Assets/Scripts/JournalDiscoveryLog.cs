@@ -195,6 +195,15 @@ public class JournalDiscoveryLog : MonoBehaviour
         bullets.Add(line.Trim());
         BulletCount++;
         BulletAdded?.Invoke(BulletCount);
+        PlayJournalEntry();
+    }
+
+    private static void PlayJournalEntry()
+    {
+        if (FMODEvents.Instance == null || AudioManager.Instance == null)
+            return;
+
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.journalEntry);
     }
 
     private void ApplyPageContent(MapInteractable interactable, JournalPageView page)

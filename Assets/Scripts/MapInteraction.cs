@@ -84,13 +84,6 @@ public class MapInteraction : MonoBehaviour
         if (cursor.IsJournalOpen)
             return;
 
-        if (interactionPanel.IsVisible && GameplayInput.TryConsumeEscape())
-        {
-            interactionPanel.Hide();
-            cursor.CanMove = true;
-            return;
-        }
-
         if (!WasInteractPressed())
             return;
 

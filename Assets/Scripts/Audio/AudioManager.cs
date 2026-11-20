@@ -31,6 +31,8 @@ public class AudioManager : MonoBehaviour
     private EventInstance musicInstance;
     private Theme currentTheme;
     private bool warnedMissingTheme;
+    private bool gameThemeQuieted;
+    private float quietGameThemeVolume = 1f;
 
     [Range(0,1)] public float masterVolume = 1;
     [Range(0,1)] public float musicVolume = 1;
@@ -132,6 +134,13 @@ public class AudioManager : MonoBehaviour
         CrossfadeTo(Theme.Credits);
     }
 
+    public void SetGameThemeQuieted(bool quiet, float volume)
+    {
+        gameThemeQuieted = quiet;
+        quietGameThemeVolume = Mathf.Clamp01(volume);
+        ApplyGameThemeVolume();
+    }
+
     public EventInstance CreateInstance(EventReference eventReference)
     {
         EventInstance eventInstance = RuntimeManager.CreateInstance(eventReference);
@@ -218,7 +227,16 @@ public class AudioManager : MonoBehaviour
         if (!musicInstance.isValid())
             return;
 
+        ApplyGameThemeVolume();
         musicInstance.start();
+    }
+
+    private void ApplyGameThemeVolume()
+    {
+        if (currentTheme != Theme.Game || !musicInstance.isValid())
+            return;
+
+        musicInstance.setVolume(gameThemeQuieted ? quietGameThemeVolume : 1f);
     }
 
     private bool TryGetThemeEvent(Theme theme, out EventReference themeEvent)
