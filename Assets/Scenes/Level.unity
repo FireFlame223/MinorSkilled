@@ -27692,6 +27692,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6190295828354292912, guid: f2d28dd55d3e6004782541d06e876702, type: 3}
+      propertyPath: noteFadeSeconds
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6190295828354292912, guid: f2d28dd55d3e6004782541d06e876702, type: 3}
       propertyPath: tokenUnlockManager
       value: 
       objectReference: {fileID: 2103161875}
