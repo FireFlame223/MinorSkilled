@@ -13009,32 +13009,12 @@ PrefabInstance:
       value: AudioManager
       objectReference: {fileID: 0}
     - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
-      propertyPath: <clickUI>k__BackingField.Path
-      value: event:/SFX/ButtonClick
-      objectReference: {fileID: 0}
-    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
       propertyPath: <tokenSelect>k__BackingField.Path
       value: event:/SFX/TokenSelect
       objectReference: {fileID: 0}
     - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
       propertyPath: <tokenConfirm>k__BackingField.Path
       value: event:/SFX/TokenConfirm
-      objectReference: {fileID: 0}
-    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
-      propertyPath: <clickUI>k__BackingField.Guid.Data1
-      value: -390463366
-      objectReference: {fileID: 0}
-    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
-      propertyPath: <clickUI>k__BackingField.Guid.Data2
-      value: 1099051359
-      objectReference: {fileID: 0}
-    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
-      propertyPath: <clickUI>k__BackingField.Guid.Data3
-      value: -898992473
-      objectReference: {fileID: 0}
-    - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
-      propertyPath: <clickUI>k__BackingField.Guid.Data4
-      value: -1072245519
       objectReference: {fileID: 0}
     - target: {fileID: 7240037821408442417, guid: f640b54354f6546489b27c7f2f283538, type: 3}
       propertyPath: <tokenDeselect>k__BackingField.Path

@@ -159,13 +159,6 @@ MonoBehaviour:
     lettersPerBleep: 2
     minimumBleepInterval: 0.06
     secondsPerCharacter: 0.04
-  <clickUI>k__BackingField:
-    Guid:
-      Data1: -390463366
-      Data2: 1099051359
-      Data3: -898992473
-      Data4: -1072245519
-    Path: event:/SFX/ButtonClick
   <journalOpen>k__BackingField:
     Guid:
       Data1: 1916012989

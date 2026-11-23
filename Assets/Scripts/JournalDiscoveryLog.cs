@@ -360,7 +360,7 @@ public class JournalDiscoveryLog : MonoBehaviour
             return;
         }
 
-        _titlePageView.ConfigureAsTitlePage(titlePageNumber);
+        _titlePageView.SetPageNumber(titlePageNumber);
         _titlePageView.transform.SetAsFirstSibling();
     }
 

@@ -51,7 +51,7 @@ public class TokenUnlockManager : MonoBehaviour
         if (unlockAllTokens)
         {
             for (int tokenNumber = 1; tokenNumber <= TokenCount; tokenNumber++)
-                UnlockTokenNumber(tokenNumber);
+                UnlockToken(tokenNumber);
 
             return;
         }
@@ -60,7 +60,7 @@ public class TokenUnlockManager : MonoBehaviour
             return;
 
         foreach (int tokenNumber in startingUnlockedTokens)
-            UnlockTokenNumber(tokenNumber);
+            UnlockToken(tokenNumber);
     }
 
     public int UnlockedCount => _unlockedTokenIndices.Count;
@@ -92,11 +92,6 @@ public class TokenUnlockManager : MonoBehaviour
 
     /// <summary>Awards token number 1–4. Returns true only the first time that token is acquired.</summary>
     public bool UnlockToken(int tokenNumber)
-    {
-        return UnlockTokenNumber(tokenNumber);
-    }
-
-    private bool UnlockTokenNumber(int tokenNumber)
     {
         int index = ToTokenIndex(tokenNumber);
         if (index < 0)

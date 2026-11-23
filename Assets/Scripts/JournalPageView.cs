@@ -35,11 +35,6 @@ public class JournalPageView : MonoBehaviour
             pageNumberText.text = label;
     }
 
-    public void ConfigureAsTitlePage(string pageNumberLabel)
-    {
-        SetPageNumber(pageNumberLabel);
-    }
-
     public void ShowPlaceholder(string title, string placeholderText)
     {
         if (titleText != null)

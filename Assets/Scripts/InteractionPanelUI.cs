@@ -270,7 +270,7 @@ public class InteractionPanelUI : MonoBehaviour
         if (confirmButton == null)
             return;
 
-        _confirmClickAction = OnConfirmClicked;
+        _confirmClickAction = ConfirmTokenSelection;
         confirmButton.onClick.AddListener(_confirmClickAction);
     }
 
@@ -314,11 +314,6 @@ public class InteractionPanelUI : MonoBehaviour
 
         RefreshTokenVisuals();
         RefreshConfirmButton();
-    }
-
-    private void OnConfirmClicked()
-    {
-        ConfirmTokenSelection();
     }
 
     /// <summary>Applies token outcome text and clears selection. Panel stays open.</summary>
@@ -432,25 +427,15 @@ public class InteractionPanelUI : MonoBehaviour
 
     private void ShowBodyWithTypewriter(string fullText, bool revealTokensOnComplete, CharacterVoiceId voiceId = CharacterVoiceId.None)
     {
-        StopTypewriter();
-        _typewriterFullText = fullText ?? string.Empty;
-        _revealTokensWhenTypewriterCompletes = revealTokensOnComplete;
-
-        if (descriptionText != null)
-            descriptionText.text = string.Empty;
-
-        if (descriptionText == null || string.IsNullOrEmpty(_typewriterFullText))
-        {
-            if (revealTokensOnComplete)
-                SetTokensVisible(true);
-
-            return;
-        }
-
-        _typewriterRoutine = StartCoroutine(RevealDescriptionByCharacter(_typewriterFullText, BuildSpokenLine(voiceId)));
+        BeginTypewriter(fullText, revealTokensOnComplete, BuildSpokenLine(voiceId));
     }
 
     private void ShowBodyWithTypewriter(string fullText, bool revealTokensOnComplete, CharacterVoice voice)
+    {
+        BeginTypewriter(fullText, revealTokensOnComplete, BuildSpokenLine(voice));
+    }
+
+    private void BeginTypewriter(string fullText, bool revealTokensOnComplete, SpokenLine line)
     {
         StopTypewriter();
         _typewriterFullText = fullText ?? string.Empty;
@@ -467,7 +452,7 @@ public class InteractionPanelUI : MonoBehaviour
             return;
         }
 
-        _typewriterRoutine = StartCoroutine(RevealDescriptionByCharacter(_typewriterFullText, BuildSpokenLine(voice)));
+        _typewriterRoutine = StartCoroutine(RevealDescriptionByCharacter(_typewriterFullText, line));
     }
 
     private SpokenLine BuildSpokenLine(CharacterVoiceId voiceId)

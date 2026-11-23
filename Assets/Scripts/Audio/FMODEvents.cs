@@ -78,8 +78,6 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public CharacterVoice Detective { get; private set; }
 
     [field: Header("SFX")]
-    [field: SerializeField] public EventReference clickUI { get; private set; }
-
     [field: Tooltip("One shot played when the journal opens.")]
     [field: SerializeField] public EventReference journalOpen { get; private set; }
 

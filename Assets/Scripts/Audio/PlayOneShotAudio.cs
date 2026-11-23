@@ -7,6 +7,6 @@ public class PlayOneShotAudio : MonoBehaviour
 
     public void PlaySound()
     {
-        AudioManager.instance.PlayOneShot(soundToPlay, this.transform.position);
+        AudioManager.Instance.PlayOneShot(soundToPlay, this.transform.position);
     }
 }

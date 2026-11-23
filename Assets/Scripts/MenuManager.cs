@@ -16,7 +16,6 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private Button tutorialButton;
     [SerializeField] private Button levelButton;
     [SerializeField] private Button exitButton;
-    private Button mainMenuButton;
 
     private bool isLoading;
 
@@ -26,8 +25,6 @@ public class MenuManager : MonoBehaviour
             tutorialButton.onClick.AddListener(OpenTutorial);
         if (levelButton != null)
             levelButton.onClick.AddListener(OpenLevel);
-        if (mainMenuButton != null)
-            mainMenuButton.onClick.AddListener(OpenMainMenu);
         if (exitButton != null)
             exitButton.onClick.AddListener(ExitGame);
     }
@@ -38,8 +35,6 @@ public class MenuManager : MonoBehaviour
             tutorialButton.onClick.RemoveListener(OpenTutorial);
         if (levelButton != null)
             levelButton.onClick.RemoveListener(OpenLevel);
-        if (mainMenuButton != null)
-            mainMenuButton.onClick.RemoveListener(OpenMainMenu);
         if (exitButton != null)
             exitButton.onClick.RemoveListener(ExitGame);
     }
