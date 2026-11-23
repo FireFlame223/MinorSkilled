@@ -26,13 +26,25 @@ public class InteractionTokenVisual : MonoBehaviour
 
     private bool _selected;
     private bool _locked;
+    private Vector3 _authoredScale = Vector3.one;
+    private bool _hasAuthoredScale;
 
     private void Awake()
     {
         if (targetImage == null)
             targetImage = GetComponent<Image>();
 
+        RememberAuthoredScale();
         ApplyVisual();
+    }
+
+    private void RememberAuthoredScale()
+    {
+        if (_hasAuthoredScale)
+            return;
+
+        _authoredScale = transform.localScale;
+        _hasAuthoredScale = true;
     }
 
     public void SetSelected(bool selected)
@@ -52,6 +64,8 @@ public class InteractionTokenVisual : MonoBehaviour
 
     private void ApplyVisual()
     {
+        RememberAuthoredScale();
+
         if (_locked)
         {
             if (selectedIndicator != null)
@@ -62,7 +76,7 @@ public class InteractionTokenVisual : MonoBehaviour
             if (targetImage != null)
                 targetImage.color = lockedColor;
 
-            transform.localScale = Vector3.one * normalScale;
+            ApplyScale(normalScale);
             return;
         }
 
@@ -74,7 +88,12 @@ public class InteractionTokenVisual : MonoBehaviour
         if (targetImage != null)
             targetImage.color = Color.white;
 
-        transform.localScale = Vector3.one * (_selected ? selectedScale : normalScale);
+        ApplyScale(_selected ? selectedScale : normalScale);
+    }
+
+    private void ApplyScale(float scale)
+    {
+        transform.localScale = _authoredScale * scale;
     }
 
     private void ApplySprite(Sprite sprite)

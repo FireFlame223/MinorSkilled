@@ -305,7 +305,12 @@ public class DeductionPuzzlePanel : MonoBehaviour
         builtPuzzle = -1;
 
         if (unlocked)
+        {
             PlayTokenNotification();
+            JournalDiscoveryLog log = FindFirstObjectByType<JournalDiscoveryLog>();
+            if (log != null)
+                log.FocusTokenPage();
+        }
 
         if (last)
         {

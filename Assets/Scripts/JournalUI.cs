@@ -177,6 +177,9 @@ public class JournalUI : MonoBehaviour
         _ignoreTabFrame = Time.frameCount;
         bool wasClosed = !IsOpen;
 
+        if (wasClosed)
+            ClearTokenPageSelection();
+
         if (_openOnPageIndex >= 0)
         {
             ShowPage(_openOnPageIndex);
@@ -216,6 +219,13 @@ public class JournalUI : MonoBehaviour
 
         ShowPage(_currentPageIndex + 1);
         PlayJournalSound(FMODEvents.Instance != null ? FMODEvents.Instance.journalPageFlip : default);
+    }
+
+    private static void ClearTokenPageSelection()
+    {
+        JournalTokenPage tokenPage = FindFirstObjectByType<JournalTokenPage>(FindObjectsInactive.Include);
+        if (tokenPage != null)
+            tokenPage.ClearSelection();
     }
 
     private static void PlayJournalSound(FMODUnity.EventReference sound)

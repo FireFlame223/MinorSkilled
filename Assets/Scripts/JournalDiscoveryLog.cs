@@ -55,6 +55,15 @@ public class JournalDiscoveryLog : MonoBehaviour
 
     [SerializeField] private string titlePageNumber = "0";
 
+    [Header("Token page")]
+    [SerializeField] private JournalTokenPage existingTokenPage;
+
+    [SerializeField] private GameObject tokenPagePrefab;
+
+    [SerializeField] private string tokenPageTitle = "Tokens";
+
+    [SerializeField] private string tokenPageNumber = "1";
+
     [Header("Discovery pages")]
     [SerializeField] private GameObject pagePrefab;
 
@@ -68,10 +77,11 @@ public class JournalDiscoveryLog : MonoBehaviour
 
     [SerializeField] private string emptyPageText = "Info coming soon...";
 
-    [Tooltip("Discovery page numbers only. {0} = page number.")]
+    [Tooltip("Discovery page numbers only. {0} = page number. The first of these is 2 when the token page exists.")]
     [SerializeField] private string pageNumberFormat = "{0}";
 
     private JournalPageView _titlePageView;
+    private JournalTokenPage _tokenPage;
     private readonly List<JournalPageView> _rosterPageViews = new List<JournalPageView>();
     private readonly Dictionary<MapInteractable, JournalPageView> _pageByPoi = new Dictionary<MapInteractable, JournalPageView>();
     private readonly Dictionary<string, JournalPageView> _pageByLocation = new Dictionary<string, JournalPageView>();
@@ -99,6 +109,7 @@ public class JournalDiscoveryLog : MonoBehaviour
         ValidateRoster();
         ClearGeneratedDiscoveryPages();
         EnsureTitlePage();
+        EnsureTokenPage();
         CreateRosterPages();
         WarnAboutUnassignedClues();
         PushPagesToJournal();
@@ -179,6 +190,18 @@ public class JournalDiscoveryLog : MonoBehaviour
     {
         if (journalUI != null && page != null)
             journalUI.ShowPageOnNextOpen(page.gameObject);
+    }
+
+    /// <summary>A deduction just awarded a token. Next journal open shows this page.</summary>
+    public void FocusTokenPage()
+    {
+        if (_tokenPage == null)
+            return;
+
+        _tokenPage.RefreshUnlocked();
+
+        if (journalUI != null)
+            journalUI.ShowPageOnNextOpen(_tokenPage.gameObject);
     }
 
     private void AppendBullet(string journalId, string line)
@@ -341,6 +364,38 @@ public class JournalDiscoveryLog : MonoBehaviour
         _titlePageView.transform.SetAsFirstSibling();
     }
 
+    private void EnsureTokenPage()
+    {
+        if (_tokenPage == null)
+        {
+            if (existingTokenPage != null)
+            {
+                _tokenPage = existingTokenPage;
+            }
+            else if (tokenPagePrefab != null && pageContainer != null)
+            {
+                GameObject instance = Instantiate(tokenPagePrefab, pageContainer);
+                _tokenPage = instance.GetComponent<JournalTokenPage>();
+                if (_tokenPage == null)
+                    Debug.LogError("JournalDiscoveryLog: token page prefab needs JournalTokenPage.", instance);
+            }
+            else
+            {
+                Debug.LogWarning("JournalDiscoveryLog: assign a token page prefab or existing token page.", this);
+                return;
+            }
+        }
+
+        if (_tokenPage == null)
+            return;
+
+        _tokenPage.SetTitle(tokenPageTitle);
+        _tokenPage.SetPageNumber(tokenPageNumber);
+
+        if (_titlePageView != null && _tokenPage.transform.parent == _titlePageView.transform.parent)
+            _tokenPage.transform.SetSiblingIndex(_titlePageView.transform.GetSiblingIndex() + 1);
+    }
+
     private JournalPageView CreateDiscoveryPageView()
     {
         if (pagePrefab == null || pageContainer == null)
@@ -369,6 +424,9 @@ public class JournalDiscoveryLog : MonoBehaviour
         if (_titlePageView != null)
             pageObjects.Add(_titlePageView.gameObject);
 
+        if (_tokenPage != null)
+            pageObjects.Add(_tokenPage.gameObject);
+
         foreach (JournalPageView view in _rosterPageViews)
         {
             if (view != null)
@@ -384,13 +442,21 @@ public class JournalDiscoveryLog : MonoBehaviour
         if (_titlePageView != null)
             _titlePageView.SetPageNumber(titlePageNumber);
 
+        if (_tokenPage != null)
+        {
+            _tokenPage.SetTitle(tokenPageTitle);
+            _tokenPage.SetPageNumber(tokenPageNumber);
+        }
+
+        int firstDiscoveryNumber = _tokenPage != null ? 2 : 1;
+
         for (int i = 0; i < _rosterPageViews.Count; i++)
         {
             JournalPageView view = _rosterPageViews[i];
             if (view == null)
                 continue;
 
-            int discoveryPageNumber = i + 1;
+            int discoveryPageNumber = i + firstDiscoveryNumber;
             string label = string.Format(pageNumberFormat, discoveryPageNumber);
             view.SetPageNumber(label);
         }
@@ -408,6 +474,7 @@ public class JournalDiscoveryLog : MonoBehaviour
         _discoveredLocationKeys.Clear();
         _recordedClues.Clear();
         _titlePageView = existingTitlePage;
+        _tokenPage = existingTokenPage;
 
         if (pageContainer == null)
             return;
@@ -415,6 +482,9 @@ public class JournalDiscoveryLog : MonoBehaviour
         for (int i = pageContainer.childCount - 1; i >= 0; i--)
         {
             Transform child = pageContainer.GetChild(i);
+            if (child.GetComponent<JournalTokenPage>() != null)
+                continue;
+
             JournalPageView view = child.GetComponent<JournalPageView>();
             if (view == null)
                 continue;

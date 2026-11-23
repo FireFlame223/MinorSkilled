@@ -15,7 +15,18 @@ public class JournalPageView : MonoBehaviour
     private void OnEnable()
     {
         foreach (Graphic graphic in GetComponentsInChildren<Graphic>(true))
+        {
+            if (graphic.GetComponentInParent<Selectable>(true) != null)
+                continue;
+
             graphic.raycastTarget = false;
+        }
+    }
+
+    public void SetTitle(string title)
+    {
+        if (titleText != null)
+            titleText.text = title;
     }
 
     public void SetPageNumber(string label)

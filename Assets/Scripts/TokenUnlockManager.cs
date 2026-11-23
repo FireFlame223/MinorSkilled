@@ -26,6 +26,7 @@ public class TokenUnlockManager : MonoBehaviour
     {
         ResetToStartingTokens();
         _appliedUnlockAll = unlockAllTokens;
+        RefreshJournalTokenPage();
     }
 
     private void OnValidate()
@@ -39,6 +40,8 @@ public class TokenUnlockManager : MonoBehaviour
         InteractionPanelUI panel = FindFirstObjectByType<InteractionPanelUI>();
         if (panel != null)
             panel.RefreshUnlockedTokens();
+
+        RefreshJournalTokenPage();
     }
 
     public void ResetToStartingTokens()
@@ -61,6 +64,13 @@ public class TokenUnlockManager : MonoBehaviour
     }
 
     public int UnlockedCount => _unlockedTokenIndices.Count;
+
+    private static void RefreshJournalTokenPage()
+    {
+        JournalTokenPage page = FindFirstObjectByType<JournalTokenPage>(FindObjectsInactive.Include);
+        if (page != null)
+            page.RefreshUnlocked();
+    }
 
     public bool IsTokenUnlocked(int tokenIndex)
     {
