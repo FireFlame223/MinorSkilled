@@ -190,13 +190,26 @@ public class InteractionPanelUI : MonoBehaviour
             interactionMenu.SetActive(true);
 
         SetTokensVisible(false);
-        ShowBodyWithTypewriter(clue.Description, false);
+        if (FMODEvents.Instance != null)
+            ShowBodyWithTypewriter(clue.Description, false, CharacterVoice.WithDefaults(FMODEvents.Instance.Detective));
+        else
+            ShowBodyWithTypewriter(clue.Description, false);
     }
 
     public void RefreshUnlockedTokens()
     {
         if (_tokensRevealed)
             RefreshTokenAvailability();
+    }
+
+    /// <summary>Cross button. Closes the panel and lets the cursor move again.</summary>
+    public void Close()
+    {
+        Hide();
+
+        GridCursor gridCursor = FindFirstObjectByType<GridCursor>();
+        if (gridCursor != null)
+            gridCursor.CanMove = true;
     }
 
     public void Hide()
@@ -437,25 +450,53 @@ public class InteractionPanelUI : MonoBehaviour
         _typewriterRoutine = StartCoroutine(RevealDescriptionByCharacter(_typewriterFullText, BuildSpokenLine(voiceId)));
     }
 
+    private void ShowBodyWithTypewriter(string fullText, bool revealTokensOnComplete, CharacterVoice voice)
+    {
+        StopTypewriter();
+        _typewriterFullText = fullText ?? string.Empty;
+        _revealTokensWhenTypewriterCompletes = revealTokensOnComplete;
+
+        if (descriptionText != null)
+            descriptionText.text = string.Empty;
+
+        if (descriptionText == null || string.IsNullOrEmpty(_typewriterFullText))
+        {
+            if (revealTokensOnComplete)
+                SetTokensVisible(true);
+
+            return;
+        }
+
+        _typewriterRoutine = StartCoroutine(RevealDescriptionByCharacter(_typewriterFullText, BuildSpokenLine(voice)));
+    }
+
     private SpokenLine BuildSpokenLine(CharacterVoiceId voiceId)
     {
-        SpokenLine line = new SpokenLine
-        {
-            secondsPerCharacter = secondsPerCharacter,
-            lettersPerBleep = 2,
-            minimumBleepInterval = 0.06f
-        };
-
         if (voiceId == CharacterVoiceId.None || FMODEvents.Instance == null)
-            return line;
+            return DefaultSpokenLine();
 
-        CharacterVoice voice = FMODEvents.Instance.GetCharacterVoice(voiceId);
+        return BuildSpokenLine(FMODEvents.Instance.GetCharacterVoice(voiceId));
+    }
+
+    private SpokenLine BuildSpokenLine(CharacterVoice voice)
+    {
+        SpokenLine line = DefaultSpokenLine();
         line.secondsPerCharacter = voice.secondsPerCharacter;
         line.lettersPerBleep = voice.lettersPerBleep;
         line.minimumBleepInterval = voice.minimumBleepInterval;
         line.voiceEvent = voice.Event;
         line.playBleeps = !voice.Event.IsNull;
         return line;
+    }
+
+    private SpokenLine DefaultSpokenLine()
+    {
+        return new SpokenLine
+        {
+            secondsPerCharacter = secondsPerCharacter,
+            lettersPerBleep = 2,
+            minimumBleepInterval = 0.06f
+        };
     }
 
     private void SubscribeTutorial()

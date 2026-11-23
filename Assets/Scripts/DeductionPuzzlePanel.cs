@@ -118,6 +118,8 @@ public class DeductionPuzzlePanel : MonoBehaviour
 
     public bool HasSceneUi => panelRect != null && sentenceRoot != null && wordTemplate != null && gapTemplate != null;
 
+    public bool IsOpen => isOpen;
+
     readonly List<TMP_Dropdown> gapDropdowns = new List<TMP_Dropdown>();
 
     int puzzleIndex;
@@ -186,25 +188,17 @@ public class DeductionPuzzlePanel : MonoBehaviour
     {
         AnimateSlide();
 
-        if (GameplayInput.IsPaused)
+        if (WasSpacePressed())
+            PressDeduction();
+    }
+
+    /// <summary>Same as Space. Deduction button OnClick.</summary>
+    public void PressDeduction()
+    {
+        if (GameplayInput.IsPaused || ending)
             return;
 
         TutorialDirector tutorial = TutorialDirector.Instance;
-
-        if (!ending && isOpen && WasTabPressed())
-        {
-            if (tutorial == null || tutorial.AllowsJournal)
-            {
-                tutorial?.NotifyJournalTabPressed();
-                Close();
-                if (journal != null)
-                    journal.Open();
-                return;
-            }
-        }
-
-        if (ending || !WasSpacePressed())
-            return;
         if (tutorial != null && !isOpen && !tutorial.AllowsDeduction)
             return;
 
@@ -282,7 +276,7 @@ public class DeductionPuzzlePanel : MonoBehaviour
             PlayPanelSound(FMODEvents.Instance != null ? FMODEvents.Instance.deductionOpen : default);
     }
 
-    void Close()
+    public void Close()
     {
         bool wasOpen = isOpen;
         isOpen = false;
@@ -656,16 +650,6 @@ public class DeductionPuzzlePanel : MonoBehaviour
 #if ENABLE_INPUT_SYSTEM
         Keyboard keyboard = Keyboard.current;
         return keyboard != null && keyboard.spaceKey.wasPressedThisFrame;
-#else
-        return false;
-#endif
-    }
-
-    static bool WasTabPressed()
-    {
-#if ENABLE_INPUT_SYSTEM
-        Keyboard keyboard = Keyboard.current;
-        return keyboard != null && keyboard.tabKey.wasPressedThisFrame;
 #else
         return false;
 #endif

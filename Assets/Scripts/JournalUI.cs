@@ -71,30 +71,16 @@ public class JournalUI : MonoBehaviour
 
     private void Update()
     {
-        if (!GameplayInput.IsBlocked)
+        if (WasTabPressed() && _ignoreTabFrame != Time.frameCount)
+            PressJournal();
+
+        if (!GameplayInput.IsBlocked && IsOpen)
         {
-            if (WasTabPressed() && _ignoreTabFrame != Time.frameCount)
-            {
-                TutorialDirector tutorial = TutorialDirector.Instance;
-                if (tutorial == null || tutorial.AllowsJournal)
-                {
-                    tutorial?.NotifyJournalTabPressed();
+            if (WasPreviousPagePressed())
+                ShowPreviousPage();
 
-                    if (IsOpen)
-                        Close();
-                    else
-                        Open();
-                }
-            }
-
-            if (IsOpen)
-            {
-                if (WasPreviousPagePressed())
-                    ShowPreviousPage();
-
-                if (WasNextPagePressed())
-                    ShowNextPage();
-            }
+            if (WasNextPagePressed())
+                ShowNextPage();
         }
 
         if (slideRoot == null)
@@ -151,6 +137,39 @@ public class JournalUI : MonoBehaviour
         }
 
         _openOnPageIndex = index;
+    }
+
+    /// <summary>Same as Tab. Journal button OnClick.</summary>
+    public void PressJournal()
+    {
+        if (GameplayInput.IsPaused || _ignoreTabFrame == Time.frameCount)
+            return;
+
+        TutorialDirector tutorial = TutorialDirector.Instance;
+        DeductionPuzzlePanel deduction = FindFirstObjectByType<DeductionPuzzlePanel>();
+        if (deduction != null && deduction.IsOpen)
+        {
+            if (tutorial != null && !tutorial.AllowsJournal)
+                return;
+
+            tutorial?.NotifyJournalTabPressed();
+            deduction.Close();
+            Open();
+            return;
+        }
+
+        if (GameplayInput.IsBlocked)
+            return;
+
+        if (tutorial != null && !tutorial.AllowsJournal)
+            return;
+
+        tutorial?.NotifyJournalTabPressed();
+
+        if (IsOpen)
+            Close();
+        else
+            Open();
     }
 
     public void Open()

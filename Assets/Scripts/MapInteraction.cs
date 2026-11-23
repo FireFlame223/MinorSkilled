@@ -71,6 +71,15 @@ public class MapInteraction : MonoBehaviour
 
     private void Update()
     {
+        if (!WasInteractPressed())
+            return;
+
+        PressInteract();
+    }
+
+    /// <summary>Same as the E key. Interaction button OnClick.</summary>
+    public void PressInteract()
+    {
         if (GameplayInput.IsBlocked)
             return;
 
@@ -82,9 +91,6 @@ public class MapInteraction : MonoBehaviour
             return;
 
         if (cursor.IsJournalOpen)
-            return;
-
-        if (!WasInteractPressed())
             return;
 
         if (interactionPanel.IsVisible)

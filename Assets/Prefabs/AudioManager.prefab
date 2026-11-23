@@ -148,6 +148,17 @@ MonoBehaviour:
     lettersPerBleep: 2
     minimumBleepInterval: 0.06
     secondsPerCharacter: 0.04
+  <Detective>k__BackingField:
+    Event:
+      Guid:
+        Data1: -1708940129
+        Data2: 1289879399
+        Data3: -938994011
+        Data4: 1556903500
+      Path: event:/Voices/DetectiveVoice1
+    lettersPerBleep: 2
+    minimumBleepInterval: 0.06
+    secondsPerCharacter: 0.04
   <clickUI>k__BackingField:
     Guid:
       Data1: -390463366

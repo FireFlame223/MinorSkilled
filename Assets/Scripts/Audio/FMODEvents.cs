@@ -74,6 +74,9 @@ public class FMODEvents : MonoBehaviour
     [field: Tooltip("Voice, blip rate, and typing speed. Assign this character on a point of interest.")]
     [field: SerializeField] public CharacterVoice Anubis { get; private set; }
 
+    [field: Tooltip("Voice, blip rate, and typing speed for every location clue. Points of interest cannot use this voice.")]
+    [field: SerializeField] public CharacterVoice Detective { get; private set; }
+
     [field: Header("SFX")]
     [field: SerializeField] public EventReference clickUI { get; private set; }
 
@@ -153,5 +156,6 @@ public class FMODEvents : MonoBehaviour
         Seth = CharacterVoice.WithDefaults(Seth);
         Thoth = CharacterVoice.WithDefaults(Thoth);
         Anubis = CharacterVoice.WithDefaults(Anubis);
+        Detective = CharacterVoice.WithDefaults(Detective);
     }
 }
