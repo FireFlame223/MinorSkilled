@@ -15061,6 +15061,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4978767017491557278, guid: 53821477a677e264fa445a5860d66ba3, type: 3}
+      propertyPath: unlockKey
+      value: 31
+      objectReference: {fileID: 0}
+    - target: {fileID: 4978767017491557278, guid: 53821477a677e264fa445a5860d66ba3, type: 3}
       propertyPath: exitButton
       value: 
       objectReference: {fileID: 933310813}
@@ -15068,6 +15072,10 @@ PrefabInstance:
       propertyPath: levelButton
       value: 
       objectReference: {fileID: 1350674294}
+    - target: {fileID: 4978767017491557278, guid: 53821477a677e264fa445a5860d66ba3, type: 3}
+      propertyPath: modifierKey
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4978767017491557278, guid: 53821477a677e264fa445a5860d66ba3, type: 3}
       propertyPath: tutorialButton
       value: 

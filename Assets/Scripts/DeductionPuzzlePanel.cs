@@ -327,6 +327,9 @@ public class DeductionPuzzlePanel : MonoBehaviour
     void BeginEnding()
     {
         ending = true;
+        if (gameObject.scene.name == "Tutorial")
+            MenuManager.UnlockLevel();
+
         TutorialDirector.Instance?.NotifyGameEnded();
         GameplayInput.BlockPermanently();
         HideExpandedGaps();
