@@ -1635,7 +1635,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c88f5cead0c0b2a4eb05b5900433f8d1, type: 3}
   m_Name: 
@@ -2019,7 +2019,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4, y: 6, z: 0}
-  m_LocalScale: {x: 20, y: 20, z: 1}
+  m_LocalScale: {x: 37.9, y: 20, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -16341,6 +16341,26 @@ PrefabInstance:
       propertyPath: messageText
       value: 
       objectReference: {fileID: 293998591}
+    - target: {fileID: 750128892234317337, guid: 744aab7aa0a168347a4d7cdea7fbcbdd, type: 3}
+      propertyPath: tokensMessage
+      value: Tokens represent topics that you can discuss. Press 1 or click on the
+        Token to selecte/deselect it and E to confirm your choice. Press E again
+        to exit the interaction.
+      objectReference: {fileID: 0}
+    - target: {fileID: 750128892234317337, guid: 744aab7aa0a168347a4d7cdea7fbcbdd, type: 3}
+      propertyPath: interactMessage
+      value: Press E or "Interact" to Interact with Objects, NPCs or Entrances/Exits.
+      objectReference: {fileID: 0}
+    - target: {fileID: 750128892234317337, guid: 744aab7aa0a168347a4d7cdea7fbcbdd, type: 3}
+      propertyPath: deductionMessage
+      value: When you gather enough Clues, you can try to solve the Deduction. Press
+        SPACE to open/close it. Choose options from drop-down menus.
+      objectReference: {fileID: 0}
+    - target: {fileID: 750128892234317337, guid: 744aab7aa0a168347a4d7cdea7fbcbdd, type: 3}
+      propertyPath: twoTokensMessage
+      value: Now you have two Tokens. You can still choose one or both at the same
+        time to get intersecting information. Press 1-4 to select multiple Tokens.
+      objectReference: {fileID: 0}
     - target: {fileID: 7815141658831480463, guid: 744aab7aa0a168347a4d7cdea7fbcbdd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1466.0104

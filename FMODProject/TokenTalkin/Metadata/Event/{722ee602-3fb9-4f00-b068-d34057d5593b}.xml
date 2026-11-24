@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="Event" id="{722ee602-3fb9-4f00-b068-d34057d5593b}">
 		<property name="name">
-			<value>CloseJournal</value>
+			<value>JournalClose</value>
 		</property>
 		<property name="outputFormat">
 			<value>0</value>
@@ -104,6 +104,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{dcafedb9-c839-4ed8-958d-ad3907a2df32}">
+		<property name="volume">
+			<value>-6</value>
+		</property>
 		<property name="name">
 			<value>Audio 1</value>
 		</property>
